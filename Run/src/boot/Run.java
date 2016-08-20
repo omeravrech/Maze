@@ -1,8 +1,14 @@
+package boot;
 
 
 import java.util.ArrayList;
 
-import algorithms.MazeGenerators.*;
+import algorithms.MazeGenerators.GrowingTreeGenerator;
+import algorithms.MazeGenerators.Maze3D;
+import algorithms.MazeGenerators.Maze3dGenerator;
+import algorithms.MazeGenerators.Position;
+import algorithms.MazeGenerators.RandomChoose;
+import algorithms.MazeGenerators.SimpleMaze3dGenerator;
 
 public class Run {
 	private static void testMazeGenerator(Maze3dGenerator mg){
