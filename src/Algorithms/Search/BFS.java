@@ -30,7 +30,10 @@ public class BFS<T> extends CommonSearcher<T>
 		{
 			currentState = open.remove();
 			if (currentState.equals(problem.getGoalState()))
+			{
 				solution = backTrace(currentState);
+				break;
+			}
 			else
 			{
 				successors = problem.getAllPossibleStates(currentState);

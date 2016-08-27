@@ -12,19 +12,19 @@ import Algorithms.Search.Solution;
 
 public class Demo {
 
-	
-	@SuppressWarnings("rawtypes")
-	public static void run(Searcher algorithm, Searchable problem)
+
+	public static void run(Searcher<Position> algorithm, Searchable<Position> problem)
 	{
 		Solution<Position> sol = algorithm.search(problem);
 		System.out.println(sol);
+		System.out.println("Number Of Nodes: " + algorithm.getNumberOfNodesEvaluated());
 	}
 	
 	public static void main(String[] args)
 	{
-		Maze3D maze = new GrowingTreeGenerator(new RandomChoose()).generate(1, 5, 5);
+		Maze3D maze = new GrowingTreeGenerator(new RandomChoose()).generate(1, 10, 10);
+		System.out.println(maze);
 		run(new BFS<Position>(), new MazeAdapter(maze));
-
 	}
 
 }

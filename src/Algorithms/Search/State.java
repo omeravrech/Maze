@@ -33,4 +33,19 @@ public class State<T> implements Comparable<State<T>> {
 	public int compareTo(State<T> other) {
 		return (int)(this.cost - other.cost);
 	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public boolean equals(Object obj) {
+		if ((obj == null) || (this.getClass() != obj.getClass()) || (this.value == null))
+			return false;
+		
+		State other = (State) obj;
+		
+		if (other.value == null)
+				return false;
+		else 
+			return this.value.equals(other.value);
+	}
+	
 }

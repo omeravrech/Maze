@@ -7,6 +7,7 @@ public class Solution<T> {
 	
 	public Solution()
 	{
+		result = new Stack<T>();
 		result.clear();
 	}
 	
@@ -21,11 +22,13 @@ public class Solution<T> {
 	@Override
 	public String toString()
 	{
-		StringBuilder string = new StringBuilder();
+		String string = "START -> ";
 		for (T object : result)
 		{
-			string.append(object + "\n");			
+			string += object + " -> ";			
 		}
-		return string.toString();
+
+		string += "END!";
+		return string;
 	}
 }
