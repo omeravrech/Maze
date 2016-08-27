@@ -4,8 +4,13 @@ import java.util.PriorityQueue;
 
 public abstract class CommonSearcher<T> implements Searcher<T>
 {
-	protected PriorityQueue<T> open;
+	protected PriorityQueue<State<T>> open;
 	protected int numberOfNodesEvaluated;
+	
+	public CommonSearcher ()
+	{
+		numberOfNodesEvaluated = 0;
+	}
 	
 	@Override
 	public abstract Solution<T> search(Searchable<T> s);
