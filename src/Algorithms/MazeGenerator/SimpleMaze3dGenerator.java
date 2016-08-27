@@ -2,6 +2,18 @@ package Algorithms.MazeGenerator;
 
 import java.util.Random;
 
+
+/**
+* <h1>SimpleMaze3dGenerator</h1>
+* A simple maze generator, the algorithm will generate randomly a starting position
+* and a goal position.
+* Then, the algorithm connect the two positions with a simple path.
+* 
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   27/08/2016
+*
+*/
 public class SimpleMaze3dGenerator extends AbstractMazeGenerator
 {
 	public Maze3D generate(int floors, int row, int column)

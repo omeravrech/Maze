@@ -2,6 +2,23 @@ package Algorithms.MazeGenerator;
 
 import java.util.ArrayList;
 
+
+/**
+* <h1>Maze3D</h1>
+* 
+* This class holds a 3D maze made of integers.
+* 
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   27/08/2016
+*@param1 int[][][] maze
+*@param2 Position startPosition
+*@param3 Position goalPosition
+*@param4 static final int PATH
+*@param5 static final int WALL
+*@param6 static final int START
+*@param7 static final int END
+*/
 public class Maze3D {
 	
 	private int[][][] maze;

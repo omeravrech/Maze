@@ -3,6 +3,17 @@ package Algorithms.MazeGenerator;
 import java.util.ArrayList;
 import java.util.Random;
 
+
+/**
+* <h1>GrowingTreeGenerator</h1>
+* An algorithm that create a new maze by following the "Growing Tree Algorithm"
+* See: {@link http://weblog.jamisbuck.org/2011/1/27/maze-generation-growing-tree-algorithm}
+* 
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   27/08/2016
+*
+*/
 public class GrowingTreeGenerator extends AbstractMazeGenerator {
 
 	private AbstractNodeChoose<Position> chooseMethod;

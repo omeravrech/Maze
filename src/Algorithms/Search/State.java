@@ -1,5 +1,21 @@
 package Algorithms.Search;
 
+
+
+/**
+* <h1>State</h1>
+* Each state represent a full course to the solution
+* Each state has a cost, which describes the number of steps to the solution
+* from the current position.
+* 	 
+*
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   27/08/2016 
+* @param1 T
+* @param2 double
+* @param3 State
+*/
 public class State<T> implements Comparable<State<T>> {
 
 	T value;

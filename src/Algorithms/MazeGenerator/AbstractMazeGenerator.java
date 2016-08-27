@@ -1,5 +1,15 @@
 package Algorithms.MazeGenerator;
 
+
+/**
+* <h1>AbstractMazeGenerator</h1>
+* An abstract class that implements Maze3dGenerator, used by maze generator algorithms.
+* 
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   27/08/2016
+*
+*/
 public abstract class AbstractMazeGenerator implements Maze3dGenerator {
 	
 

@@ -2,6 +2,16 @@ package Algorithms.Search;
 
 import java.util.Stack;
 
+/**
+* <h1>Solution</h1>
+* This class will hold the final "Solution" - a path from start state to goal state
+*
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   27/08/2016
+* @param1 Stack result
+*  
+*/
 public class Solution<T> {
 	Stack<T> result;
 	

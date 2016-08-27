@@ -1,5 +1,19 @@
 package Algorithms.MazeGenerator;
 
+
+/**
+* <h1>Position</h1>
+* 
+* This class holds the coordinates of a position.
+*
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   27/08/2016
+* @param1 int floor
+* @param2 int rows
+* @param3 int columns
+*  
+*/
 public class Position{
 	private int floor;
 	private int rows;

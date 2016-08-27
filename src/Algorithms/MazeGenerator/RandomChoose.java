@@ -2,6 +2,17 @@ package Algorithms.MazeGenerator;
 
 import java.util.ArrayList;
 
+
+/**
+* <h1>RandomChoose</h1>
+* 
+* This class will return a random node from the maze.
+*
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   27/08/2016
+*  
+*/
 public class RandomChoose  extends AbstractNodeChoose<Position> {
 
 	@Override
