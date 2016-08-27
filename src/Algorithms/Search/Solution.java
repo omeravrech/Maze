@@ -1,29 +1,31 @@
 package Algorithms.Search;
 
-import java.util.ArrayList;
+import java.util.Stack;
 
 public class Solution<T> {
-	ArrayList<State<T>> result;
+	Stack<T> result;
 	
-	public Solution(State<T> start, State<T> close)
+	public Solution()
 	{
 		result.clear();
 	}
 	
-	public void addNode(State<T> node)
+	public void addNode(T node)
 	{
-		result.add(node);
+		result.push(node);
 	}
-
+	public Stack<T> getResult()
+	{
+		return result;
+	}
 	@Override
 	public String toString()
 	{
 		StringBuilder string = new StringBuilder();
-		for (State<T> state : result) {
-			string.append(state + "\n");			
+		for (T object : result)
+		{
+			string.append(object + "\n");			
 		}
 		return string.toString();
 	}
-	
-	
 }
