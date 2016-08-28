@@ -75,7 +75,7 @@ public class BFS<T> extends CommonSearcher<T>
 				successors = problem.getAllPossibleStates(currentState);
 				for (State<T> successor : successors)
 				{
-					if (!open.contains(successor) || !close.contains(successor))
+					if (!open.contains(successor) && !close.contains(successor))
 					{
 						successor.update(currentState.getCost()+1, currentState);
 						open.add(successor);
