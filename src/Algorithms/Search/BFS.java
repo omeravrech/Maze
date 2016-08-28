@@ -1,6 +1,7 @@
 package Algorithms.Search;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 
@@ -30,7 +31,13 @@ public class BFS<T> extends CommonSearcher<T>
 	public BFS()
 	{
 		super();
-		this.open = new PriorityQueue<State<T>>();
+		this.open = new PriorityQueue<State<T>>(new Comparator<State<T>>() {
+			@Override
+			public int compare(State<T> left, State<T> right)
+			{
+				return (int)(left.getCost() - right.getCost());
+			}
+		});
 		this.close = new PriorityQueue<State<T>>();
 		
 	}
