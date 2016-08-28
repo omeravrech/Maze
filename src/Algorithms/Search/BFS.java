@@ -21,7 +21,7 @@ public class BFS<T> extends CommonSearcher<T>
 	PriorityQueue<State<T>> close;
 	/**
 	* <h1>BFS - constructor / initializer</h1>
-	* 1. Uses the <u><i>CommonSearcher</i></u> constructor
+	* 1. Uses the <u><i>CommonSearcher</i></u> constructor<br>
 	* 2. Uses default initializer for Open and Close properties using Priority queue
 	*
 	* @author  Omer Avrech & Bar Malka
