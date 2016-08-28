@@ -48,6 +48,14 @@ public abstract class CommonSearcher<T> implements Searcher<T>
 		return numberOfNodesEvaluated;
 	}
 	
+	
+	public State<T> popOpenList() 
+	{
+		numberOfNodesEvaluated++;
+		return open.remove();
+	}
+	
+	
 	/**
 	* <h1> backTrace function</h1>
 	* backTrade function receives the goal state, and runs from the goal

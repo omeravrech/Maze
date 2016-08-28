@@ -57,7 +57,7 @@ public class BFS<T> extends CommonSearcher<T>
 		
 		while (!open.isEmpty())
 		{
-			currentState = open.remove();
+			currentState = popOpenList();
 			if (currentState.equals(problem.getGoalState()))
 			{
 				solution = backTrace(currentState);
@@ -70,7 +70,6 @@ public class BFS<T> extends CommonSearcher<T>
 				{
 					if (!open.contains(successor) || !close.contains(successor))
 					{
-						numberOfNodesEvaluated++;
 						successor.update(currentState.getCost()+1, currentState);
 						open.add(successor);
 					}
