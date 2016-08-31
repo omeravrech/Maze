@@ -67,7 +67,7 @@ public class GrowingTreeGenerator extends AbstractMazeGenerator {
 				for (Position p : directions) {
 					if (!visited.contains(p))
 						visited.add(p);
-				}
+				}//*/visited.add(next);//*/
 				maze.wreckingBall(pos, next);
 			}
 		}

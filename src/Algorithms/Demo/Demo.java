@@ -24,7 +24,7 @@ public class Demo {
 	
 	public static void main(String[] args)
 	{
-		Maze3D maze = new GrowingTreeGenerator(new RandomChoose()).generate(10, 10, 10);
+		Maze3D maze = new GrowingTreeGenerator(new RandomChoose()).generate(20, 20, 20);
 		System.out.println(maze);
 		run(new BFS<Position>(), new MazeAdapter(maze));
 		run(new DFS<Position>(), new MazeAdapter(maze));

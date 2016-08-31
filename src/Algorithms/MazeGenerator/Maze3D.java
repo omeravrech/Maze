@@ -2,15 +2,14 @@ package Algorithms.MazeGenerator;
 
 import java.util.ArrayList;
 
-
 /**
 * <h1>Maze3D</h1>
 * 
 * This class holds a 3D maze made of integers.
 * 
-* @author  Omer Avrech & Bar Malka
-* @version 1.0
-* @since   27/08/2016
+*@author  Omer Avrech & Bar Malka
+*@version 1.0
+*@since   27/08/2016
 *@param1 int[][][] maze
 *@param2 Position startPosition
 *@param3 Position goalPosition
@@ -25,14 +24,20 @@ public class Maze3D {
 
 	private Position startPosition;
 	private Position goalPosition;
+	private int floors;
+	private int rows;
+	private int columns;
 	
-	public static final int PATH = 0;
-	public static final int WALL = 1;
-	public static final int START = 2;
-	public static final int END = 3;
+	public static final int PATH	= 0;
+	public static final int WALL	= 1;
+	public static final int START	= 2;
+	public static final int END		= 3;
 	
 	public Maze3D(int floors, int rows,int columns)
 	{
+		this.floors = floors;
+		this.rows = rows;
+		this.columns = columns;
 		this.maze = new int[2*floors+1][2*rows+1][2*columns+1];
 	
 		for (int i=0; i < maze.length; i++)
@@ -138,11 +143,11 @@ public class Maze3D {
 	}
 	public int[][] getCrossSectionByX(int axis)
 	{
-		if ((axis < 0) || ((axis*2+1) > maze[0][0].length))
+		if ((axis < 0) || ((axis) > columns))
 			throw new IndexOutOfBoundsException("Invalid input.");
 		else
 		{
-			int[][] loc = new int[maze.length][maze[0].length];
+			int[][] loc = new int[2*floors+1][2*rows+1];
 				for (int i=0; i < maze.length; i++)
 					for (int j=0; j < maze[i].length; j++)
 						loc[i][j] = maze[i][j][2*axis+1];
@@ -151,11 +156,11 @@ public class Maze3D {
 	}
 	public int[][] getCrossSectionByY(int axis)
 	{
-		if ((axis < 0) || ((axis*2+1) > maze[0].length))
+		if ((axis < 0) || (axis > rows))
 			throw new IndexOutOfBoundsException("Invalid input.");
 		else
 		{
-		int[][] loc = new int[maze[0][2*axis].length][maze.length];
+		int[][] loc = new int[2*columns+1][floors];
 			for (int i=0; i < maze.length; i++)
 				for (int j=0; j < maze[i][2*axis+1].length; j++)
 					loc[j][i] = maze[i][2*axis+1][j];
@@ -167,6 +172,18 @@ public class Maze3D {
 		if ((axis < 0) || ((axis*2+1) > maze.length))
 			throw new IndexOutOfBoundsException("Invalid input.");
 		return maze[2*axis+1].clone();
+	}
+	
+	public byte[] toByteArray()
+	{
+		StringBuilder output = new StringBuilder();
+		output.append(floors);
+		output.append(rows);
+		output.append(columns);
+		output.append(startPosition.toString());
+		output.append(goalPosition.toString());
+		output.append(this.toString());
+		return output.toString().getBytes();
 	}
 	
 	@Override
