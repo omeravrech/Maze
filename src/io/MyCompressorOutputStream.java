@@ -25,8 +25,8 @@ public class MyCompressorOutputStream extends OutputStream
 			else
 			{
 			//  write all bytes + converting integers to array of bytes
-				out.write(counter);
-				out.write(lastAppearance);
+				write(counter);
+				write(lastAppearance);
 				counter = 0;
 				lastAppearance = b;
 			}
@@ -34,9 +34,9 @@ public class MyCompressorOutputStream extends OutputStream
 	}
 
 	@Override
-	public void write(int b) throws IOException {
-		// TODO Auto-generated method stub
-		
+	public void write(int b) throws IOException
+	{
+		out.write(b);
 	}
 
 }
