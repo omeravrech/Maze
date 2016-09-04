@@ -1,21 +1,21 @@
 package io;
 
-import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.OutputStream;
 import java.io.IOException;
 
 public class MyCompressorOutputStream extends OutputStream
 {
-	BufferedOutputStream out;
+	DataOutputStream out;
 	
 	public MyCompressorOutputStream(OutputStream out)
 	{
-		this.out = new BufferedOutputStream(out);
+		this.out = new DataOutputStream(out);
 	}
 
 	public void write(byte[] bytes) throws IOException
 	{
-		int lastAppearance = -1;
+		byte lastAppearance = bytes[0];
 		int counter = 0;
 		
 		for (byte b : bytes)
@@ -25,9 +25,9 @@ public class MyCompressorOutputStream extends OutputStream
 			else
 			{
 			//  write all bytes + converting integers to array of bytes
-				write(counter);
-				write(lastAppearance);
-				counter = 0;
+				out.writeInt(counter);
+				out.writeByte(lastAppearance);
+				counter = 1;
 				lastAppearance = b;
 			}
 		}
