@@ -20,7 +20,7 @@ public class MyCompressorOutputStream extends OutputStream
 		
 		for (byte b : bytes)
 		{
-			if ((b == lastAppearance) && (counter < 128))
+			if ((b == lastAppearance) && (counter < 256))
 				counter++;
 			else
 			{
