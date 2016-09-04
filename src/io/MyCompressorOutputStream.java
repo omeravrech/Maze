@@ -25,8 +25,8 @@ public class MyCompressorOutputStream extends OutputStream
 			else
 			{
 			//  write all bytes + converting integers to array of bytes
-				out.writeInt(counter);
-				out.writeByte(lastAppearance);
+				out.write(counter);
+				out.write(lastAppearance);
 				counter = 1;
 				lastAppearance = b;
 			}
