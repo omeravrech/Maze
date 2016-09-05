@@ -45,6 +45,38 @@ public class Maze3D {
 				for (int k=0; k < maze[i][j].length; k++)
 					maze[i][j][k] = WALL;
 	}
+	
+	/**
+	* <h1>Byte array constructor</h1>
+	*This constructor will create a new maze from bytes array <br>
+	*Each byte will be casted to an integer 
+	* 
+	*@author  Omer Avrech & Bar Malka
+	*@version 1.0
+	*@since   05/09/2016
+	*@param byte[] bytesMazeArray - maze (int[][][]) in bytes form
+	*/
+	
+	public Maze3D(byte[] bytesMazeArray)
+	{
+		this.startPosition = new Position((int) bytesMazeArray[0],(int) bytesMazeArray[1],(int) bytesMazeArray[2]);
+		this.goalPosition = new Position((int) bytesMazeArray[3],(int) bytesMazeArray[4],(int) bytesMazeArray[5]);
+		this.maze = new int[(int) bytesMazeArray[6]][(int) bytesMazeArray[7]][(int) bytesMazeArray[8]];
+		int index = 9;
+		for (int i = 0; i < maze.length; i++) 
+		{
+			for (int j = 0; j < maze[1].length; j++) 
+			{
+				for (int k = 0; k < maze[0][1].length; k++) 
+				{
+					maze[i][j][k] = (int) bytesMazeArray[index];
+					index++;
+				}
+			}
+		}
+	}
+	
+	
 	public void setStartPosition(Position startPosition) {
 		/**
 		 * @param startPosition the startPosition to set
@@ -174,16 +206,46 @@ public class Maze3D {
 		return maze[2*axis+1].clone();
 	}
 	
+	
+	/**
+	* <h1>toByteArray</h1>
+	* 
+	* this function will take the maze (int[][][]) and return it as an array of bytes
+	* 
+	*@author  Omer Avrech & Bar Malka
+	*@version 1.0
+	*@since   05/09/2016
+	*@return byte[] - the original maze as a byte array
+	*/
+
 	public byte[] toByteArray()
 	{
-		StringBuilder output = new StringBuilder();
-		output.append(floors);
-		output.append(rows);
-		output.append(columns);
-		output.append(startPosition.toString());
-		output.append(goalPosition.toString());
-		output.append(this.toString());
-		return output.toString().getBytes();
+		ArrayList<Byte> maze3dBytes = new ArrayList<Byte>();
+		maze3dBytes.add((byte)startPosition.floor());
+		maze3dBytes.add((byte)startPosition.column());
+		maze3dBytes.add((byte)startPosition.row());
+		maze3dBytes.add((byte)goalPosition.floor());
+		maze3dBytes.add((byte)goalPosition.column());
+		maze3dBytes.add((byte)goalPosition.row());
+		maze3dBytes.add((byte)maze.length);
+		maze3dBytes.add((byte)maze[1].length);
+		maze3dBytes.add((byte)maze[0][1].length);
+		
+		for (int[][] i : maze) 
+		{
+		for (int[] j : i)
+			{
+			for (int k : j)
+				//Casting each value in the maze into a byte
+				maze3dBytes.add((byte)k);
+			}
+		}
+		
+		byte[] finalByteArray = new byte[maze3dBytes.size()];
+		for (int i = 0; i < maze3dBytes.size(); i++)
+		finalByteArray[i] = maze3dBytes.get(i);	
+		
+		return finalByteArray;
 	}
 	
 	@Override
