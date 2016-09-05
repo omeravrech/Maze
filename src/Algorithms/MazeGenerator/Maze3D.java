@@ -222,14 +222,14 @@ public class Maze3D {
 	{
 		ArrayList<Byte> maze3dBytes = new ArrayList<Byte>();
 		maze3dBytes.add((byte)startPosition.floor());
-		maze3dBytes.add((byte)startPosition.column());
 		maze3dBytes.add((byte)startPosition.row());
+		maze3dBytes.add((byte)startPosition.column());
 		maze3dBytes.add((byte)goalPosition.floor());
-		maze3dBytes.add((byte)goalPosition.column());
 		maze3dBytes.add((byte)goalPosition.row());
-		maze3dBytes.add((byte)maze.length);
-		maze3dBytes.add((byte)maze[1].length);
-		maze3dBytes.add((byte)maze[0][1].length);
+		maze3dBytes.add((byte)goalPosition.column());
+		maze3dBytes.add((byte)floors);
+		maze3dBytes.add((byte)rows);
+		maze3dBytes.add((byte)columns);
 		
 		for (int[][] i : maze) 
 		{
