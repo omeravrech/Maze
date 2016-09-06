@@ -3,7 +3,6 @@ package io;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-//import java.util.ArrayList;
 
 public class MyDecompressorInputStream extends InputStream {
 
@@ -21,7 +20,6 @@ public class MyDecompressorInputStream extends InputStream {
 	
 	public int read(byte[] bytes) throws IOException
 	{	
-		//ArrayList<Byte> bytesArray = new ArrayList<Byte>();
 		int counter;
 		int index = 0;
 		byte b;

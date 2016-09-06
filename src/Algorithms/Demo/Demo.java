@@ -11,6 +11,9 @@ import Algorithms.MazeGenerator.GrowingTreeGenerator;
 import Algorithms.MazeGenerator.Maze3D;
 import Algorithms.MazeGenerator.Position;
 import Algorithms.MazeGenerator.RandomChoose;
+import Algorithms.Search.BFS;
+import Algorithms.Search.DFS;
+import Algorithms.Search.MazeAdapter;
 import Algorithms.Search.Searchable;
 import Algorithms.Search.Searcher;
 import Algorithms.Search.Solution;
@@ -30,15 +33,12 @@ public class Demo {
 	
 	public static void main(String[] args)
 	{		
-		/*/Maze3D maze = new GrowingTreeGenerator(new RandomChoose()).generate(1, 3, 3);
+		Maze3D maze = new GrowingTreeGenerator(new RandomChoose()).generate(1, 13, 13);
 		System.out.println(maze);
-		//run(new BFS<Position>(), new MazeAdapter(maze));
-		//run(new DFS<Position>(), new MazeAdapter(maze));
-		
-		//*/
-		
-		 
-		byte[] outArr = {1,3,3,1,5,5,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,1,1,1,1,0,1,0,1,1,0,0,2,0,0,1,1,0,1,0,1,0,1,1,0,1,0,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+		run(new BFS<Position>(), new MazeAdapter(maze));
+		run(new DFS<Position>(), new MazeAdapter(maze));
+
+		byte[] outArr = maze.toByteArray();
 		byte[] inArr = new byte[outArr.length];
 		//*/
 		try
@@ -59,8 +59,8 @@ public class Demo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Maze3D maze = new Maze3D(inArr);
-		System.out.println(maze);
+		Maze3D maze2 = new Maze3D(inArr);
+		System.out.println(maze2);
 	}
 
 }

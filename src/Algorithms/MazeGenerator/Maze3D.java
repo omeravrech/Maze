@@ -59,21 +59,21 @@ public class Maze3D {
 	
 	public Maze3D(byte[] bytesMazeArray)
 	{
+		
 		this.startPosition = new Position((int) bytesMazeArray[0],(int) bytesMazeArray[1],(int) bytesMazeArray[2]);
 		this.goalPosition = new Position((int) bytesMazeArray[3],(int) bytesMazeArray[4],(int) bytesMazeArray[5]);
-		this.maze = new int[(int) bytesMazeArray[6]][(int) bytesMazeArray[7]][(int) bytesMazeArray[8]];
-		int index = 9;
-		for (int i = 0; i < maze.length; i++) 
-		{
-			for (int j = 0; j < maze[1].length; j++) 
-			{
-				for (int k = 0; k < maze[0][1].length; k++) 
-				{
-					maze[i][j][k] = (int) bytesMazeArray[index];
-					index++;
-				}
-			}
-		}
+		
+		int index = 6;
+		
+		floors = (int) bytesMazeArray[index++] & 0xff;
+		rows = (int) bytesMazeArray[index++] & 0xff;
+		columns = (int)bytesMazeArray[index++] & 0xff;
+		this.maze = new int[2*floors+1][2*rows+1][2*columns+1];
+		
+		for (int i = 0; i < 2*floors+1; i++) 
+			for (int j = 0; j < 2*rows+1; j++) 
+				for (int k = 0; k < 2*columns+1; k++) 
+					maze[i][j][k] = (int) bytesMazeArray[index++];
 	}
 	
 	
