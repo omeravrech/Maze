@@ -1,8 +1,8 @@
-package boot;
+package MVC.boot;
 
-import controller.MyController;
-import model.MyModel;
-import view.MyView;
+import MVC.controller.MyController;
+import MVC.model.MyModel;
+import MVC.view.MyView;
 
 public class Run {
 

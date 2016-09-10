@@ -1,6 +1,6 @@
-package model;
+package MVC.model;
 
-import controller.Controller;
+import MVC.controller.Controller;
 
 public class MyModel implements Model
 {

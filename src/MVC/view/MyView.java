@@ -1,6 +1,6 @@
-package view;
+package MVC.view;
 
-import controller.Controller;
+import MVC.controller.Controller;
 
 public class MyView implements View 
 {

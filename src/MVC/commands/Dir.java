@@ -1,8 +1,8 @@
-package commands;
+package MVC.commands;
 
 import java.io.IOException;
 
-import controller.ICommand;
+import MVC.controller.ICommand;
 
 public class Dir implements ICommand
 {

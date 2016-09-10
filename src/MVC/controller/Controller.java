@@ -1,4 +1,4 @@
-package controller;
+package MVC.controller;
 
 public interface Controller
 {
