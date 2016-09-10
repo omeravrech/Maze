@@ -1,4 +1,4 @@
-package Algorithms.MazeGenerator;
+package MyAlgorithms.Algorithms.MazeGenerator;
 
 public interface Maze3dGenerator {
 	public Maze3D generate(int floors, int height, int width);

@@ -1,4 +1,4 @@
-package Algorithms.MazeGenerator;
+package MyAlgorithms.Algorithms.MazeGenerator;
 
 
 /**

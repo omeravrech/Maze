@@ -1,7 +1,8 @@
-package Algorithms.Search;
+package MyAlgorithms.Algorithms.Search;
 
 import java.util.ArrayList;
-import Algorithms.MazeGenerator.*;
+
+import MyAlgorithms.Algorithms.MazeGenerator.*;
 
 /**
 * <h1>MazeAdapter</h1>

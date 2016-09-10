@@ -1,4 +1,4 @@
-package Algorithms.Search;
+package MyAlgorithms.Algorithms.Search;
 
 public interface Searcher<T>
 {

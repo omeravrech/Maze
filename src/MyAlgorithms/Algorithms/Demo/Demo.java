@@ -1,4 +1,4 @@
-package Algorithms.Demo;
+package MyAlgorithms.Algorithms.Demo;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,18 +7,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import Algorithms.MazeGenerator.GrowingTreeGenerator;
-import Algorithms.MazeGenerator.Maze3D;
-import Algorithms.MazeGenerator.Position;
-import Algorithms.MazeGenerator.RandomChoose;
-import Algorithms.Search.BFS;
-import Algorithms.Search.DFS;
-import Algorithms.Search.MazeAdapter;
-import Algorithms.Search.Searchable;
-import Algorithms.Search.Searcher;
-import Algorithms.Search.Solution;
-import io.MyCompressorOutputStream;
-import io.MyDecompressorInputStream;
+import MyAlgorithms.Algorithms.MazeGenerator.GrowingTreeGenerator;
+import MyAlgorithms.Algorithms.MazeGenerator.Maze3D;
+import MyAlgorithms.Algorithms.MazeGenerator.Position;
+import MyAlgorithms.Algorithms.MazeGenerator.RandomChoose;
+import MyAlgorithms.Algorithms.Search.BFS;
+import MyAlgorithms.Algorithms.Search.DFS;
+import MyAlgorithms.Algorithms.Search.MazeAdapter;
+import MyAlgorithms.Algorithms.Search.Searchable;
+import MyAlgorithms.Algorithms.Search.Searcher;
+import MyAlgorithms.Algorithms.Search.Solution;
+import MyAlgorithms.io.MyCompressorOutputStream;
+import MyAlgorithms.io.MyDecompressorInputStream;
 
 public class Demo {
 

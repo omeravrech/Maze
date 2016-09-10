@@ -1,4 +1,4 @@
-package io;
+package MyAlgorithms.io;
 
 import java.io.DataInputStream;
 import java.io.IOException;
