@@ -1,11 +1,14 @@
 package model;
 
+import java.util.HashMap;
+
+import Algorithms.MazeGenerator.Maze3D;
 import controller.Controller;
 
 public class MyModel implements Model
 {
 	Controller controller;
-	protected HashMap<String, Maze3d> mazesMap;
+	protected HashMap<String, Maze3D> mazesMap;
 
 	public MyModel(Controller controller) {
 		this.controller = controller;
