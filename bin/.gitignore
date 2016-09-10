@@ -1,2 +1,5 @@
-/io/
-/Algorithms/
+/boot/
+/commands/
+/controller/
+/model/
+/view/
