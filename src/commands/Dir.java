@@ -1,18 +1,23 @@
 package commands;
 
-import java.io.File;
 import java.io.IOException;
 
-import controller.ICommand;
+import model.Model;
+import view.View;
 
-public class Dir implements ICommand
+public class Dir extends CommonCommand
 {
-
+	public Dir(View view, Model model) 
+	{
+		super(view, model);
+	}
+	
 	@Override
 	public void doCommand(String[] commands) throws IOException
 	{
 
 	}
+
 	
 	
 }

@@ -1,58 +1,18 @@
 package model;
 
-import java.util.HashMap;
-
-import Algorithms.MazeGenerator.Maze3D;
 import controller.Controller;
 
 public class MyModel implements Model
 {
-	Controller controller;
-	protected HashMap<String, Maze3D> mazesMap;
-
-	public MyModel(Controller controller) {
+	private Controller controller;
+	
+	public void setController (Controller controller)
+	{
 		this.controller = controller;
 	}
 
 	@Override
-	public void generateMaze(String name, int floors, int rows, int columns) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void displayMaze(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void getCrossSection(String name, char asix, int index) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void save(String name, String filepath) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void load(String name, String filepath) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void solve(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void exit() {
-		// TODO Auto-generated method stub
-		
+	public Controller setController() {
+		return this.controller;
 	}
 }
