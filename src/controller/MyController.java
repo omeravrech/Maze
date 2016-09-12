@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import commands.Dir;
@@ -19,14 +20,15 @@ public class MyController implements Controller
 	private View view;
 	private HashMap<String,ICommand> commands;
 	
-	public MyController(Model model, View view) {
-		this.model = model;
+	public MyController(View view, Model model)
+	{
 		this.view = view;
+		this.model = model;
 		this.setHashMap();
-		
+
 	}
 
-	public void setHashMap()
+	private void setHashMap()
 	{
 		/* Initializing the HashMap with the proper regex */
 		commands = new HashMap<String,ICommand>();
@@ -38,7 +40,23 @@ public class MyController implements Controller
 		commands.put("load [^ \n]+ [A-Za-z0-9]+", new Load_maze(view,model));
 		commands.put("solve [A-Za-z0-9]+ [A-Za-z0-9]+", new Solve(view,model));
 		commands.put("solution [A-Za-z0-9]+", new Display_solution(view,model));
-		
-		view.setCommands(commands);
 	}
+	
+	public HashMap<String,ICommand> getCommands()
+	{
+		return this.commands;
+	}
+
+	@Override
+	public void operationCommand(String command) throws IOException
+	{
+		String[] args = command.split(" ");
+		commands.get(args[0]).doCommand(args);
+	}
+
+	@Override
+	public void sendMessage(String msg)
+	{
+		view.sendMessage(msg);
+	}	
 }

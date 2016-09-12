@@ -1,9 +1,6 @@
 package model;
 
-import controller.Controller;
-
 public interface Model
 {
-	public void setController (Controller controller);
-	public Controller setController ();
+	public void generate_maze(String name, int floors, int rows, int columns);
 }

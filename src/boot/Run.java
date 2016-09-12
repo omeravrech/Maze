@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
+import controller.Controller;
 import controller.MyController;
+import model.CommonModel;
 import model.MyModel;
+import view.CommonView;
 import view.MyView;
 
 public class Run {
@@ -14,16 +17,15 @@ public class Run {
 	{
 		
 		
-		MyModel myModel = new MyModel();
-		MyView myView = new MyView(new BufferedReader(new InputStreamReader(System.in)),new PrintWriter(System.out));
-		MyController myController = new MyController(myModel, myView);
+		CommonModel model = new MyModel();
+		CommonView view = new MyView(new BufferedReader(new InputStreamReader(System.in)),new PrintWriter(System.out));
+		Controller myController = new MyController(view, model);
 		
-		myModel.setController(myController);
-		myView.setController(myController);
+		model.setController(myController);
+		view.setController(myController);
 		
-		myController.setHashMap();
 		
-		myView.start();
+		view.start();
 		
 
 	}

@@ -15,10 +15,11 @@ public class CLI extends Thread
 	private HashMap<String,ICommand> commands;
 	private View view;
 	
-	public CLI(BufferedReader in, PrintWriter out)
+	public CLI(BufferedReader in, PrintWriter out, View view)
 	{
 		this.in = in;
 		this.out = out;
+		this.view = view;
 	}
 	
 	public BufferedReader getIn() {

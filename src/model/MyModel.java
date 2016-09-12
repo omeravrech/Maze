@@ -1,18 +1,24 @@
 package model;
 
-import controller.Controller;
+import Algorithms.MazeGenerator.GrowingTreeGenerator;
+import Algorithms.MazeGenerator.Maze3D;
+import Algorithms.MazeGenerator.RandomChoose;
 
-public class MyModel implements Model
+public class MyModel extends CommonModel
 {
-	private Controller controller;
-	
-	public void setController (Controller controller)
+	public void generate_maze(String name, int floors, int rows, int columns)
 	{
-		this.controller = controller;
+		this.threadList.add(new Thread(new Runnable() {
+			
+			@Override
+			public void run()
+			{
+				Maze3D newMaze = new GrowingTreeGenerator(new RandomChoose()).generate(floors, rows, columns);
+				mazeMap.put(name, newMaze);
+				controller.sendMessage("Maze " + name + " has been generated");
+			}
+		}));
+		threadList.get(threadList.size()-1).start();
 	}
-
-	@Override
-	public Controller setController() {
-		return this.controller;
-	}
+	
 }
