@@ -22,6 +22,7 @@ public class MyController implements Controller
 	public MyController(Model model, View view) {
 		this.model = model;
 		this.view = view;
+		this.setHashMap();
 		
 	}
 
