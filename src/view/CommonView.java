@@ -1,5 +1,7 @@
 package view;
 
+import java.io.IOException;
+
 import controller.Controller;
 
 public abstract class CommonView implements View {
@@ -20,6 +22,6 @@ public abstract class CommonView implements View {
 	@Override
 	abstract public void start();
 	@Override
-	abstract public void operation(String regex);
+	abstract public void operation(String regex) throws IOException;
 	
 }

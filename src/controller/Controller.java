@@ -7,5 +7,5 @@ public interface Controller
 {
 	HashMap<String, ICommand> getCommands();
 	public void operationCommand(String command) throws IOException;
-	public void sendMessage(String msg);
+	void returnedMessage(Object msg);
 }

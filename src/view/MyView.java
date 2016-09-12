@@ -1,6 +1,7 @@
 package view;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 public class MyView extends CommonView
@@ -15,7 +16,7 @@ public class MyView extends CommonView
 	}
 
 	@Override
-	public void operation(String regex)
+	public void operation(String regex) throws IOException
 	{
 		controller.operationCommand(regex);
 	}

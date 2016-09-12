@@ -55,8 +55,8 @@ public class MyController implements Controller
 	}
 
 	@Override
-	public void sendMessage(String msg)
-	{
-		view.sendMessage(msg);
+	public void returnedMessage(Object msg) {
+		view.returnedMessage(Object msg)
+		
 	}	
 }
