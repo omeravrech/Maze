@@ -18,5 +18,5 @@ public abstract class CommonCommand implements ICommand
 	}
 	
 	abstract public void doCommand(String[] commands) throws IOException;
-
+	abstract public void returnedMessage(Object msg);
 }

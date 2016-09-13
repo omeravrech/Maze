@@ -25,6 +25,14 @@ public class Generate_3d_maze extends CommonCommand
 			model.generate_maze(name, floors, rows, columns);
 		else
 			throw new IOException("Bad values.");
+		returnedMessage("Completed");
+
+	}
+
+	@Override
+	public void returnedMessage(Object msg) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

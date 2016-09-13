@@ -16,6 +16,12 @@ public class Display_solution extends CommonCommand
 	@Override
 	public void doCommand(String[] commands) throws IOException {
 		// TODO Auto-generated method stub
+	
+	}
+
+	@Override
+	public void returnedMessage(Object msg) {
+		// TODO Auto-generated method stub
 		
 	}
 

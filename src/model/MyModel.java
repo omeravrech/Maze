@@ -1,8 +1,11 @@
 package model;
 
+import java.io.File;
+
 import Algorithms.MazeGenerator.GrowingTreeGenerator;
 import Algorithms.MazeGenerator.Maze3D;
 import Algorithms.MazeGenerator.RandomChoose;
+import Algorithms.Search.Searcher;
 
 public class MyModel extends CommonModel
 {
@@ -48,6 +51,54 @@ public class MyModel extends CommonModel
 			}
 		}));
 		threadList.get(threadList.size()-1).start();
+	}
+
+	@Override
+	public void dir(String path) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void display(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save(String name, File fileName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void load(File fileName, String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void solve(String name, Searcher algorithm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void display_solution(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void returnedMessage(Object msg) {
+		controller.returnedMessage(msg);
+		
 	}
 	
 }

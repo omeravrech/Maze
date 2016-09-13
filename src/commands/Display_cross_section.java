@@ -25,6 +25,12 @@ public class Display_cross_section extends CommonCommand
 			throw new IOException("Wrong values.");
 		
 	}
+
+	@Override
+	public void returnedMessage(Object msg) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 

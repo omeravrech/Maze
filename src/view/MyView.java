@@ -26,6 +26,13 @@ public class MyView extends CommonView
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void returnedMessage(Object msg) {
+		
+		System.out.println(msg);
+		
+	}
 	
 	
 	
