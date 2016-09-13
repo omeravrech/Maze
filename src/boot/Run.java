@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
-import controller.Controller;
+import controller.CommonController;
 import controller.MyController;
 import model.CommonModel;
 import model.MyModel;
@@ -19,11 +19,10 @@ public class Run {
 		
 		CommonModel model = new MyModel();
 		CommonView view = new MyView(new BufferedReader(new InputStreamReader(System.in)),new PrintWriter(System.out));
-		Controller myController = new MyController(view, model);
+		CommonController myController = new MyController(view, model);
 		
 		model.setController(myController);
 		view.setController(myController);
-		
 		
 		view.start();
 		

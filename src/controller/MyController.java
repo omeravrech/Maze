@@ -14,21 +14,17 @@ import commands.Solve;
 import model.Model;
 import view.View;
 
-public class MyController implements Controller 
+public class MyController extends CommonController
 {
-	private Model model;
-	private View view;
-	private HashMap<String,ICommand> commands;
 	
 	public MyController(View view, Model model)
 	{
-		this.view = view;
-		this.model = model;
-		this.setHashMap();
-
+		super(view, model);
+		InitHashMap();
+		
 	}
-
-	private void setHashMap()
+	
+	protected void InitHashMap()
 	{
 		/* Initializing the HashMap with the proper regex */
 		commands = new HashMap<String,ICommand>();
@@ -42,11 +38,6 @@ public class MyController implements Controller
 		commands.put("solution [A-Za-z0-9]+", new Display_solution(view,model));
 	}
 	
-	public HashMap<String,ICommand> getCommands()
-	{
-		return this.commands;
-	}
-
 	@Override
 	public void operationCommand(String command) throws IOException
 	{
@@ -55,8 +46,8 @@ public class MyController implements Controller
 	}
 
 	@Override
-	public void returnedMessage(Object msg) {
-		view.returnedMessage(Object msg)
-		
+	public void returnedMessage(Object msg)
+	{
+		view.returnedMessage(msg);
 	}	
 }

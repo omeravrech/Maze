@@ -67,6 +67,7 @@ public class CLI extends Thread
 				try
 				{
 
+					
 					out.println("Enter your command:");
 					while (!(input = in.readLine()).equals("exit"))
 					{
@@ -97,4 +98,16 @@ public class CLI extends Thread
 		}).start();
 	}
 	
+	public String displayMenu()
+	{
+		StringBuilder menu = new StringBuilder();
+		int count = 1;
+		
+		for(String cmd: commands.keySet())
+		{
+			menu.append(count + ". " + cmd);
+			count++;
+		}
+		return menu.toString();
+	}
 }
