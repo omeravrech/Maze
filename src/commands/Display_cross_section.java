@@ -20,7 +20,7 @@ public class Display_cross_section extends CommonCommand
 		if (asix >=97)
 			asix-= 32;
 		int checkAxisValue = Integer.valueOf(commands[1]);
-		if ((checkAxisValue < 1) || (checkAxisValue > 255) || (asix > 'z') || (asix < 'x'))
+		if ((checkAxisValue < 1) || (checkAxisValue > 255))
 			throw new IOException("display_cross_section [asix] [number] [name]");
 		else
 			{

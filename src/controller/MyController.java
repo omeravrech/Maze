@@ -33,7 +33,7 @@ public class MyController extends CommonController
 		commands.put("dir [^ \n]+", new Dir(view,model));
 		commands.put("generate_3d_maze [A-Za-z0-9]+ [0-9]{1,2} [0-9]{1,2} [0-9]{1,2}", new Generate_3d_maze(view,model));
 		commands.put("display [^ \n]+", new Display(view,model));
-		commands.put("display_cross_section [XYZxyz] [0-9]{1,2} for [A-Za-z0-9]+", new Display_cross_section(view,model));
+		commands.put("display_cross_section [XYZxyz] [0-9]{1,2} [A-Za-z0-9]+", new Display_cross_section(view,model));
 		commands.put("save [A-Za-z0-9]+ [^ \n]+", new Save_maze(view,model));
 		commands.put("load [^ \n]+ [A-Za-z0-9]+", new Load_maze(view,model));
 		commands.put("solve [A-Za-z0-9]+ [A-Za-z0-9]+", new Solve(view,model));

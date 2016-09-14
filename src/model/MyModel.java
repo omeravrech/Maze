@@ -60,18 +60,18 @@ public class MyModel extends CommonModel
 	@Override
 	public int[][] display_cross_section(char asix, int line, String name)
 	{
-		if (!solutionMap.containsKey(name))
+		if (!mazeMap.containsKey(name))
 			return null;
 		else
 			{
 				Maze3D maze = this.mazeMap.get(name);
 				switch (asix)
 				{
-					case 'x':
+					case 88:
 						 return maze.getCrossSectionByX(line);
-					case 'y':
+					case 89:
 						return maze.getCrossSectionByY(line);
-					case 'z':
+					case 90:
 						return maze.getCrossSectionByZ(line);
 					default:
 						return null;
@@ -153,11 +153,9 @@ public class MyModel extends CommonModel
 		
 	}
 	@Override
-	public void solve(String name, Searcher<Position> algorithm)
+	public void solve(String name, Searcher<Position> algorithm) throws IOException
 
 	{
-		try
-		{
 			if (!mazeMap.containsKey(name))
 				throw new IOException("Maze doesn't exist.");
 			else
@@ -176,11 +174,6 @@ public class MyModel extends CommonModel
 				thread.start();
 				threads.add(thread);
 			}
-		}
-		catch (IOException e)
-		{
-			controller.notify(e.getMessage());
-		}
 	}
 	@SuppressWarnings("deprecation")
 	@Override

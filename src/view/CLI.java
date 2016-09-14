@@ -61,7 +61,14 @@ public class CLI extends Thread
 						if (commandFlag)
 						{
 							out.println("Start to calculation your request...");
-							view.operationCommand(commandRegex, input);
+							try
+							{
+								view.operationCommand(commandRegex, input);
+							}
+							catch (IOException e)
+							{
+								out.println(e.getMessage());
+							}
 						}
 						else
 						{

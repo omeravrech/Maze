@@ -173,7 +173,7 @@ public class Maze3D {
 				
 		return loc;
 	}
-	public int[][] getCrossSectionByX(int axis)
+	public int[][] getCrossSectionByX(int axis) throws IndexOutOfBoundsException
 	{
 		if ((axis < 0) || ((axis) > columns))
 			throw new IndexOutOfBoundsException("Invalid input.");
@@ -186,7 +186,7 @@ public class Maze3D {
 			return loc;
 		}
 	}
-	public int[][] getCrossSectionByY(int axis)
+	public int[][] getCrossSectionByY(int axis) throws IndexOutOfBoundsException
 	{
 		if ((axis < 0) || (axis > rows))
 			throw new IndexOutOfBoundsException("Invalid input.");
@@ -199,7 +199,7 @@ public class Maze3D {
 			return loc;
 		}
 	}
-	public int[][] getCrossSectionByZ(int axis)
+	public int[][] getCrossSectionByZ(int axis) throws IndexOutOfBoundsException
 	{
 		if ((axis < 0) || ((axis*2+1) > maze.length))
 			throw new IndexOutOfBoundsException("Invalid input.");
