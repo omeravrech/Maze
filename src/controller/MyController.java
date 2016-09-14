@@ -49,6 +49,6 @@ public class MyController extends CommonController
 	@Override
 	public void notify(Object msg)
 	{
-		view.returnedMessage(msg);
+		view.notify(msg);
 	}	
 }
