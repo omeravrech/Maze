@@ -175,7 +175,7 @@ public class Maze3D {
 	}
 	public int[][] getCrossSectionByX(int axis) throws IndexOutOfBoundsException
 	{
-		if ((axis < 0) || ((axis) > columns))
+		if ((axis < 0) || ((axis) > columns-1))
 			throw new IndexOutOfBoundsException("Invalid input.");
 		else
 		{
@@ -188,7 +188,7 @@ public class Maze3D {
 	}
 	public int[][] getCrossSectionByY(int axis) throws IndexOutOfBoundsException
 	{
-		if ((axis < 0) || (axis > rows))
+		if ((axis < 0) || (axis > rows-1))
 			throw new IndexOutOfBoundsException("Invalid input.");
 		else
 		{
@@ -201,7 +201,7 @@ public class Maze3D {
 	}
 	public int[][] getCrossSectionByZ(int axis) throws IndexOutOfBoundsException
 	{
-		if ((axis < 0) || ((axis*2+1) > maze.length))
+		if ((axis < 0) || (axis > floors-1))
 			throw new IndexOutOfBoundsException("Invalid input.");
 		return maze[2*axis+1].clone();
 	}
@@ -217,7 +217,6 @@ public class Maze3D {
 	*@since   05/09/2016
 	*@return byte[] - the original maze as a byte array
 	*/
-
 	public byte[] toByteArray()
 	{
 		ArrayList<Byte> maze3dBytes = new ArrayList<Byte>();

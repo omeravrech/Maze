@@ -69,6 +69,10 @@ public class CLI extends Thread
 							{
 								out.println(e.getMessage());
 							}
+							catch (IndexOutOfBoundsException e)
+							{
+								out.println(e.getMessage());
+							}
 						}
 						else
 						{

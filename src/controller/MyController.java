@@ -31,7 +31,7 @@ public class MyController extends CommonController
 		/* Initializing the HashMap with the proper regex */
 		commands = new HashMap<String,ICommand>();
 		commands.put("dir [^ \n]+", new Dir(view,model));
-		commands.put("generate_3d_maze [A-Za-z0-9]+ [0-9]{1,2} [0-9]{1,2} [0-9]{1,2}", new Generate_3d_maze(view,model));
+		commands.put("generate [A-Za-z0-9]+ [0-9]{1,2} [0-9]{1,2} [0-9]{1,2}", new Generate_3d_maze(view,model));
 		commands.put("display [^ \n]+", new Display(view,model));
 		commands.put("display_cross_section [XYZxyz] [0-9]{1,2} [A-Za-z0-9]+", new Display_cross_section(view,model));
 		commands.put("save [A-Za-z0-9]+ [^ \n]+", new Save_maze(view,model));
