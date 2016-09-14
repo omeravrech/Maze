@@ -111,6 +111,7 @@ public class MyModel extends CommonModel
 						out = new MyCompressorOutputStream(new FileOutputStream(path));
 						out.write(maze.toByteArray());
 						out.flush();
+						controller.notify("Maze " + name + " is saved");
 					}
 					catch (FileNotFoundException e) {
 						// TODO Auto-generated catch block

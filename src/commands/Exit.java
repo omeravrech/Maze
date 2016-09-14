@@ -17,6 +17,7 @@ public class Exit extends CommonCommand
 	public void doCommand(String[] commands) throws IOException
 	{
 		model.exit();
+		view.exit();
 	}
 
 }

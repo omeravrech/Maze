@@ -27,7 +27,7 @@ public class Dir extends CommonCommand
 				try
 				{
 					File[] fileList = model.dir(path);
-					display.append("Directory of" + path + "\n");
+					display.append("Directory of " + path + "\n");
 					for (File file : fileList)
 						display.append("\t" + file + "\n");
 				}

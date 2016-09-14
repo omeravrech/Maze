@@ -14,28 +14,13 @@ public class CLI extends Thread
 	private PrintWriter out;
 	private HashMap<String,ICommand> commands;
 	private View view;
+	private boolean flag = true;
 	
 	public CLI(BufferedReader in, PrintWriter out, View view)
 	{
 		this.in = in;
 		this.out = out;
 		this.view = view;
-	}
-	
-	public BufferedReader getIn() {
-		return in;
-	}
-
-	public void setIn(BufferedReader in) {
-		this.in = in;
-	}
-
-	public PrintWriter getOut() {
-		return out;
-	}
-
-	public void setOut(PrintWriter out) {
-		this.out = out;
 	}
 
 	public HashMap<String, ICommand> getCommands() {
@@ -45,31 +30,28 @@ public class CLI extends Thread
 	public void setCommands(HashMap<String, ICommand> commands) {
 		this.commands = commands;
 	}
-
-	public View getView() {
-		return view;
-	}
-
-	public void setView(View view) {
-		this.view = view;
-	}
-
 	public void start()
 	{
 		new Thread(new Runnable()
 		{
 			public void run()
 			{
-				String input = null;
-				boolean commandFlag = false;
-				String commandRegex = null;
+				String input;
+				boolean commandFlag;
+				String commandRegex;
 				
 				try
 				{		
-					out.println("Enter your command:");
-					out.flush();
-					while (!(input = in.readLine()).equals("exit"))
+					while (flag)
 					{
+						input = null;
+						commandFlag = false;
+						commandRegex = null;
+						out.println(displayMenu());
+						out.println("Enter your command: ");
+						out.flush();
+						input = in.readLine();
+						
 						Iterator<String> regexIT = commands.keySet().iterator();
 						while ((regexIT.hasNext()) && (!commandFlag))
 						{
@@ -85,11 +67,6 @@ public class CLI extends Thread
 						{
 							out.println("'" + input.split(" ")[0] + "' is not recognized as an internal or external command.");
 						}
-						out.println("Enter your command:");
-						out.flush();
-						input = null;
-						commandFlag = false;
-						commandRegex = null;
 					}
 					//TODO: EXIT
 				}
@@ -108,7 +85,8 @@ public class CLI extends Thread
 		
 		for(String cmd: commands.keySet())
 		{
-			menu.append(count + ". " + cmd);
+			cmd = cmd.split(" ")[0];
+			menu.append(count + ". " + cmd + "\n");
 			count++;
 		}
 		return menu.toString();
@@ -117,5 +95,19 @@ public class CLI extends Thread
 	public void print(String string)
 	{
 		System.out.println(string);
+	}
+	
+	public void exit()
+	{
+		flag = false;
+		out.println("Good bye!!!");
+		out.flush();
+		try {
+			in.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		out.close();
 	}
 }

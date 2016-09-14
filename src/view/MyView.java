@@ -34,6 +34,9 @@ public class MyView extends CommonView
 	}
 
 	
-	
+	public void exit()
+	{
+		cli.exit();
+	}
 	
 }

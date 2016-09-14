@@ -8,4 +8,5 @@ public interface View
 	public void operationCommand(String command, String input) throws IOException;
 	public void setCommands();
 	public void notify(String message);
+	public void exit();
 }

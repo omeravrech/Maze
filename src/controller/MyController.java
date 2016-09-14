@@ -7,6 +7,7 @@ import commands.Dir;
 import commands.Display;
 import commands.Display_cross_section;
 import commands.Display_solution;
+import commands.Exit;
 import commands.Generate_3d_maze;
 import commands.ICommand;
 import commands.Load_maze;
@@ -37,6 +38,7 @@ public class MyController extends CommonController
 		commands.put("load [^ \n]+ [A-Za-z0-9]+", new Load_maze(view,model));
 		commands.put("solve [A-Za-z0-9]+ [A-Za-z0-9]+", new Solve(view,model));
 		commands.put("solution [A-Za-z0-9]+", new Display_solution(view,model));
+		commands.put("exit", new Exit(view,model));
 	}
 	
 	@Override
