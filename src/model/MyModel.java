@@ -92,7 +92,8 @@ public class MyModel extends CommonModel
 		threads.add(thread);		
 	}
 	@Override
-	public File[] dir(String path) {
+	public File[] dir(String path)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -100,33 +101,55 @@ public class MyModel extends CommonModel
 	public void save(String name, File fileName)
 	{
 		if (!mazeMap.containsKey(name))
-			controller.notify("maze don't exist");
+			controller.notify("maze doesn't exist.");
 		else
 		{
-			Maze3D maze = mazeMap.get(name);
-			OutputStream out = null;
-			try
+			Thread thread = new Thread(new Runnable()
 			{
-				out = new MyCompressorOutputStream(new FileOutputStream(fileName));
-				out.write(maze.toByteArray());
-				out.flush();
-			}
-			catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			finally
-			{
+				
+				private Maze3D maze = mazeMap.get(name);
+				private OutputStream out = null;
+				
+				@Override
+				public void run()
+				{
+					try
+					{
+						out = new MyCompressorOutputStream(new FileOutputStream(fileName));
+						out.write(maze.toByteArray());
+						out.flush();
+					}
+					catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					finally
+					{
+							try {
+								out.close();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					}
+				}
+				
+				public void terminate()
+				{
 					try {
 						out.close();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-			}
+				}
+			});
+			thread.start();
+			threads.add(thread);
+			
 		}
 		
 	}
@@ -152,6 +175,7 @@ public class MyModel extends CommonModel
 					{
 						Solution<Position> solution = algorithm.search(problem);
 						solutionMap.put(name,solution);
+						controller.notify("Solution for " + name + " is ready.");
 					}
 					
 
@@ -170,7 +194,8 @@ public class MyModel extends CommonModel
 		}
 	}
 	@Override
-	public void exit() {
+	public void exit()
+	{
 		// TODO Auto-generated method stub
 		
 	}
