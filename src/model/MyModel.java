@@ -153,6 +153,12 @@ public class MyModel extends CommonModel
 						Solution<Position> solution = algorithm.search(problem);
 						solutionMap.put(name,solution);
 					}
+					
+
+					public void terminate()
+					{
+						//TODO
+					}
 				});
 				thread.start();
 				threads.add(thread);
