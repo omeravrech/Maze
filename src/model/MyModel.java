@@ -160,6 +160,7 @@ public class MyModel extends CommonModel
 	}
 	@Override
 	public void solve(String name, Searcher<Position> algorithm)
+
 	{
 		try
 		{
@@ -193,11 +194,16 @@ public class MyModel extends CommonModel
 			e.printStackTrace();
 		}
 	}
+	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void exit()
 	{
-		// TODO Auto-generated method stub
-		
+		//TODO: Check if this method will make the program burst into flames
+		for (Thread thread : threads) {
+			thread.stop();
+			
+		}		
 	}
 	
 }
