@@ -179,7 +179,7 @@ public class MyModel extends CommonModel
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			controller.notify(e.getMessage());
 		}
 	}
 	@SuppressWarnings("deprecation")
