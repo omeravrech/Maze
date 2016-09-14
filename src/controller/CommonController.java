@@ -23,6 +23,6 @@ public abstract class CommonController implements Controller {
 	public HashMap<String, ICommand> getCommands() { return this.commands; }
 	
 	abstract protected void InitHashMap();
-	abstract public void operationCommand(String command) throws IOException;
-	abstract public void notify(Object msg);
+	abstract public void operationCommand(String command, String input) throws IOException;
+	abstract public void notify(String message);
 }

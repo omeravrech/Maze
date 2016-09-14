@@ -40,15 +40,16 @@ public class MyController extends CommonController
 	}
 	
 	@Override
-	public void operationCommand(String command) throws IOException
+	public void operationCommand(String command, String input) throws IOException
 	{
-		String[] args = command.split(" ");
-		commands.get(args[0]).doCommand(args);
+		String[] args = input.substring(input.indexOf(" ") + 1).split(" ");
+		ICommand icommand = commands.get(command);
+		icommand.doCommand(args);
 	}
 
 	@Override
-	public void notify(Object msg)
+	public void notify(String message)
 	{
-		view.notify(msg);
+		view.notify(message);
 	}	
 }

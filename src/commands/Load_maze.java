@@ -14,7 +14,8 @@ public class Load_maze extends CommonCommand
 	}
 	
 	@Override
-	public void doCommand(String[] commands) throws IOException {
+	public void doCommand(String[] commands) throws IOException
+	{
 		// TODO Auto-generated method stub
 		
 	}

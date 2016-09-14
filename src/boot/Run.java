@@ -15,8 +15,6 @@ public class Run {
 
 	public static void main(String[] args)
 	{
-		
-		
 		CommonModel model = new MyModel();
 		CommonView view = new MyView(new BufferedReader(new InputStreamReader(System.in)),new PrintWriter(System.out));
 		CommonController myController = new MyController(view, model);

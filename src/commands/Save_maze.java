@@ -14,9 +14,14 @@ public class Save_maze extends CommonCommand
 	}
 	
 	@Override
-	public void doCommand(String[] commands) throws IOException {
-		// TODO Auto-generated method stub
-		
+	public void doCommand(String[] commands) throws IOException
+	{
+		String name = commands[0];
+		String path = commands[1];
+		if (name.equals("") || name.isEmpty() || path.equals("") || path.isEmpty())
+			throw new IOException("save [name] [path]");
+		else
+			model.save(name, path);
 	}
 
 }

@@ -16,7 +16,6 @@ public abstract class CommonCommand implements ICommand
 		this.view = view;
 	}
 	
-	abstract public void doCommand(String[] commands) throws IOException;
-	//abstract public void returnedMessage(Object msg);
+	abstract public void doCommand(String[] args) throws IOException;
 	
 }

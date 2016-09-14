@@ -2,6 +2,7 @@ package commands;
 
 import java.io.IOException;
 
+import Algorithms.MazeGenerator.Maze3D;
 import model.Model;
 import view.View;
 
@@ -14,13 +15,18 @@ public class Display extends CommonCommand
 
 
 	@Override
-	public void doCommand(String[] commands) throws IOException
+	public void doCommand(String[] args) throws IOException
 	{
-		String name = commands[1];
-		if ((name != null) || (name != "") || (name != " "))
-			model.display(name);
+		if (args[0] == null || args[0].isEmpty())
+			throw new IOException("display [name]");
 		else
-			throw new IOException("display <maze name>");
+		{
+			Maze3D maze = model.display(args[0]);
+			if (maze == null)
+				throw new IOException("Maze does not exist");
+			else
+				view.notify(maze.toString());
+		}
 	}
 
 }

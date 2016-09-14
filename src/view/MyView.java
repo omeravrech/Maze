@@ -16,9 +16,9 @@ public class MyView extends CommonView
 	}
 
 	@Override
-	public void operation(String regex) throws IOException
+	public void operationCommand(String command, String input) throws IOException
 	{
-		controller.operationCommand(regex);
+		controller.operationCommand(command, input);
 	}
 
 	@Override
@@ -28,9 +28,9 @@ public class MyView extends CommonView
 	}
 
 	@Override
-	public void notify(Object msg)
+	public void notify(String message)
 	{
-		cli.print(msg.toString());
+		cli.print(message.toString());
 	}
 
 	

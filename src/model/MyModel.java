@@ -18,9 +18,8 @@ import io.MyCompressorOutputStream;
 
 public class MyModel extends CommonModel
 {
-	
-	class GenerateMazeRunnable implements Runnable {
-
+	class GenerateMazeRunnable implements Runnable
+	{
 		private int floors, rows, cols;
 		private String name;
 		private GrowingTreeGenerator generator;
@@ -39,11 +38,7 @@ public class MyModel extends CommonModel
 			mazeMap.put(name, maze);
 			
 			controller.notify("Maze " + name + " is ready.");			
-		}
-		
-		public void terminate() {
-			//TODO generator.setDone(true);
-		}		
+		}	
 	}
 	
 	@Override
@@ -83,7 +78,6 @@ public class MyModel extends CommonModel
 				}
 			}
 	}
-	
 	public void generate_maze(String name, int floors, int rows, int columns)
 	{
 		GenerateMazeRunnable generateMaze = new GenerateMazeRunnable(name, floors, rows, columns);
@@ -94,11 +88,10 @@ public class MyModel extends CommonModel
 	@Override
 	public File[] dir(String path)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new File(path).listFiles();
 	}
 	@Override
-	public void save(String name, File fileName)
+	public void save(String name, String path)
 	{
 		if (!mazeMap.containsKey(name))
 			controller.notify("maze doesn't exist.");
@@ -115,7 +108,7 @@ public class MyModel extends CommonModel
 				{
 					try
 					{
-						out = new MyCompressorOutputStream(new FileOutputStream(fileName));
+						out = new MyCompressorOutputStream(new FileOutputStream(path));
 						out.write(maze.toByteArray());
 						out.flush();
 					}
@@ -154,7 +147,7 @@ public class MyModel extends CommonModel
 		
 	}
 	@Override
-	public void load(File fileName, String name) {
+	public void load(String name, String path) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -178,12 +171,6 @@ public class MyModel extends CommonModel
 						solutionMap.put(name,solution);
 						controller.notify("Solution for " + name + " is ready.");
 					}
-					
-
-					public void terminate()
-					{
-						//TODO
-					}
 				});
 				thread.start();
 				threads.add(thread);
@@ -194,7 +181,6 @@ public class MyModel extends CommonModel
 			e.printStackTrace();
 		}
 	}
-	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void exit()
@@ -205,5 +191,4 @@ public class MyModel extends CommonModel
 			
 		}		
 	}
-	
 }

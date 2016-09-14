@@ -5,7 +5,7 @@ import java.io.IOException;
 public interface View 
 {
 	public void start();
-	public void operation(String regex) throws IOException;
+	public void operationCommand(String command, String input) throws IOException;
 	public void setCommands();
-	public void notify(Object msg);
+	public void notify(String message);
 }

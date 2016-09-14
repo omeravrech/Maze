@@ -16,8 +16,8 @@ public interface Model
 	//Created by Bar
 	public File[] dir(String path);
 	public void generate_maze(String name, int floors, int rows, int columns);
-	public void save(String name, File fileName); // Using file class?
-	public void load(File fileName, String name);
+	public void save(String name, String path); // Using file class?
+	public void load(String name, String path);
 	public void solve(String name, Searcher<Position> algorithm); // Need to send params to Searcher <T>
 	public void exit(); //TODO: Close ALL FILES(!!) and KILL ALL THREADS(!!)
 

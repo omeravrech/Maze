@@ -22,7 +22,7 @@ public abstract class CommonView implements View {
 	@Override
 	abstract public void start();
 	@Override
-	abstract public void operation(String regex) throws IOException;
-	abstract public void notify(Object msg);
+	abstract public void operationCommand(String command, String input) throws IOException;
+	abstract public void notify(String message);
 
 }

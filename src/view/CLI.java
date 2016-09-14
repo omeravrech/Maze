@@ -60,15 +60,14 @@ public class CLI extends Thread
 		{
 			public void run()
 			{
-				String input;
+				String input = null;
 				boolean commandFlag = false;
 				String commandRegex = null;
 				
 				try
-				{
-
-					
+				{		
 					out.println("Enter your command:");
+					out.flush();
 					while (!(input = in.readLine()).equals("exit"))
 					{
 						Iterator<String> regexIT = commands.keySet().iterator();
@@ -80,13 +79,17 @@ public class CLI extends Thread
 						if (commandFlag)
 						{
 							out.println("Start to calculation your request...");
-							view.operation(commandRegex);
+							view.operationCommand(commandRegex, input);
 						}
 						else
 						{
 							out.println("'" + input.split(" ")[0] + "' is not recognized as an internal or external command.");
 						}
 						out.println("Enter your command:");
+						out.flush();
+						input = null;
+						commandFlag = false;
+						commandRegex = null;
 					}
 					//TODO: EXIT
 				}
