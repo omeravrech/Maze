@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.HashMap;
 
+import commands.ICommand;
 import model.Model;
 import view.View;
 
@@ -23,5 +24,5 @@ public abstract class CommonController implements Controller {
 	
 	abstract protected void InitHashMap();
 	abstract public void operationCommand(String command) throws IOException;
-	abstract public void returnedMessage(Object msg);
+	abstract public void notify(Object msg);
 }

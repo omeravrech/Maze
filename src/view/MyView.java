@@ -28,10 +28,9 @@ public class MyView extends CommonView
 	}
 
 	@Override
-	public void returnedMessage(Object msg) {
-		
-		System.out.println(msg);
-		
+	public void returnedMessage(Object msg)
+	{
+		cli.print(msg.toString());
 	}
 	
 	

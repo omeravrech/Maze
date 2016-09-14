@@ -2,7 +2,6 @@ package commands;
 
 import java.io.IOException;
 
-import controller.ICommand;
 import model.Model;
 import view.View;
 
@@ -18,5 +17,5 @@ public abstract class CommonCommand implements ICommand
 	}
 	
 	abstract public void doCommand(String[] commands) throws IOException;
-	abstract public void returnedMessage(Object msg);
+	//abstract public void returnedMessage(Object msg);
 }

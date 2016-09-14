@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import controller.ICommand;
+import commands.ICommand;
 
 public class CLI extends Thread
 {
@@ -109,5 +109,10 @@ public class CLI extends Thread
 			count++;
 		}
 		return menu.toString();
+	}
+
+	public void print(String string)
+	{
+		System.out.println(string);
 	}
 }

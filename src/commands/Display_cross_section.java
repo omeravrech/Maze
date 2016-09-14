@@ -7,7 +7,6 @@ import view.View;
 
 public class Display_cross_section extends CommonCommand
 {
-
 	public Display_cross_section(View view, Model model) 
 	{
 		super(view, model);
@@ -24,16 +23,5 @@ public class Display_cross_section extends CommonCommand
 		else
 			throw new IOException("Wrong values.");
 		
-	}
-
-	@Override
-	public void returnedMessage(Object msg) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-
-
-	
-	
+	}	
 }

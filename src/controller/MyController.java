@@ -8,6 +8,7 @@ import commands.Display;
 import commands.Display_cross_section;
 import commands.Display_solution;
 import commands.Generate_3d_maze;
+import commands.ICommand;
 import commands.Load_maze;
 import commands.Save_maze;
 import commands.Solve;
@@ -46,7 +47,7 @@ public class MyController extends CommonController
 	}
 
 	@Override
-	public void returnedMessage(Object msg)
+	public void notify(Object msg)
 	{
 		view.returnedMessage(msg);
 	}	

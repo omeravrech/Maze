@@ -1,5 +1,6 @@
 package commands;
 
+import java.io.File;
 import java.io.IOException;
 
 import model.Model;
@@ -11,19 +12,11 @@ public class Dir extends CommonCommand
 	{
 		super(view, model);
 	}
-	
-	@Override
-	public void doCommand(String[] commands) throws IOException
-	{
-
-	}
 
 	@Override
-	public void returnedMessage(Object msg) {
+	public void doCommand(String[] commands) throws IOException {
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 	
 }

@@ -24,15 +24,7 @@ public class Generate_3d_maze extends CommonCommand
 		if ((floors > 0) && (rows > 0) && (columns > 0) && (name != null))
 			model.generate_maze(name, floors, rows, columns);
 		else
-			throw new IOException("Bad values.");
-		returnedMessage("Completed");
-
-	}
-
-	@Override
-	public void returnedMessage(Object msg) {
-		// TODO Auto-generated method stub
-		
+			throw new IOException("generate_3d_maze <maze name> <floors> <rows> <columns>");
 	}
 
 }

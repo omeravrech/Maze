@@ -19,10 +19,4 @@ public class Load_maze extends CommonCommand
 		
 	}
 
-	@Override
-	public void returnedMessage(Object msg) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
