@@ -28,13 +28,14 @@ public class Solve extends CommonCommand
 		else
 		{
 			Searcher<Position> searcher;
-			if (algorithm.equals("BFS"))
+			if (algorithm.equalsIgnoreCase("BFS"))
 				searcher = new BFS<Position>();
-			else if (algorithm.equals("DFS"))
+			else if (algorithm.equalsIgnoreCase("DFS"))
 				searcher = new DFS<Position>();
 			else
 				throw new IOException ("Algorithm not found");
 			
+			view.notify("Start to calculation your request...");
 			model.solve(name, searcher);
 		}
 		

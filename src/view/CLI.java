@@ -60,7 +60,6 @@ public class CLI extends Thread
 						}
 						if (commandFlag)
 						{
-							out.println("Start to calculation your request...");
 							try
 							{
 								view.operationCommand(commandRegex, input);
