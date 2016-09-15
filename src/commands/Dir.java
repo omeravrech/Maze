@@ -27,15 +27,28 @@ public class Dir extends CommonCommand
 				try
 				{
 					File[] fileList = model.dir(path);
-					display.append("Directory of " + path + "\n");
-					for (File file : fileList)
-						display.append("\t" + file + "\n");
+
+					if(fileList == null)
+						display.append("File Not Found");
+					else
+					{
+						display.append(path + "\n");
+						for (File file : fileList)
+						{
+							if(file.isDirectory()==true)
+								display.append("\t|- DIR");
+								else
+									display.append("\t|- ---");
+							display.append("\t" + file.toString().substring(file.toString().lastIndexOf("\\") +1));
+							display.append("\n");
+						}
+					}
 				}
 				catch (Exception e)
 				{
 					display.append(e.getMessage() + "\n");
 				}
-				display.append("\n\n\n");
+				display.append("\n");
 			}
 		}
 		view.notify(display.toString());

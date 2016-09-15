@@ -1,9 +1,11 @@
 package model;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 import Algorithms.MazeGenerator.GrowingTreeGenerator;
@@ -15,6 +17,7 @@ import Algorithms.Search.Searchable;
 import Algorithms.Search.Searcher;
 import Algorithms.Search.Solution;
 import io.MyCompressorOutputStream;
+import io.MyDecompressorInputStream;
 
 public class MyModel extends CommonModel
 {
@@ -24,7 +27,8 @@ public class MyModel extends CommonModel
 		private String name;
 		private GrowingTreeGenerator generator;
 		
-		public GenerateMazeRunnable(String name, int floors, int rows, int cols) {
+		public GenerateMazeRunnable(String name, int floors, int rows, int cols)
+		{
 			this. floors = floors;
 			this.rows = rows;
 			this.cols = cols;
@@ -94,7 +98,7 @@ public class MyModel extends CommonModel
 	public void save(String name, String path)
 	{
 		if (!mazeMap.containsKey(name))
-			controller.notify("maze doesn't exist.");
+			controller.notify("Maze doesn't exist.");
 		else
 		{
 			Thread thread = new Thread(new Runnable()
@@ -106,10 +110,14 @@ public class MyModel extends CommonModel
 				@Override
 				public void run()
 				{
+					controller.notify("Start to calculation your request...");
 					try
 					{
-						out = new MyCompressorOutputStream(new FileOutputStream(path));
-						out.write(maze.toByteArray());
+						out = new MyCompressorOutputStream(new FileOutputStream(path + "\\" + name + ".maz"));
+						byte[] bytes = maze.toByteArray();
+						out.write(bytes.length/127);
+						out.write(bytes.length%127);
+						out.write(bytes);
 						out.flush();
 						controller.notify("Maze " + name + " is saved");
 					}
@@ -148,9 +156,43 @@ public class MyModel extends CommonModel
 		
 	}
 	@Override
-	public void load(String name, String path) {
-		// TODO Auto-generated method stub
-		
+	public void load(String name, String path)
+	{
+			Thread thread = new Thread(new Runnable()
+			{
+				InputStream in;
+				@Override
+				public void run()
+				{
+					controller.notify("Start to calculation your request...");
+					try
+					{
+						in = new MyDecompressorInputStream(new FileInputStream(path + "\\" + name + ".maz"));
+						byte[] inArr = new byte[in.read() * 127 + in.read()];
+						in.read(inArr);
+						
+						Maze3D maze = new Maze3D(inArr);
+						mazeMap.put(name, maze);
+					}
+					catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					finally
+					{
+						try {
+							in.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						controller.notify("Maze " + name + " been loaded");
+					}
+				}
+			});
+			thread.start();
+			threads.add(thread);
 	}
 	@Override
 	public void solve(String name, Searcher<Position> algorithm) throws IOException

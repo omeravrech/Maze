@@ -35,7 +35,8 @@ public class MyController extends CommonController
 		commands.put("display [^ \n]+", new Display(view,model));
 		commands.put("display_cross_section [XYZxyz] [0-9]{1,2} [A-Za-z0-9]+", new Display_cross_section(view,model));
 		commands.put("save [A-Za-z0-9]+ [^ \n]+", new Save_maze(view,model));
-		commands.put("load [^ \n]+ [A-Za-z0-9]+", new Load_maze(view,model));
+		commands.put("load [^ \n]+.maz", new Load_maze(view,model));
+		//commands.put("load [^ \n]+ [A-Za-z0-9]+", new Load_maze(view,model));
 		commands.put("solve [A-Za-z0-9]+ [A-Za-z0-9]+", new Solve(view,model));
 		commands.put("solution [A-Za-z0-9]+", new Display_solution(view,model));
 		commands.put("exit", new Exit(view,model));
