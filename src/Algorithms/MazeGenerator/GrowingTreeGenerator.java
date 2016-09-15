@@ -17,10 +17,12 @@ import java.util.Random;
 public class GrowingTreeGenerator extends AbstractMazeGenerator {
 
 	private AbstractNodeChoose<Position> chooseMethod;
+	private boolean status;
 	
 	public GrowingTreeGenerator(AbstractNodeChoose<Position> chooseMethod)
 	{
 		 this.chooseMethod = chooseMethod;
+		 this.status = false;
 	}
 	
 	@Override
@@ -36,14 +38,14 @@ public class GrowingTreeGenerator extends AbstractMazeGenerator {
 		Position pos = null;
 		Position next = null;
 		ArrayList<Position> visited = new ArrayList<Position>();
-		
+		status = true;
 
 		maze.setStartPosition(new Position(1, 2*rand.nextInt(rows-1)+1, 2*rand.nextInt(columns-1)+1));
 		
 		visited.clear();
 		visited.add(maze.getStartPosition());
 		
-		while (!visited.isEmpty())
+		while (!visited.isEmpty() && (status))
 		{
 			do //choose new node by choose method
 			{
@@ -73,7 +75,13 @@ public class GrowingTreeGenerator extends AbstractMazeGenerator {
 		}
 		
 		maze.setGoalPosition(new Position(2*floors-1, 2*rand.nextInt(rows)+1, 2*rand.nextInt(columns)+1));
+		status = false;
 		return maze;
+	}
+	
+	public void stop()
+	{
+		status = false;
 	}
 		
 }

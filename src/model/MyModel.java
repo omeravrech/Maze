@@ -56,6 +56,11 @@ public class MyModel extends CommonModel
 			
 			controller.notify("Maze " + name + " is ready.");			
 		}	
+		
+		public void stop()
+		{
+			generator.stop();
+		}
 	}
 	
 	/**
@@ -117,7 +122,13 @@ public class MyModel extends CommonModel
 	public void generate_maze(String name, int floors, int rows, int columns)
 	{
 		GenerateMazeRunnable generateMaze = new GenerateMazeRunnable(name, floors, rows, columns);
-		Thread thread = new Thread(generateMaze);
+		Thread thread = new Thread(generateMaze)
+				{
+					public void terminate()
+					{
+						generateMaze.stop();
+					}
+				};
 		thread.start();
 		threads.add(thread);		
 	}
@@ -173,10 +184,12 @@ public class MyModel extends CommonModel
 				
 				public void terminate()
 				{
-					try {
+					try
+					{
 						out.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
+					}
+					catch (IOException e)
+					{
 						e.printStackTrace();
 					}
 				}
@@ -265,10 +278,9 @@ public class MyModel extends CommonModel
 	@Override
 	public void exit()
 	{
-		//TODO: Check if this method will make the program burst into flames
+		
 		for (Thread thread : threads) {
 			thread.stop();
-			
 		}		
 	}
 }
