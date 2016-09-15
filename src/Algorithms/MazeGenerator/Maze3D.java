@@ -175,35 +175,35 @@ public class Maze3D {
 	}
 	public int[][] getCrossSectionByX(int axis) throws IndexOutOfBoundsException
 	{
-		if ((axis < 0) || ((axis) > columns-1))
+		if ((axis < 0) || (axis > columns))
 			throw new IndexOutOfBoundsException("Invalid input.");
 		else
 		{
 			int[][] loc = new int[2*floors+1][2*rows+1];
-				for (int i=0; i < maze.length; i++)
-					for (int j=0; j < maze[i].length; j++)
-						loc[i][j] = maze[i][j][2*axis+1];
+				for (int i=0; i < (2*floors+1); i++)
+					for (int j=0; j < (2*rows+1); j++)
+						loc[i][j] = maze[i][j][2*(axis-1)+1];
 			return loc;
 		}
 	}
 	public int[][] getCrossSectionByY(int axis) throws IndexOutOfBoundsException
 	{
-		if ((axis < 0) || (axis > rows-1))
+		if ((axis < 0) || (axis > rows))
 			throw new IndexOutOfBoundsException("Invalid input.");
 		else
 		{
-		int[][] loc = new int[2*columns+1][floors];
-			for (int i=0; i < maze.length; i++)
-				for (int j=0; j < maze[i][2*axis+1].length; j++)
-					loc[j][i] = maze[i][2*axis+1][j];
+		int[][] loc = new int[2*columns+1][2*floors+1];
+			for (int i=0; i < (2*floors+1); i++)
+				for (int j=0; j < (2*columns+1); j++)
+					loc[j][i] = maze[i][2*(axis-1)+1][j];
 			return loc;
 		}
 	}
 	public int[][] getCrossSectionByZ(int axis) throws IndexOutOfBoundsException
 	{
-		if ((axis < 0) || (axis > floors-1))
+		if ((axis < 0) || (axis > floors))
 			throw new IndexOutOfBoundsException("Invalid input.");
-		return maze[2*axis+1].clone();
+		return maze[2*(axis-1)+1].clone();
 	}
 	
 	
