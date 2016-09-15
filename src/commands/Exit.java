@@ -5,9 +5,16 @@ import java.io.IOException;
 import model.Model;
 import view.View;
 
+/**
+ * Will kill all the threads of the model and view so the program will stop
+ */
 public class Exit extends CommonCommand
 {
-
+	/**
+	 * Constructor
+	 * @param view
+	 * @param model
+	 */
 	public Exit(View view, Model model) 
 	{
 		super(view, model);

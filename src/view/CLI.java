@@ -7,7 +7,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import commands.ICommand;
-
+/**
+* <h1>CLI Class</h1>
+*<br> This class handles the user's inputs.<br>
+*it will read the input and throw errors if the command is not in the correct regex<br>
+*and move forward the correct commands to the correct command 
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   15/09/2016 
+*/
 public class CLI extends Thread
 {
 	private BufferedReader in;
@@ -15,7 +23,12 @@ public class CLI extends Thread
 	private HashMap<String,ICommand> commands;
 	private View view;
 	private boolean flag = true;
-	
+	/**
+	 * Constructor
+	 * @param in
+	 * @param out
+	 * @param view
+	 */
 	public CLI(BufferedReader in, PrintWriter out, View view)
 	{
 		this.in = in;
@@ -23,6 +36,7 @@ public class CLI extends Thread
 		this.view = view;
 	}
 
+	
 	public HashMap<String, ICommand> getCommands() {
 		return commands;
 	}
@@ -30,6 +44,14 @@ public class CLI extends Thread
 	public void setCommands(HashMap<String, ICommand> commands) {
 		this.commands = commands;
 	}
+
+	/**
+	*This method will be executed by new thread and handle<br>
+	*the user's choice from the commands
+	* @author  Omer Avrech & Bar Malka
+	* @version 1.0
+	* @since   15/09/2016 
+	*/
 	public void start()
 	{
 		new Thread(new Runnable()
@@ -87,7 +109,9 @@ public class CLI extends Thread
 			}
 		}).start();
 	}
-	
+	/**
+	 * This method prints the menu of commands to the user
+	 */
 	public String displayMenu()
 	{
 		StringBuilder menu = new StringBuilder();

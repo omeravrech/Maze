@@ -5,9 +5,16 @@ import java.io.IOException;
 import model.Model;
 import view.View;
 
+/**
+ * Generates a 3d maze (with GrowingTree algorithm) from the user's parameters
+ */
 public class Generate_3d_maze extends CommonCommand
 {
-
+	/**
+	 * Constructor
+	 * @param view
+	 * @param model
+	 */
 	public Generate_3d_maze(View view, Model model) 
 	{
 		super(view, model);

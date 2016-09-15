@@ -6,6 +6,10 @@ import java.io.IOException;
 import model.Model;
 import view.View;
 
+/**
+ * Displays the folders and files of the selected path <br>
+ * then print it (throws the output to the view)
+ */
 public class Dir extends CommonCommand
 {
 	public Dir(View view, Model model) 

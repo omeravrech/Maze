@@ -16,9 +16,22 @@ import commands.Solve;
 import model.Model;
 import view.View;
 
+
+/**
+* <h1>MyController class</h1>
+*<br> extends CommonController class<br>
+*and holds abstract methods as well
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   15/09/2016 
+*/
 public class MyController extends CommonController
 {
-	
+	/**
+	 * Constructor
+	 * @param view
+	 * @param model
+	 */
 	public MyController(View view, Model model)
 	{
 		super(view, model);
@@ -42,6 +55,10 @@ public class MyController extends CommonController
 		commands.put("exit", new Exit(view,model));
 	}
 	
+	/**
+	 * Separate the inputs into an array of arguments and send <br>
+	 * the user's command to the correct command 
+	 */
 	@Override
 	public void operationCommand(String command, String input) throws IOException
 	{
@@ -49,7 +66,10 @@ public class MyController extends CommonController
 		ICommand icommand = commands.get(command);
 		icommand.doCommand(args);
 	}
-
+	
+	/**
+	 * notify the view
+	 */
 	@Override
 	public void notify(String message)
 	{

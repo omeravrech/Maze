@@ -19,8 +19,21 @@ import Algorithms.Search.Solution;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
+/**
+* <h1>MyModel class</h1>
+*<br> MyModel will implement the commands after being verified<br>
+*by the validation functions
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   15/09/2016 
+*/
 public class MyModel extends CommonModel
 {
+	/**
+	 * This class will implement the Maze generation with GrowingTree algorithm
+	 * @author Bar Malka & Omer Avrech
+	 *@since 15/09/2016
+	 */
 	class GenerateMazeRunnable implements Runnable
 	{
 		private int floors, rows, cols;
@@ -45,6 +58,11 @@ public class MyModel extends CommonModel
 		}	
 	}
 	
+	/**
+	 * displays the selected maze (by name)
+	 * will return null if not exist
+	 * @return Maze3D
+	 */
 	@Override
 	public Maze3D display(String name) 
 	{
@@ -53,6 +71,10 @@ public class MyModel extends CommonModel
 		else
 			return null;
 	}
+	/**
+	 * Display the solution (array of positions) of the selected maze
+	 * <br> will return null if the maze does not exist
+	 */
 	@Override
 	public Solution<Position> display_solution(String name)
 	{
@@ -61,6 +83,12 @@ public class MyModel extends CommonModel
 		else
 			return null;
 	}
+	
+	/**
+	 * Displaying the cross section (2d maze) <br>
+	 * Proper regex is  [asix] [line] [name] <br>
+	 * May return null if maze does not exist
+	 */
 	@Override
 	public int[][] display_cross_section(char asix, int line, String name)
 	{
@@ -82,6 +110,10 @@ public class MyModel extends CommonModel
 				}
 			}
 	}
+	/**
+	 * generate a 3d maze with the parameters from the regex: <br>
+	 * generate [name] [floors] [rows] [columns]
+	 */
 	public void generate_maze(String name, int floors, int rows, int columns)
 	{
 		GenerateMazeRunnable generateMaze = new GenerateMazeRunnable(name, floors, rows, columns);
@@ -155,6 +187,9 @@ public class MyModel extends CommonModel
 		}
 		
 	}
+	/**
+	 * Loads a new maze from a file (provided by the user's path)
+	 */
 	@Override
 	public void load(String name, String path)
 	{
@@ -194,6 +229,11 @@ public class MyModel extends CommonModel
 			thread.start();
 			threads.add(thread);
 	}
+	
+	/**
+	 * Solve command will solve the maze and return a message when the <br>
+	 * maze is ready. Will throw an error if the maze does not exist.
+	 */
 	@Override
 	public void solve(String name, Searcher<Position> algorithm) throws IOException
 
@@ -217,6 +257,10 @@ public class MyModel extends CommonModel
 				threads.add(thread);
 			}
 	}
+	/**
+	 * Killing all threads (no files will stay opened) <br>
+	 * Ends the run
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	public void exit()

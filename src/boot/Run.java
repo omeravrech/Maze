@@ -13,6 +13,13 @@ import view.MyView;
 
 public class Run {
 
+	/**
+	* <h1>Run class</h1>
+	*
+	* @author  Omer Avrech & Bar Malka
+	* @version 1.0
+	* @since   15/09/2016 
+	*/
 	public static void main(String[] args)
 	{
 		CommonModel model = new MyModel();

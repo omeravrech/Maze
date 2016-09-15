@@ -6,9 +6,17 @@ import java.io.IOException;
 import model.Model;
 import view.View;
 
+
+/**
+ * Loads the maze from a file (binary to 3d maze)
+ */
 public class Load_maze extends CommonCommand
 {
-
+	/**
+	 * Constructor
+	 * @param view
+	 * @param model
+	 */
 	public Load_maze(View view, Model model) 
 	{
 		super(view, model);

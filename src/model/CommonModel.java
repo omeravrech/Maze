@@ -12,6 +12,15 @@ import Algorithms.Search.Searcher;
 import Algorithms.Search.Solution;
 import controller.Controller;
 
+
+/**
+* <h1>CommonModel abstract class</h1>
+*<br> an abstract class that implements Model<br>
+*This class will hold the abstract methods for the model to implement
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   15/09/2016 
+*/
 public abstract class CommonModel implements Model {
 
 	protected Controller controller;
@@ -19,6 +28,10 @@ public abstract class CommonModel implements Model {
 	protected HashMap<String, Solution<Position>> solutionMap;
 	protected List<Thread> threads;
 	
+	/**
+	 * Setting the controller 
+	 * @param controller
+	 */
 	public void setController (Controller controller)
 	{
 		this.controller = controller;

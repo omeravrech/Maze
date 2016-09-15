@@ -4,9 +4,17 @@ import java.io.IOException;
 
 import model.Model;
 import view.View;
-
+/**
+ * Receives the inputs and go to the maze's "displayCrossSectionBy" function <br>
+ * and return a 2d array to the user in the view
+ */
 public class Display_cross_section extends CommonCommand
 {
+	/**
+	 * Constructor
+	 * @param view
+	 * @param model
+	 */
 	public Display_cross_section(View view, Model model) 
 	{
 		super(view, model);

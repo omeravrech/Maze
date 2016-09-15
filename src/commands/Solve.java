@@ -9,9 +9,17 @@ import Algorithms.Search.Searcher;
 import model.Model;
 import view.View;
 
+
+/**
+ * Solve the solution and notify the view when the solution is ready
+ */
 public class Solve extends CommonCommand
 {
-
+	/**
+	 * Constructor
+	 * @param view
+	 * @param model
+	 */
 	public Solve(View view, Model model) 
 	{
 		super(view, model);

@@ -4,12 +4,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+
+/**
+* <h1>MyView</h1>
+*<br> This class will display to the user result of the<br>
+*commands and also receive the user's input and handle it
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   15/09/2016 
+*/
 public class MyView extends CommonView
 {
 	public MyView(BufferedReader in, PrintWriter out) {
 		this.cli = new CLI(in, out, this);
 	}
-	
+	/**
+	 * This function calls cli's start function
+	 * @see view.CLI
+	 */
 	@Override
 	public void start() {
 		cli.start();

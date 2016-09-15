@@ -7,10 +7,18 @@ import Algorithms.Search.Solution;
 import model.Model;
 import view.View;
 
+/**
+ * This command will go to the HashMap of the solutions and send to the view <br>
+ * the wanted solution
+ */
 public class Display_solution extends CommonCommand
 {
 		
-	
+	/**
+	 * Constructor
+	 * @param view
+	 * @param model
+	 */
 	public Display_solution(View view, Model model) {
 		super(view, model);
 	}

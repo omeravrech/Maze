@@ -6,9 +6,17 @@ import Algorithms.MazeGenerator.Maze3D;
 import model.Model;
 import view.View;
 
+/**
+ * receives the name of the maze and return the 3d maze (toString method) so the <br>
+ * view can print it to the user
+ */
 public class Display extends CommonCommand
 {
-	
+	/**
+	 * Constructor
+	 * @param view
+	 * @param model
+	 */
 	public Display(View view, Model model) {
 		super(view,model);
 	}
