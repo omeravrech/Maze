@@ -1,6 +1,6 @@
 package MVP.presenter;
 
-public interface Presenter 
+public interface Presenter
 {
-
+	
 }
