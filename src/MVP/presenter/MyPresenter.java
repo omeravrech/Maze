@@ -5,6 +5,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.PriorityQueue;
 
+import MVC.commands.Generate_3d_maze;
+import MVP.commands.ICommand;
 import MVP.model.Model;
 import MVP.view.View;
 
@@ -64,7 +66,12 @@ public class MyPresenter implements Observer, Presenter
 	{
 		Request request = (Request)arg;
 		if (o == view)
-			request.setPriority(Priorities.HIGH);
+			if ((request.command.getClass() == MVP.commands.Generate_3d_maze.class) ||
+				(request.command.getClass() == MVP.commands.Solve.class) ||
+				(request.command.getClass() == MVP.commands.Save_maze.class))
+				request.setPriority(Priorities.HIGH);
+			else
+				request.setPriority(Priorities.LOW);
 		else if (o == model)
 			request.setPriority(Priorities.LOW);
 		
