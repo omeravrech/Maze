@@ -1,4 +1,4 @@
-package view;
+package MVC.view;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class MyView extends CommonView
 	}
 	/**
 	 * This function calls cli's start function
-	 * @see view.CLI
+	 * @see MVC.view.CLI
 	 */
 	@Override
 	public void start() {

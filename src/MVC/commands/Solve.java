@@ -1,4 +1,4 @@
-package commands;
+package MVC.commands;
 
 import java.io.IOException;
 
@@ -6,8 +6,8 @@ import Algorithms.MazeGenerator.Position;
 import Algorithms.Search.BFS;
 import Algorithms.Search.DFS;
 import Algorithms.Search.Searcher;
-import model.Model;
-import view.View;
+import MVC.model.Model;
+import MVC.view.View;
 
 
 /**

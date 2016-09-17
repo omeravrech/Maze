@@ -1,4 +1,4 @@
-package commands;
+package MVC.commands;
 
 import java.io.IOException;
 /**

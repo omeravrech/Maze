@@ -1,10 +1,10 @@
-package commands;
+package MVC.commands;
 
 import java.io.IOException;
 
 import Algorithms.MazeGenerator.Maze3D;
-import model.Model;
-import view.View;
+import MVC.model.Model;
+import MVC.view.View;
 
 /**
  * receives the name of the maze and return the 3d maze (toString method) so the <br>

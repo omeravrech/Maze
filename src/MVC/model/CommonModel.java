@@ -1,4 +1,4 @@
-package model;
+package MVC.model;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import Algorithms.MazeGenerator.Maze3D;
 import Algorithms.MazeGenerator.Position;
 import Algorithms.Search.Searcher;
 import Algorithms.Search.Solution;
-import controller.Controller;
+import MVC.controller.Controller;
 
 
 /**

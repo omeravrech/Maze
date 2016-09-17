@@ -1,11 +1,11 @@
-package controller;
+package MVC.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
 
-import commands.ICommand;
-import model.Model;
-import view.View;
+import MVC.commands.ICommand;
+import MVC.model.Model;
+import MVC.view.View;
 /**
 * <h1>CommonController abstract class</h1>
 *<br> This class implements the controller interface,<br>

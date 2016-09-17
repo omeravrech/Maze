@@ -1,9 +1,9 @@
-package commands;
+package MVC.commands;
 
 import java.io.IOException;
 
-import model.Model;
-import view.View;
+import MVC.model.Model;
+import MVC.view.View;
 
 /**
  * Will kill all the threads of the model and view so the program will stop

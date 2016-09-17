@@ -1,9 +1,9 @@
-package commands;
+package MVC.commands;
 
 import java.io.IOException;
 
-import model.Model;
-import view.View;
+import MVC.model.Model;
+import MVC.view.View;
 
 /**
  * Generates a 3d maze (with GrowingTree algorithm) from the user's parameters

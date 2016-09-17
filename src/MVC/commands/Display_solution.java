@@ -1,11 +1,11 @@
-package commands;
+package MVC.commands;
 
 import java.io.IOException;
 
 import Algorithms.MazeGenerator.Position;
 import Algorithms.Search.Solution;
-import model.Model;
-import view.View;
+import MVC.model.Model;
+import MVC.view.View;
 
 /**
  * This command will go to the HashMap of the solutions and send to the view <br>

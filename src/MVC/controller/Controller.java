@@ -1,9 +1,9 @@
-package controller;
+package MVC.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
 
-import commands.ICommand;
+import MVC.commands.ICommand;
 /**
 * <h1>Controller interface</h1>
 *<br> this interface receive the command and its input (if exist)<br>

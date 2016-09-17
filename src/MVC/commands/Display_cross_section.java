@@ -1,9 +1,9 @@
-package commands;
+package MVC.commands;
 
 import java.io.IOException;
 
-import model.Model;
-import view.View;
+import MVC.model.Model;
+import MVC.view.View;
 /**
  * Receives the inputs and go to the maze's "displayCrossSectionBy" function <br>
  * and return a 2d array to the user in the view

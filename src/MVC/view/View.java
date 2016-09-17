@@ -1,11 +1,11 @@
-package view;
+package MVC.view;
 
 import java.io.IOException;
 /**
 * <h1>View interface</h1>
 *<br> this interface contains every function that<br>
 *MyView must have
-*@see view.CommonView
+*@see MVC.view.CommonView
 * @author  Omer Avrech & Bar Malka
 * @version 1.0
 * @since   15/09/2016 

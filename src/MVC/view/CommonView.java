@@ -1,8 +1,8 @@
-package view;
+package MVC.view;
 
 import java.io.IOException;
 
-import controller.Controller;
+import MVC.controller.Controller;
 /**
 * <h1>CommonView abstract class</h1>
 *<br> an abstract class that contain the data members<br>

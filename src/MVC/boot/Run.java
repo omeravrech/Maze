@@ -1,15 +1,15 @@
-package boot;
+package MVC.boot;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
-import controller.CommonController;
-import controller.MyController;
-import model.CommonModel;
-import model.MyModel;
-import view.CommonView;
-import view.MyView;
+import MVC.controller.CommonController;
+import MVC.controller.MyController;
+import MVC.model.CommonModel;
+import MVC.model.MyModel;
+import MVC.view.CommonView;
+import MVC.view.MyView;
 
 public class Run {
 

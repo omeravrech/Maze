@@ -1,20 +1,20 @@
-package controller;
+package MVC.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
 
-import commands.Dir;
-import commands.Display;
-import commands.Display_cross_section;
-import commands.Display_solution;
-import commands.Exit;
-import commands.Generate_3d_maze;
-import commands.ICommand;
-import commands.Load_maze;
-import commands.Save_maze;
-import commands.Solve;
-import model.Model;
-import view.View;
+import MVC.commands.Dir;
+import MVC.commands.Display;
+import MVC.commands.Display_cross_section;
+import MVC.commands.Display_solution;
+import MVC.commands.Exit;
+import MVC.commands.Generate_3d_maze;
+import MVC.commands.ICommand;
+import MVC.commands.Load_maze;
+import MVC.commands.Save_maze;
+import MVC.commands.Solve;
+import MVC.model.Model;
+import MVC.view.View;
 
 
 /**
