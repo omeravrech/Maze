@@ -1,7 +1,6 @@
 package MVP.model;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 import Algorithms.MazeGenerator.Position;
 import Algorithms.Search.Searcher;
@@ -13,7 +12,7 @@ public interface Model
 	public void save(String name, String path) throws IOException;
 	public void load(String name, String path) throws IOException;
 	public void solve(String name, Searcher<Position> algorithm) throws IOException;
-	public void display_cross_section(char asix, int line, String name);
+	public void display_cross_section(String asix, int line, String name) throws IOException;
 	public void display(String name);
 	public void display_solution(String name);	
 	public void dir(String path);

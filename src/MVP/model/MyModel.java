@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import Algorithms.MazeGenerator.GrowingTreeGenerator;
 import Algorithms.MazeGenerator.Maze3D;
@@ -127,9 +129,35 @@ public class MyModel extends CommonModel
 		
 	}
 	@Override
-	public void display_cross_section(char asix, int line, String name) {
-		// TODO Auto-generated method stub
-		
+	public void display_cross_section(String asix, int line, String name) throws IOException
+	{
+		if (mazes.containsKey(name))
+		{
+			Maze3D maze = mazes.get(name);
+			Pattern crossByX = Pattern.compile("[Xx]");
+			Pattern crossByY = Pattern.compile("[Yy]");
+			Pattern crossByZ = Pattern.compile("[Zz]");
+			Matcher columns = crossByX.matcher(asix);
+			Matcher rows = crossByY.matcher(asix);
+			Matcher floors = crossByZ.matcher(asix);
+			if (columns.lookingAt())
+			{
+				this.setChanged();
+				this.notifyObservers(maze.getCrossSectionByX(line));
+			}
+			if (rows.lookingAt())
+			{
+				this.setChanged();
+				this.notifyObservers(maze.getCrossSectionByY(line));
+			}
+			if (floors.lookingAt())
+			{
+				this.setChanged();
+				this.notifyObservers(maze.getCrossSectionByZ(line));
+			}
+		}
+		else
+			throw new IOException("The index is outside the scope of the maze");
 	}
 	@Override
 	public void display_solution(String name) 

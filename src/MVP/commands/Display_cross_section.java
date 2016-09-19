@@ -12,9 +12,13 @@ public class Display_cross_section extends CommonCommand {
 	}
 
 	@Override
-	public void doCommand(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-
+	public void doCommand(String[] args) throws IOException 
+	{	
+		String asix = args[3];
+		int line = Integer.parseInt(args[4]);
+		String name = args[5];
+		
+		model.display_cross_section(asix, line, name);
 	}
 
 }
