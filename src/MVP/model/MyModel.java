@@ -35,25 +35,24 @@ public class MyModel extends CommonModel
 			}
 			else
 			{
-					Future<Maze3D> future = this.pool.submit(new Callable<Maze3D>() 
-					{
-						private GrowingTreeGenerator generator;
-						
-						@Override
-						public Maze3D call() throws Exception
-						{
-							generator = new GrowingTreeGenerator(new RandomChoose());
-							return generator.generate(floors, rows, columns);
-						}
-						
-					});
+				Future<Maze3D> future = this.pool.submit(new Callable<Maze3D>() 
+				{
+					private GrowingTreeGenerator generator;
 					
-						mazes.put(name, future.get());
-					this.setChanged();
-					this.notifyObservers("Maze is ready");
-				}
+					@Override
+					public Maze3D call() throws Exception
+					{
+						generator = new GrowingTreeGenerator(new RandomChoose());
+						return generator.generate(floors, rows, columns);
+					}
+				});
+					
+				mazes.put(name, future.get());
+				this.setChanged();
+				this.notifyObservers("Maze " + name + " has been generated");
+			}
 		}
-		catch (InterruptedException | ExecutionException e) {
+		catch (Exception e) {
 			throw new IOException(e);
 		}
 	}
@@ -117,58 +116,55 @@ public class MyModel extends CommonModel
 		this.notifyObservers(string);
 	}
 	@Override
-	public void exit() {
-		// TODO Auto-generated method stub
-		
+	public void exit() 
+	{
+		pool.shutdownNow();
+		System.out.println("get down motherfucker");
 	}
 	@Override
 	public void save(String name, String path) throws IOException
 	{
-		if (mazes.containsKey(name))
-			throw new IOException("Maze already exist under this name");
+		if (!mazes.containsKey(name))
+			throw new IOException("Can't found an existing maze under this name");
 		else
 		{
-			File file = new File(path); 
-			if (file.exists())
-				throw new IOException("Folder doesn't exist");
-			else
+			StringBuilder result = new StringBuilder();
+			try
 			{
-				StringBuilder result = new StringBuilder();
-				try
+				pool.submit(new Runnable()
 				{
-					pool.submit(new Runnable()
+					private Maze3D maze = mazes.get(name);
+					private OutputStream out;
+					
+					@Override
+					public void run()
 					{
-						private Maze3D maze = mazes.get(name);
-						private OutputStream out;
-						
-						@Override
-						public void run()
+						try
 						{
-							try
-							{
-								out = new MyCompressorOutputStream(new FileOutputStream(path + "\\" + name + ".maze"));
-								byte[] bytes = maze.toByteArray();
-								out.write(bytes.length/128);
-								out.write(bytes.length%128);
-								out.write(bytes);
-								out.flush();
-								result.append("Maze " + name + " is save");
-								out.close();
-							}
-							catch (Exception e)
-							{
-								result.append(e.getMessage());
-							}
+							String string = path + "/" + name + ".dat";
+							out = new MyCompressorOutputStream(new FileOutputStream(string));
+							byte[] bytes = maze.toByteArray();
+							out.write(bytes.length/128);
+							out.write(bytes.length%128);
+							out.write(bytes);
+							out.flush();
+							result.append("Maze " + name + " is saved\n");
+							result.append("File save into " + string);
+							out.close();
 						}
-					}).get();
-				}
-				catch (ExecutionException | InterruptedException e)
-				{
-					throw new IOException(e.getMessage());
-				}
-				this.setChanged();
-				this.notifyObservers(result);
+						catch (Exception e)
+						{
+							result.append(e.getMessage());
+						}
+					}
+				}).get();
 			}
+			catch (ExecutionException | InterruptedException e)
+			{
+				throw new IOException(e.getMessage());
+			}
+			this.setChanged();
+			this.notifyObservers(result);
 		}
 	}
 	@Override

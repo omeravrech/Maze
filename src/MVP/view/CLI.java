@@ -21,6 +21,7 @@ public class CLI extends Observable
 	private BufferedReader in;
 	private PrintWriter out;
 	private HashMap<String,String> regexMap;
+	private boolean isRunning;
 	/**
 	 * Constructor
 	 * @param in
@@ -30,6 +31,8 @@ public class CLI extends Observable
 	{
 		this.in = in;
 		this.out = out;
+		
+		isRunning = true;
 		
 		this.regexMap = new HashMap<String,String>();
 		regexMap.put("dir", "dir [^ \n]+");
@@ -43,6 +46,7 @@ public class CLI extends Observable
 		regexMap.put("solve", "solve [A-Za-z0-9]+ [A-Za-z0-9]+");
 		regexMap.put("display solution", "display solution [A-Za-z0-9]+");
 		regexMap.put("help", "help");
+		regexMap.put("exit", "exit");
 	}
 	/**
 	*This method will be executed by new thread and handle<br>
@@ -57,10 +61,11 @@ public class CLI extends Observable
 
 			@Override
 			public void run() {
-				print("Enter your command: ");
-				try {
+				try
+				{
 					String line = null;
 
+					print("Enter your command: ");
 					while (!(line = in.readLine()).equals("exit"))
 					{
 						boolean commandOk = false;
@@ -98,7 +103,7 @@ public class CLI extends Observable
 						}
 
 						else
-							print("sorry your command: " + line + " " + "undefined");
+							print("You are STUPID. your command: " + line + " " + "undefined");
 						print("Enter your command: ");
 					}
 					exit();
@@ -120,11 +125,14 @@ public class CLI extends Observable
 	}
 	public void exit()
 	{
+		isRunning = false;
 		print("Good bye!!!");
 		try
 		{
 			out.close();
 			in.close();
+			this.setChanged();
+			this.notifyObservers("exit");
 		}
 		catch (IOException e)
 		{

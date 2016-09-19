@@ -34,6 +34,4 @@ public class MyView extends CommonView
 			this.notifyObservers(args);
 		}
 	}
-
-
 }

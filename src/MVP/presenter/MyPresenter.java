@@ -11,7 +11,6 @@ import MVP.commands.Dir;
 import MVP.commands.Display;
 import MVP.commands.Display_cross_section;
 import MVP.commands.Display_solution;
-import MVP.commands.Exit;
 import MVP.commands.Generate_3d_Maze;
 import MVP.commands.ICommand;
 import MVP.commands.Load_maze;
@@ -47,7 +46,6 @@ public class MyPresenter implements Observer, Presenter
 		commands.put("solve [A-Za-z0-9]+ [A-Za-z0-9]+", new Solve(model,view));
 		commands.put("display solution [A-Za-z0-9]+", new Display_solution(model, view));
 		//commands.put("help", new ICommand Help(model,view);
-		commands.put("exit", new Exit(model,view));
 	}
 	
 	public void start()
@@ -85,25 +83,26 @@ public class MyPresenter implements Observer, Presenter
 		thread.start();
 		view.start();
 	}
-	
-	public void stop()
-	{
-		runningStatus = false;
-	}
-	@Override
-	
+
+	@Override	
 	public void update(Observable o, Object arg)
 	{
-		if (o == view)	
+		if (o == view)
 			if (arg != null)
 			{
-				requestList.add((CommandData)arg);
-					thread.resume();
+				if (arg.toString().equals("exit"))
+				{
+					runningStatus = false;
+					model.exit();
+				}
+				else
+					requestList.add((CommandData)arg);
+				thread.resume();
 			}
 		
 		if (o == model)
-				view.Result(arg.toString());
-		
-		
+		{
+			view.Result(arg.toString());
+		}
 	}
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import Algorithms.MazeGenerator.Maze3D;
 import Algorithms.MazeGenerator.Position;
