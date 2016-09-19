@@ -12,9 +12,10 @@ public class Display extends CommonCommand {
 	}
 
 	@Override
-	public void doCommand(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-
+	public void doCommand(String[] args) throws IOException
+	{
+		String name = args[1];
+		model.display(name);
 	}
 
 }

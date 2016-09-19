@@ -1,7 +1,7 @@
 package MVP.view;
 
-public interface View {
-
-	public void operate();
-	public void request();
+public interface View
+{
+	public void start();
+	 public void Result(String result);
 }

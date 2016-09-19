@@ -48,7 +48,7 @@ public abstract class CommonModel implements Model {
 	abstract public Maze3D display(String name);
 	abstract public int[][] display_cross_section(char asix, int line, String name);
 	abstract public Solution<Position> display_solution(String name);
-	abstract public void generate_maze(String name, int floors, int rows, int columns);
+	abstract public void generate_3d_maze(String name, int floors, int rows, int columns);
 	abstract public File[] dir(String path);
 	abstract public void save(String name, String path); // Using file class?
 	abstract public void load(String name, String path);

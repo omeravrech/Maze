@@ -22,7 +22,7 @@ public interface Model
 	public Maze3D display(String name);
 	public Solution<Position> display_solution(String name);	
 	public File[] dir(String path);
-	public void generate_maze(String name, int floors, int rows, int columns);
+	public void generate_3d_maze(String name, int floors, int rows, int columns);
 	public void save(String name, String path);
 	public void load(String name, String path);
 	public void solve(String name, Searcher<Position> algorithm) throws IOException;

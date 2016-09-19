@@ -119,7 +119,7 @@ public class MyModel extends CommonModel
 	 * generate a 3d maze with the parameters from the regex: <br>
 	 * generate [name] [floors] [rows] [columns]
 	 */
-	public void generate_maze(String name, int floors, int rows, int columns)
+	public void generate_3d_maze(String name, int floors, int rows, int columns)
 	{
 		GenerateMazeRunnable generateMaze = new GenerateMazeRunnable(name, floors, rows, columns);
 		Thread thread = new Thread(generateMaze)

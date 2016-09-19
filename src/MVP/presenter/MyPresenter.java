@@ -1,12 +1,22 @@
 package MVP.presenter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.PriorityQueue;
+import java.util.concurrent.ExecutionException;
 
-import MVC.commands.Generate_3d_maze;
+import MVP.commands.Dir;
+import MVP.commands.Display;
+import MVP.commands.Display_cross_section;
+import MVP.commands.Display_solution;
+import MVP.commands.Exit;
+import MVP.commands.Generate_3d_Maze;
 import MVP.commands.ICommand;
+import MVP.commands.Load_maze;
+import MVP.commands.Save_maze;
+import MVP.commands.Solve;
 import MVP.model.Model;
 import MVP.view.View;
 
@@ -14,7 +24,8 @@ public class MyPresenter implements Observer, Presenter
 {
 	protected Model model;
 	protected View view;
-	protected PriorityQueue<Request> operations;
+	private LinkedList<CommandData> requestList;
+	private HashMap<String, ICommand> commands;
 	protected boolean runningStatus;
 	Thread thread;
 	
@@ -22,39 +33,57 @@ public class MyPresenter implements Observer, Presenter
 	{
 		this.model = model;
 		this.view = view;
-		this.operations = new PriorityQueue <Request>();
-		runningStatus = true;
+		this.requestList = new LinkedList<CommandData>();
+		this.runningStatus = true;
+
+		/* Initializing the HashMap with the proper regex */
+		commands = new HashMap<String,ICommand>();
+		commands.put("dir [^ \n]+", new Dir(model,view));
+		commands.put("generate 3d maze [A-Za-z0-9]+ [0-9]{1,2} [0-9]{1,2} [0-9]{1,2}", new Generate_3d_Maze(model,view));
+		commands.put("display [^ \n]+", new Display(model,view));
+		commands.put("display cross section by [XYZxyz] [0-9]{1,2} for [A-Za-z0-9]+", new Display_cross_section(model, view));
+		commands.put("save maze [A-Za-z0-9]+ [^ \n]+", new Save_maze(model,view));
+		commands.put("load maze [^ \n]+ [A-Za-z0-9]+", new Load_maze(model,view));
+		commands.put("solve [A-Za-z0-9]+ [A-Za-z0-9]+", new Solve(model,view));
+		commands.put("display solution [A-Za-z0-9]+", new Display_solution(model, view));
+		//commands.put("help", new ICommand Help(model,view);
+		commands.put("exit", new Exit(model,view));
 	}
 	
 	public void start()
-	{
-		thread = new Thread(new Runnable() {
-			
+	{	
+		thread = new Thread(new Runnable()
+		{
 			@Override
 			public void run()
 			{
 				while(runningStatus)
 				{
-					if (operations.isEmpty())
-						try {
-							this.wait();
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					else
+					CommandData request = requestList.poll();
+					try
 					{
-						Request request = operations.remove();
-						try {
-							request.command.doCommand(request.getArgs());
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						if (request == null)
+						{
+							thread.suspend();
+						}
+						else
+						{
+							commands.get(request.getRegex()).doCommand(request.getInput());
+							
 						}
 					}
+					catch (IOException | InterruptedException | ExecutionException e)
+					{
+						// TODO Auto-generated catch block
+						System.out.println("throw from Presenter thread");
+						e.printStackTrace();
+					} 
 				}
 			}
 		});
+		thread.setName("Presenter-Thread");
+		thread.start();
+		view.start();
 	}
 	
 	public void stop()
@@ -62,20 +91,19 @@ public class MyPresenter implements Observer, Presenter
 		runningStatus = false;
 	}
 	@Override
+	
 	public void update(Observable o, Object arg)
 	{
-		Request request = (Request)arg;
-		if (o == view)
-			if ((request.command.getClass() == MVP.commands.Generate_3d_maze.class) ||
-				(request.command.getClass() == MVP.commands.Solve.class) ||
-				(request.command.getClass() == MVP.commands.Save_maze.class))
-				request.setPriority(Priorities.HIGH);
-			else
-				request.setPriority(Priorities.LOW);
-		else if (o == model)
-			request.setPriority(Priorities.LOW);
+		if (o == view)	
+			if (arg != null)
+			{
+				requestList.add((CommandData)arg);
+					thread.resume();
+			}
 		
-		if(!thread.isAlive())
-			thread.interrupt();
+		if (o == model)
+				view.Result(arg.toString());
+		
+		
 	}
 }

@@ -31,7 +31,7 @@ public class Generate_3d_maze extends CommonCommand
 		if ((floors > 0) && (rows > 0) && (columns > 0) && (name != null))
 		{
 			view.notify("Start to calculation your request...");
-			model.generate_maze(name, floors, rows, columns);
+			model.generate_3d_maze(name, floors, rows, columns);
 		}
 		else
 			view.notify("generate_3d_maze <maze name> <floors> <rows> <columns>");
