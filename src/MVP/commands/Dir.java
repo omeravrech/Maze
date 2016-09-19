@@ -16,7 +16,8 @@ public class Dir extends CommonCommand
 	@Override
 	public void doCommand(String[] args) throws IOException 
 	{
-		// TODO Auto-generated method stub
+		String path = args[1];
+		model.dir(path);
 		
 	}
 

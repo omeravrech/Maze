@@ -1,5 +1,6 @@
 package MVP.model;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -147,8 +148,35 @@ public class MyModel extends CommonModel
 		
 	}
 	@Override
-	public void dir(String path) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void dir(String path)
+	{
+		StringBuilder display = new StringBuilder();
+		try
+		{
+			File[] fileList = new File(path).listFiles();
+
+			if (fileList == null)
+				display.append("File Not Found");
+			else
+			{
+				display.append(path + "\n");
+				for (File file : fileList)
+				{
+					if(file.isDirectory()==true)
+						display.append("\t|- DIR");
+						else
+							display.append("\t|- ---");
+					display.append("\t" + file.toString().substring(file.toString().lastIndexOf("\\") +1));
+					display.append("\n");
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			display.append(e.getMessage());
+		}
+		display.append("\n");
+		this.setChanged();
+		this.notifyObservers(display.toString());
+	}		
 }
