@@ -1,7 +1,10 @@
 package MVP.model;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -15,6 +18,7 @@ import Algorithms.MazeGenerator.RandomChoose;
 import Algorithms.Search.MazeAdapter;
 import Algorithms.Search.Searcher;
 import Algorithms.Search.Solution;
+import io.MyCompressorOutputStream;
 
 public class MyModel extends CommonModel
 {
@@ -94,7 +98,6 @@ public class MyModel extends CommonModel
 			throw new IOException(e);
 		}
 	}
-
 	public void display(String name)
 	{
 		StringBuilder string = new StringBuilder();
@@ -119,9 +122,54 @@ public class MyModel extends CommonModel
 		
 	}
 	@Override
-	public void save(String name, String path) throws IOException {
-		// TODO Auto-generated method stub
-		
+	public void save(String name, String path) throws IOException
+	{
+		if (mazes.containsKey(name))
+			throw new IOException("Maze already exist under this name");
+		else
+		{
+			File file = new File(path); 
+			if (file.exists())
+				throw new IOException("Folder doesn't exist");
+			else
+			{
+				StringBuilder result = new StringBuilder();
+				try
+				{
+					pool.submit(new Runnable()
+					{
+						private Maze3D maze = mazes.get(name);
+						private OutputStream out;
+						
+						@Override
+						public void run()
+						{
+							try
+							{
+								out = new MyCompressorOutputStream(new FileOutputStream(path + "\\" + name + ".maze"));
+								byte[] bytes = maze.toByteArray();
+								out.write(bytes.length/128);
+								out.write(bytes.length%128);
+								out.write(bytes);
+								out.flush();
+								result.append("Maze " + name + " is save");
+								out.close();
+							}
+							catch (Exception e)
+							{
+								result.append(e.getMessage());
+							}
+						}
+					}).get();
+				}
+				catch (ExecutionException | InterruptedException e)
+				{
+					throw new IOException(e.getMessage());
+				}
+				this.setChanged();
+				this.notifyObservers(result);
+			}
+		}
 	}
 	@Override
 	public void load(String name, String path) throws IOException {
