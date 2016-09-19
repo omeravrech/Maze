@@ -55,8 +55,9 @@ public class MyModel extends CommonModel
 	{
 		try
 		{
-			if (!solutions.containsKey(name))
+			if (solutions.containsKey(name))
 			{
+				
 				this.setChanged();
 				this.notifyObservers("Solution is already exist under this name");
 			}
@@ -65,7 +66,7 @@ public class MyModel extends CommonModel
 				if (!mazes.containsKey(name))
 				{
 					this.setChanged();
-					this.notifyObservers("can't find a mae under the requested name");
+					this.notifyObservers("Can't find a maze under the requested name");
 				}
 				else
 				{
@@ -130,8 +131,19 @@ public class MyModel extends CommonModel
 		
 	}
 	@Override
-	public void display_solution(String name) {
-		// TODO Auto-generated method stub
+	public void display_solution(String name) 
+	{
+		StringBuilder string = new StringBuilder();
+		if (!mazes.containsKey(name))
+			string.append("Maze " + name + " doesn't exist");
+		else
+		{
+			Solution<Position> solution = solutions.get(name);
+				
+			this.setChanged();
+			this.notifyObservers(solution.toString());
+			}
+		
 		
 	}
 	@Override
