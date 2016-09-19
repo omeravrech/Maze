@@ -1,9 +1,10 @@
 package MVP.model;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -19,10 +20,10 @@ import Algorithms.Search.MazeAdapter;
 import Algorithms.Search.Searcher;
 import Algorithms.Search.Solution;
 import io.MyCompressorOutputStream;
+import io.MyDecompressorInputStream;
 
 public class MyModel extends CommonModel
 {
-
 	@Override
 	public void generate_3d_maze(String name, int floors, int rows, int columns)  throws IOException
 	{
@@ -30,8 +31,7 @@ public class MyModel extends CommonModel
 		{
 			if (mazes.containsKey(name))
 			{
-				this.setChanged();
-				this.notifyObservers("Another maze already exist under this name");
+				this.commandOutput += "Another maze already exist under this name\n";
 			}
 			else
 			{
@@ -48,13 +48,15 @@ public class MyModel extends CommonModel
 				});
 					
 				mazes.put(name, future.get());
-				this.setChanged();
-				this.notifyObservers("Maze " + name + " has been generated");
+				this.commandOutput += "Maze " + name + " has been generated\n";
+			
 			}
 		}
 		catch (Exception e) {
-			throw new IOException(e);
+			this.commandOutput += e.getMessage() + "\n";
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	@Override
 	public void solve(String name, Searcher<Position> algorithm) throws IOException
@@ -62,18 +64,11 @@ public class MyModel extends CommonModel
 		try
 		{
 			if (solutions.containsKey(name))
-			{
-				
-				this.setChanged();
-				this.notifyObservers("Solution is already exist under this name");
-			}
+				this.commandOutput += "Solution is already exist under this name";
 			else
 			{
 				if (!mazes.containsKey(name))
-				{
-					this.setChanged();
-					this.notifyObservers("Can't find a maze under the requested name");
-				}
+					this.commandOutput += "Can't find a maze under the requested name";
 				else
 				{
 					Future<Solution<Position>> future = this.pool.submit(new Callable<Solution<Position>>()
@@ -87,15 +82,16 @@ public class MyModel extends CommonModel
 						}
 					});
 					solutions.put(name,future.get());
-					this.setChanged();
-					this.notifyObservers("Solution is ready");
+					this.commandOutput += "Solution is ready\n";
 				}
 			}
 		}
 		catch (InterruptedException | ExecutionException e)
 		{
-			throw new IOException(e);
+			this.commandOutput += e.getMessage() + "\n";
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	public void display(String name)
 	{
@@ -111,21 +107,21 @@ public class MyModel extends CommonModel
 			string.append("*Goal Position* :" + maze.getGoalPosition().toString() + "\n");
 			string.append("\n" + maze.toString());
 		}
-
+		this.commandOutput += string.toString();
 		this.setChanged();
-		this.notifyObservers(string);
+		this.notifyObservers();
 	}
 	@Override
 	public void exit() 
 	{
 		pool.shutdownNow();
-		System.out.println("get down motherfucker");
+		//TODO: exit
 	}
 	@Override
-	public void save(String name, String path) throws IOException
+	public void save(String name, String path)
 	{
 		if (!mazes.containsKey(name))
-			throw new IOException("Can't found an existing maze under this name");
+			this.commandOutput += "Can't found an existing maze under this name";
 		else
 		{
 			StringBuilder result = new StringBuilder();
@@ -154,22 +150,54 @@ public class MyModel extends CommonModel
 						}
 						catch (Exception e)
 						{
-							result.append(e.getMessage());
+							result.append(e.getMessage() + "\n");
 						}
 					}
 				}).get();
+				this.commandOutput += result.toString();
 			}
 			catch (ExecutionException | InterruptedException e)
 			{
-				throw new IOException(e.getMessage());
+				this.commandOutput += e.getMessage() + "\n";
 			}
 			this.setChanged();
-			this.notifyObservers(result);
+			this.notifyObservers();
 		}
 	}
 	@Override
-	public void load(String name, String path) throws IOException {
-		// TODO Auto-generated method stub
+	public void load(String name, String fileName) 
+	{
+		File file = new File(fileName);
+		if (file.exists())
+		{
+			Future<Maze3D> future = pool.submit(new Callable<Maze3D>()
+			{
+				InputStream in;
+				@Override
+				public Maze3D call() throws Exception
+				{
+						in = new MyDecompressorInputStream(new FileInputStream(fileName));
+						byte[] inArr = new byte[(in.read() & 0xff) * 128 + (in.read() & 0xff)];
+						in.read(inArr);
+						in.close();
+						return new Maze3D(inArr);
+				}
+			});
+			try
+			{
+				mazes.put(name, future.get());
+				this.commandOutput += "Maze " + name + " been added from file\n";
+			}
+			catch (InterruptedException | ExecutionException e)
+			{
+				this.commandOutput += e.getMessage() + "\n";
+			}
+		}
+		else
+			this.commandOutput += "File '" + fileName + "' not exist\n";
+		
+		this.setChanged();
+		this.notifyObservers();
 		
 	}
 	@Override
@@ -185,39 +213,30 @@ public class MyModel extends CommonModel
 			Matcher rows = crossByY.matcher(asix);
 			Matcher floors = crossByZ.matcher(asix);
 			if (columns.lookingAt())
-			{
-				this.setChanged();
-				this.notifyObservers(maze.getCrossSectionByX(line));
-			}
+				this.commandOutput += maze.getCrossSectionByX(line);
 			if (rows.lookingAt())
-			{
-				this.setChanged();
-				this.notifyObservers(maze.getCrossSectionByY(line));
-			}
+				this.commandOutput += maze.getCrossSectionByY(line);
 			if (floors.lookingAt())
-			{
-				this.setChanged();
-				this.notifyObservers(maze.getCrossSectionByZ(line));
-			}
+				this.commandOutput += maze.getCrossSectionByZ(line);
 		}
 		else
-			throw new IOException("The index is outside the scope of the maze");
+			this.commandOutput += "The index is outside the scope of the maze\n";
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	@Override
 	public void display_solution(String name) 
 	{
-		StringBuilder string = new StringBuilder();
 		if (!mazes.containsKey(name))
-			string.append("Maze " + name + " doesn't exist");
+			this.commandOutput += "Maze " + name + " doesn't exist\n";
 		else
 		{
 			Solution<Position> solution = solutions.get(name);
-				
-			this.setChanged();
-			this.notifyObservers(solution.toString());
-			}
-		
-		
+			this.commandOutput += solution.toString() + "\n";	
+		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 	@Override
 	public void dir(String path)
@@ -248,7 +267,8 @@ public class MyModel extends CommonModel
 			display.append(e.getMessage());
 		}
 		display.append("\n");
+		this.commandOutput += display.toString();
 		this.setChanged();
-		this.notifyObservers(display.toString());
+		this.notifyObservers();
 	}		
 }

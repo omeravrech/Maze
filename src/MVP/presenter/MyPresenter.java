@@ -102,7 +102,8 @@ public class MyPresenter implements Observer, Presenter
 		
 		if (o == model)
 		{
-			view.Result(arg.toString());
+			String output = model.getCommandOutput();
+			view.Result(output);
 		}
 	}
 }

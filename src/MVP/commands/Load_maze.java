@@ -12,9 +12,9 @@ public class Load_maze extends CommonCommand {
 	}
 
 	@Override
-	public void doCommand(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-
+	public void doCommand(String[] args) throws IOException
+	{
+		model.load(args[2], args[3]);
 	}
 
 }
