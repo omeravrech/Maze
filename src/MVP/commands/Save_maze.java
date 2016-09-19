@@ -12,7 +12,8 @@ public class Save_maze extends CommonCommand {
 	}
 
 	@Override
-	public void doCommand(String[] args) throws IOException {
+	public void doCommand(String[] args) throws IOException
+	{
 		// TODO Auto-generated method stub
 
 	}

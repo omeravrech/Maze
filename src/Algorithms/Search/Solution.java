@@ -33,11 +33,12 @@ public class Solution<T> {
 	public String toString()
 	{
 		String string = "START -> ";
-		for (T object : result)
+		
+		
+		for (int i = result.size()-1; i >= 0 ;i--)
 		{
-			string += object + " -> ";			
+			string += result.get(i) + " -> ";
 		}
-
 		string += "END!";
 		return string;
 	}
