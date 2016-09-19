@@ -22,7 +22,7 @@ public abstract class CommonModel extends Observable implements Model {
 		this.mazes = new HashMap<String,Maze3D>();
 		this.solutions = new HashMap<String,Solution<Position>>();
 		this.pool = Executors.newCachedThreadPool();
-		this.commandOutput = null;
+		this.commandOutput = "";
 		this.runningStatus = true;
 	}
 	

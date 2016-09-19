@@ -21,7 +21,6 @@ public class CLI extends Observable
 	private BufferedReader in;
 	private PrintWriter out;
 	private HashMap<String,String> regexMap;
-	private boolean isRunning;
 	/**
 	 * Constructor
 	 * @param in
@@ -31,8 +30,6 @@ public class CLI extends Observable
 	{
 		this.in = in;
 		this.out = out;
-		
-		isRunning = true;
 		
 		this.regexMap = new HashMap<String,String>();
 		regexMap.put("dir", "dir [^ \n]+");
@@ -125,7 +122,6 @@ public class CLI extends Observable
 	}
 	public void exit()
 	{
-		isRunning = false;
 		print("Good bye!!!");
 		try
 		{

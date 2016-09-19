@@ -137,7 +137,7 @@ public class MyModel extends CommonModel
 					{
 						try
 						{
-							String string = path + "/" + name + ".dat";
+							String string = path + "/" + name + ".maze";
 							out = new MyCompressorOutputStream(new FileOutputStream(string));
 							byte[] bytes = maze.toByteArray();
 							out.write(bytes.length/128);
@@ -201,26 +201,41 @@ public class MyModel extends CommonModel
 		
 	}
 	@Override
-	public void display_cross_section(String asix, int line, String name) throws IOException
+	public void display_cross_section(String asix, int line, String name)
 	{
-		if (mazes.containsKey(name))
+		try
 		{
-			Maze3D maze = mazes.get(name);
-			Pattern crossByX = Pattern.compile("[Xx]");
-			Pattern crossByY = Pattern.compile("[Yy]");
-			Pattern crossByZ = Pattern.compile("[Zz]");
-			Matcher columns = crossByX.matcher(asix);
-			Matcher rows = crossByY.matcher(asix);
-			Matcher floors = crossByZ.matcher(asix);
-			if (columns.lookingAt())
-				this.commandOutput += maze.getCrossSectionByX(line);
-			if (rows.lookingAt())
-				this.commandOutput += maze.getCrossSectionByY(line);
-			if (floors.lookingAt())
-				this.commandOutput += maze.getCrossSectionByZ(line);
+			if (mazes.containsKey(name))
+			{
+				Maze3D maze = mazes.get(name);
+				Pattern crossByX = Pattern.compile("[Xx]");
+				Pattern crossByY = Pattern.compile("[Yy]");
+				Pattern crossByZ = Pattern.compile("[Zz]");
+				Matcher columns = crossByX.matcher(asix);
+				Matcher rows = crossByY.matcher(asix);
+				Matcher floors = crossByZ.matcher(asix);
+				
+				int[][] maze2d = null;
+				if (columns.lookingAt())
+					maze2d = maze.getCrossSectionByX(line);
+				if (rows.lookingAt())
+					maze2d = maze.getCrossSectionByY(line);
+				if (floors.lookingAt())
+					maze2d = maze.getCrossSectionByZ(line);
+				
+				for (int i=0;i<maze2d.length;i++)
+				{
+					for (int j=0;j<maze2d[i].length;j++)
+						this.commandOutput += maze2d[i][j] + " ";
+					this.commandOutput += "\n";
+				}
+			}
+			else
+				this.commandOutput += "The maze does not exist\n";
 		}
-		else
-			this.commandOutput += "The index is outside the scope of the maze\n";
+		catch (IndexOutOfBoundsException e) {
+			this.commandOutput += e.getMessage() + "\n";
+		}
 		
 		this.setChanged();
 		this.notifyObservers();

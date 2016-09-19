@@ -14,7 +14,7 @@ public class Load_maze extends CommonCommand {
 	@Override
 	public void doCommand(String[] args) throws IOException
 	{
-		model.load(args[2], args[3]);
+		model.load(args[3], args[2]);
 	}
 
 }
