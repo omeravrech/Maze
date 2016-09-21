@@ -18,4 +18,5 @@ public interface Model
 	public void dir(String path);
 	public String getCommandOutput();
 	public void display_mazes_list();
+	public void display_solution_list();
 }

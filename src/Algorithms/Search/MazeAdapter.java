@@ -11,6 +11,7 @@ import Algorithms.MazeGenerator.*;
 *
 * @author  Omer Avrech & Bar Malka
 * @version 1.0
+* @param <T>
 * @since   27/08/2016
 * @param1 Maze3D problem
 *  
@@ -43,5 +44,24 @@ public class MazeAdapter implements Searchable<Position>
 			result.add(localState);
 		}
 		return result;
+	}
+	public boolean equals (MazeAdapter other)
+	{
+		/*
+		Position localPos = this.problem.getStartPosition();
+		Position otherPos = other.problem.getStartPosition();
+		if ((localPos.column() != otherPos.column()) ||
+				(localPos.floor() != otherPos.floor()) ||
+				(localPos.row() != otherPos.row()))
+			return -1;
+		localPos = this.problem.getGoalPosition();
+		otherPos = other.problem.getGoalPosition();
+		if ((localPos.column() != otherPos.column()) ||
+				(localPos.floor() != otherPos.floor()) || 
+				(localPos.row() != otherPos.row()))
+			return -1;
+			*/
+		
+		return this.problem.equals(other.problem);
 	}
 }

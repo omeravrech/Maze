@@ -266,4 +266,21 @@ public class Maze3D {
 		}
 		return out;
 	}
+
+	public boolean equals (Maze3D problem)
+	{
+		try
+		{
+			for (int i=0;i<floors;i++)
+				for(int j=0;j<rows;j++)
+					for (int k = 0; k < columns; k++)
+						if (maze[i][j][k] != problem.maze[i][j][k])
+							return false;
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
+		return true;
+	}
 }

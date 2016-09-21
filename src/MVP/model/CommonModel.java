@@ -7,12 +7,14 @@ import java.util.concurrent.Executors;
 
 import Algorithms.MazeGenerator.Maze3D;
 import Algorithms.MazeGenerator.Position;
+import Algorithms.Search.MazeAdapter;
 import Algorithms.Search.Solution;
 
 public abstract class CommonModel extends Observable implements Model {
 
 	protected HashMap<String, Maze3D> mazes;
-	protected HashMap<String,Solution<Position>> solutions;
+	//protected HashMap<String,Solution<Position>> solutions;
+	protected HashMap<MazeAdapter, Solution<Position>> mazeToSolution;
 	protected ExecutorService pool;
 	protected String commandOutput;
 	protected boolean runningStatus;
@@ -20,7 +22,8 @@ public abstract class CommonModel extends Observable implements Model {
 	public CommonModel()
 	{
 		this.mazes = new HashMap<String,Maze3D>();
-		this.solutions = new HashMap<String,Solution<Position>>();
+		//this.solutions = new HashMap<String,Solution<Position>>();
+		this.mazeToSolution = new HashMap<MazeAdapter, Solution<Position>>();
 		this.pool = /*/Executors.newCachedThreadPool(); //*/Executors.newWorkStealingPool();
 		this.commandOutput = "";
 		this.runningStatus = true;

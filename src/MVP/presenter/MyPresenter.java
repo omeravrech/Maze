@@ -7,16 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
-import MVP.commands.Dir;
-import MVP.commands.Display;
-import MVP.commands.Display_Mazes_List;
-import MVP.commands.Display_cross_section;
-import MVP.commands.Display_solution;
-import MVP.commands.Generate_3d_Maze;
-import MVP.commands.ICommand;
-import MVP.commands.Load_maze;
-import MVP.commands.Save_maze;
-import MVP.commands.Solve;
+import MVP.commands.*;
 import MVP.model.Model;
 import MVP.view.View;
 
@@ -47,6 +38,7 @@ public class MyPresenter implements Observer, Presenter
 		commands.put("solve [A-Za-z0-9]+ [A-Za-z0-9]+", new Solve(model,view));
 		commands.put("display solution [A-Za-z0-9]+", new Display_solution(model, view));
 		commands.put("display mazes", new Display_Mazes_List(model, view));
+		commands.put("display solutions", new Display_Solutions_List(model, view));
 		//commands.put("help", new ICommand Help(model,view);
 	}
 	

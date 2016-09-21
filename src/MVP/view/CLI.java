@@ -38,6 +38,7 @@ public class CLI extends Observable
 		regexMap.put("display cross", "display cross section by [XYZxyz] [0-9]{1,2} for [A-Za-z0-9]+");
 		regexMap.put("display solution", "display solution [A-Za-z0-9]+");
 		regexMap.put("display mazes", "display mazes");
+		regexMap.put("display solutions", "display solutions");
 		regexMap.put("save", "save maze [A-Za-z0-9]+ [^ \n]+");
 		regexMap.put("load", "load maze [^ \n]+ [A-Za-z0-9]+");
 		regexMap.put("maze", "maze size [A-Za-z0-9]+");
@@ -83,7 +84,7 @@ public class CLI extends Observable
 						}
 
 						else
-							print("You are STUPID. your command: " + line + " " + "undefined");
+							print("Invalid command: " + line + " " + "is undefined");
 						print("Enter your command: ");
 					}
 					exit();

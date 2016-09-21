@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -55,7 +56,7 @@ public class MyModel extends CommonModel
 					try
 					{
 						mazes.put(name, future.get());
-						commandOutput += "Maze " + name +" been generated.\n";
+						commandOutput += "Maze " + name +" has been generated.\n";
 					}
 					catch (Exception e)
 					{
@@ -67,7 +68,7 @@ public class MyModel extends CommonModel
 					}
 				}
 			});
-			commandOutput += "Start to build maze " + name + "\n";
+			commandOutput += "Start building maze " + name + "\n";
 		}
 		catch (Exception e)
 		{
@@ -81,12 +82,15 @@ public class MyModel extends CommonModel
 		
 		try
 		{
-			if (solutions.containsKey(name))
-				throw new RuntimeException("Solution is already exist under this name");
+			MazeAdapter problem;
+			if (!mazes.containsKey(name))
+				throw new RuntimeException("Can't find a maze under the requested name");
 			else
 			{
-				if (!mazes.containsKey(name))
-					throw new RuntimeException("Can't find a maze under the requested name");
+				problem = new MazeAdapter(mazes.get(name));
+				 //TODO: Create a comparator to MazeAdapter
+				if (mazeToSolution.containsKey(problem))
+					throw new RuntimeException("Solution is already exist under this name");
 				else
 				{
 					Future<Solution<Position>> future = this.pool.submit(new Callable<Solution<Position>>()
@@ -94,9 +98,10 @@ public class MyModel extends CommonModel
 						@Override
 						public Solution<Position> call() throws Exception
 						{
-							
-										Maze3D maze = mazes.get(name); 
-										return algorithm.search(new MazeAdapter(maze));
+										commandOutput += "Start calculating solution for maze: " + name + "\n";
+										updateAboutChange();
+										return algorithm.search(problem);
+				
 						}
 					});
 					pool.execute(new Runnable() {
@@ -106,7 +111,7 @@ public class MyModel extends CommonModel
 						{
 							try
 							{
-								solutions.put(name,future.get());
+								mazeToSolution.put(problem,future.get());
 								commandOutput += "Solution for " + name + " is ready\n";
 							}
 							catch (Exception e)
@@ -283,9 +288,28 @@ public class MyModel extends CommonModel
 			this.commandOutput += "Maze " + name + " doesn't exist\n";
 		else
 		{
-			Solution<Position> solution = solutions.get(name);
-			this.commandOutput += solution.toString() + "\n";	
+			MazeAdapter temp = new MazeAdapter(mazes.get(name));
+			
+			Iterator<MazeAdapter> iter = mazeToSolution.keySet().iterator();
+			Solution<Position> solution = null;
+			while ((iter != null) && (solution == null))
+			{
+				if(iter.equals(temp))
+					solution = mazeToSolution.get(iter);
+				else
+					if (iter.hasNext())
+						iter.next();
+					else
+						iter = null;
+			}
+					
+			
+			if(solution != null)
+				this.commandOutput += solution.toString() + "\n";
+			else
+				this.commandOutput += "Solution for maze: " + name + " doesn't exist\n";	
 		}
+		
 		updateAboutChange();
 	}
 	@Override
@@ -334,7 +358,23 @@ public class MyModel extends CommonModel
 		else
 			commandOutput += "there isn't any maze avaliable\n";
 		updateAboutChange();
+	}
+	
+	public void display_solution_list()
+	{
+		Set<MazeAdapter> keys = this.mazeToSolution.keySet();
+		if (keys.size() > 0)
+		{
+
+			commandOutput += "Avaliable solutions are:\n";
+			for(MazeAdapter key: keys)
+				commandOutput += "- " + key.toString() + "\n";
+		}
+		else
+			commandOutput += "there isn't any maze avaliable\n";
+		updateAboutChange();
 	}		
+	
 	private void updateAboutChange()
 	{
 		setChanged();
