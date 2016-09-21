@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -29,70 +30,105 @@ public class MyModel extends CommonModel
 	{
 		try
 		{
-			if (mazes.containsKey(name))
+		
+			Future<Maze3D> future = pool.submit(new Callable<Maze3D>() 
 			{
-				this.commandOutput += "Another maze already exist under this name\n";
-			}
-			else
-			{
-				Future<Maze3D> future = this.pool.submit(new Callable<Maze3D>() 
+				@Override
+				public Maze3D call() throws Exception
 				{
-					private GrowingTreeGenerator generator;
-					
-					@Override
-					public Maze3D call() throws Exception
-					{
-						generator = new GrowingTreeGenerator(new RandomChoose());
+					if (mazes.containsKey(name))
+						throw new RuntimeException("Another maze already exist under this name");
+					else
+					{			
+						GrowingTreeGenerator generator = new GrowingTreeGenerator(new RandomChoose());
 						return generator.generate(floors, rows, columns);
 					}
-				});
-					
-				mazes.put(name, future.get());
-				this.commandOutput += "Maze " + name + " has been generated\n";
+				}
+			});
 			
-			}
+			pool.execute(new Runnable()
+			{
+				
+				@Override
+				public void run()
+				{
+					try
+					{
+						mazes.put(name, future.get());
+						commandOutput += "Maze " + name +" been generated.\n";
+					}
+					catch (Exception e)
+					{
+						commandOutput += e.getMessage() + "\n";
+					}
+					finally
+					{
+						updateAboutChange();
+					}
+				}
+			});
+			commandOutput += "Start to build maze " + name + "\n";
 		}
-		catch (Exception e) {
-			this.commandOutput += e.getMessage() + "\n";
+		catch (Exception e)
+		{
+			commandOutput += e.getMessage() + "\n";
 		}
-		this.setChanged();
-		this.notifyObservers();
+		updateAboutChange();
 	}
 	@Override
 	public void solve(String name, Searcher<Position> algorithm) throws IOException
 	{
+		
 		try
 		{
 			if (solutions.containsKey(name))
-				this.commandOutput += "Solution is already exist under this name";
+				throw new RuntimeException("Solution is already exist under this name");
 			else
 			{
 				if (!mazes.containsKey(name))
-					this.commandOutput += "Can't find a maze under the requested name";
+					throw new RuntimeException("Can't find a maze under the requested name");
 				else
 				{
 					Future<Solution<Position>> future = this.pool.submit(new Callable<Solution<Position>>()
 					{
-		
 						@Override
 						public Solution<Position> call() throws Exception
 						{
-							Maze3D maze = mazes.get(name); 
-							return algorithm.search(new MazeAdapter(maze));
+							
+										Maze3D maze = mazes.get(name); 
+										return algorithm.search(new MazeAdapter(maze));
 						}
 					});
-					solutions.put(name,future.get());
-					this.commandOutput += "Solution is ready\n";
+					pool.execute(new Runnable() {
+						
+						@Override
+						public void run()
+						{
+							try
+							{
+								solutions.put(name,future.get());
+								commandOutput += "Solution for " + name + " is ready\n";
+							}
+							catch (Exception e)
+							{
+								commandOutput += "Problem in solution for " + name + ": " + e.getMessage() + "\n";
+							}
+							finally
+							{
+								updateAboutChange();
+							}
+						}
+					});
 				}
 			}
 		}
-		catch (InterruptedException | ExecutionException e)
+		catch (Exception e)
 		{
-			this.commandOutput += e.getMessage() + "\n";
+			commandOutput += e.getMessage() + "\n";
 		}
-		this.setChanged();
-		this.notifyObservers();
+		updateAboutChange();
 	}
+	
 	public void display(String name)
 	{
 		StringBuilder string = new StringBuilder();
@@ -114,8 +150,8 @@ public class MyModel extends CommonModel
 	@Override
 	public void exit() 
 	{
-		pool.shutdownNow();
-		//TODO: exit
+			pool.shutdown();
+			Thread.currentThread().interrupt();
 	}
 	@Override
 	public void save(String name, String path)
@@ -250,8 +286,7 @@ public class MyModel extends CommonModel
 			Solution<Position> solution = solutions.get(name);
 			this.commandOutput += solution.toString() + "\n";	
 		}
-		this.setChanged();
-		this.notifyObservers();
+		updateAboutChange();
 	}
 	@Override
 	public void dir(String path)
@@ -283,7 +318,26 @@ public class MyModel extends CommonModel
 		}
 		display.append("\n");
 		this.commandOutput += display.toString();
-		this.setChanged();
-		this.notifyObservers();
+		updateAboutChange();
+	}
+	@Override
+	public void display_mazes_list()
+	{
+		Set<String> keys = this.mazes.keySet();
+		if (keys.size() > 0)
+		{
+
+			commandOutput += "Avaliable mazes are:\n";
+			for(String key: keys)
+				commandOutput += "- " + key.toString() + "\n";
+		}
+		else
+			commandOutput += "there isn't any maze avaliable\n";
+		updateAboutChange();
 	}		
+	private void updateAboutChange()
+	{
+		setChanged();
+		notifyObservers();
+	}
 }

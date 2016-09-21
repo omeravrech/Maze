@@ -14,7 +14,7 @@ public class Display extends CommonCommand {
 	@Override
 	public void doCommand(String[] args) throws IOException
 	{
-		String name = args[1];
+		String name = args[2];
 		model.display(name);
 	}
 

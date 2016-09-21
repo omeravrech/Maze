@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutionException;
 
 import MVP.commands.Dir;
 import MVP.commands.Display;
+import MVP.commands.Display_Mazes_List;
 import MVP.commands.Display_cross_section;
 import MVP.commands.Display_solution;
 import MVP.commands.Generate_3d_Maze;
@@ -39,12 +40,13 @@ public class MyPresenter implements Observer, Presenter
 		commands = new HashMap<String,ICommand>();
 		commands.put("dir [^ \n]+", new Dir(model,view));
 		commands.put("generate 3d maze [A-Za-z0-9]+ [0-9]{1,2} [0-9]{1,2} [0-9]{1,2}", new Generate_3d_Maze(model,view));
-		commands.put("display [^ \n]+", new Display(model,view));
+		commands.put("display maze [^ \n]+", new Display(model,view));
 		commands.put("display cross section by [XYZxyz] [0-9]{1,2} for [A-Za-z0-9]+", new Display_cross_section(model, view));
 		commands.put("save maze [A-Za-z0-9]+ [^ \n]+", new Save_maze(model,view));
 		commands.put("load maze [^ \n]+ [A-Za-z0-9]+", new Load_maze(model,view));
 		commands.put("solve [A-Za-z0-9]+ [A-Za-z0-9]+", new Solve(model,view));
 		commands.put("display solution [A-Za-z0-9]+", new Display_solution(model, view));
+		commands.put("display mazes", new Display_Mazes_List(model, view));
 		//commands.put("help", new ICommand Help(model,view);
 	}
 	
@@ -92,8 +94,8 @@ public class MyPresenter implements Observer, Presenter
 			{
 				if (arg.toString().equals("exit"))
 				{
-					runningStatus = false;
 					model.exit();
+					runningStatus = false;
 				}
 				else
 					requestList.add((CommandData)arg);
