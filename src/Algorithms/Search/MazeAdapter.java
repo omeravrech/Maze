@@ -45,23 +45,4 @@ public class MazeAdapter implements Searchable<Position>
 		}
 		return result;
 	}
-	public boolean equals (MazeAdapter other)
-	{
-		/*
-		Position localPos = this.problem.getStartPosition();
-		Position otherPos = other.problem.getStartPosition();
-		if ((localPos.column() != otherPos.column()) ||
-				(localPos.floor() != otherPos.floor()) ||
-				(localPos.row() != otherPos.row()))
-			return -1;
-		localPos = this.problem.getGoalPosition();
-		otherPos = other.problem.getGoalPosition();
-		if ((localPos.column() != otherPos.column()) ||
-				(localPos.floor() != otherPos.floor()) || 
-				(localPos.row() != otherPos.row()))
-			return -1;
-			*/
-		
-		return this.problem.equals(other.problem);
-	}
 }

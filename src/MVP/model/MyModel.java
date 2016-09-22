@@ -82,12 +82,12 @@ public class MyModel extends CommonModel
 		
 		try
 		{
-			MazeAdapter problem;
+			Maze3D problem;
 			if (!mazes.containsKey(name))
 				throw new RuntimeException("Can't find a maze under the requested name");
 			else
 			{
-				problem = new MazeAdapter(mazes.get(name));
+				problem = mazes.get(name);
 				 //TODO: Create a comparator to MazeAdapter
 				if (mazeToSolution.containsKey(problem))
 					throw new RuntimeException("Solution is already exist under this name");
@@ -100,7 +100,7 @@ public class MyModel extends CommonModel
 						{
 										commandOutput += "Start calculating solution for maze: " + name + "\n";
 										updateAboutChange();
-										return algorithm.search(problem);
+										return algorithm.search(new MazeAdapter(problem));
 				
 						}
 					});
@@ -288,26 +288,11 @@ public class MyModel extends CommonModel
 			this.commandOutput += "Maze " + name + " doesn't exist\n";
 		else
 		{
-			MazeAdapter temp = new MazeAdapter(mazes.get(name));
-			
-			Iterator<MazeAdapter> iter = mazeToSolution.keySet().iterator();
-			Solution<Position> solution = null;
-			while ((iter != null) && (solution == null))
-			{
-				if(iter.equals(temp))
-					solution = mazeToSolution.get(iter);
-				else
-					if (iter.hasNext())
-						iter.next();
-					else
-						iter = null;
-			}
-					
-			
-			if(solution != null)
-				this.commandOutput += solution.toString() + "\n";
+			Solution<Position> solution = mazeToSolution.get(mazes.get(name));
+			if (solution == null)	
+				this.commandOutput += "Solution for maze: " + name + " doesn't exist\n";
 			else
-				this.commandOutput += "Solution for maze: " + name + " doesn't exist\n";	
+				this.commandOutput += solution.toString() + "\n";
 		}
 		
 		updateAboutChange();
@@ -362,12 +347,12 @@ public class MyModel extends CommonModel
 	
 	public void display_solution_list()
 	{
-		Set<MazeAdapter> keys = this.mazeToSolution.keySet();
+		Set<Maze3D> keys = this.mazeToSolution.keySet();
 		if (keys.size() > 0)
 		{
 
 			commandOutput += "Avaliable solutions are:\n";
-			for(MazeAdapter key: keys)
+			for(Maze3D key: keys)
 				commandOutput += "- " + key.toString() + "\n";
 		}
 		else
