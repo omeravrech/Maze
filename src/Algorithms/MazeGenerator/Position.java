@@ -1,5 +1,6 @@
 package Algorithms.MazeGenerator;
 
+import java.io.Serializable;
 
 /**
 * <h1>Position</h1>
@@ -14,7 +15,12 @@ package Algorithms.MazeGenerator;
 * @param3 int columns
 *  
 */
-public class Position{
+public class Position implements Serializable
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int floor;
 	private int rows;
 	private int columns;

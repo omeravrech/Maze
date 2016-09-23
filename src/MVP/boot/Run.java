@@ -23,11 +23,9 @@ public class Run {
 		try
 		{
 			File file = new File("Resources/properties.xml");
-			System.out.println(file.exists());
 			InputStream in = new FileInputStream(file);
 			xmlDecoder = new XMLDecoder(in);
 			prop  = (Properties)xmlDecoder.readObject();
-			System.out.println("Loaded the file properly");
 		}
 		catch (Exception e)
 		{
@@ -35,7 +33,8 @@ public class Run {
 			prop.setNumOfThreads(4);
 			prop.setSolveMazeAlgorithm("DFS");
 			prop.setGenerateMazeAlgorithm("Simpale");
-			System.out.println("Load failed");
+			prop.setSolutionMapPath("Resources/SolutionMap.zip");
+			prop.setMazesMapPath("Resources/Mazes");
 		}
 		finally
 		{
@@ -51,8 +50,7 @@ public class Run {
 		MyPresenter presenter = new MyPresenter(model, view, prop);
 		model.addObserver(presenter);
 		view.addObserver(presenter);
-				
-		
+			
 		presenter.start();
 
 	}

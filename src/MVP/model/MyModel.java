@@ -6,6 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -22,6 +26,7 @@ import Algorithms.MazeGenerator.SimpleMaze3dGenerator;
 import Algorithms.Search.MazeAdapter;
 import Algorithms.Search.Searcher;
 import Algorithms.Search.Solution;
+import MVC.commands.Save_maze;
 import MVP.presenter.Properties;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
@@ -171,6 +176,27 @@ public class MyModel extends CommonModel
 	@Override
 	public void exit() 
 	{
+		
+			try 
+			{
+				saveSolutionMap(mazeToSolution);
+				Set<String> mazeNames = mazes.keySet();
+				for (String name : mazeNames) 
+				{
+					this.save(name, properties.getMazesMapPath());
+				}
+			} 
+			catch (Exception e)
+			{
+				Path p = Paths.get(properties.getSolutionMapPath());
+				try 
+				{
+					Files.delete(p);
+				} catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+			}
 			pool.shutdown();
 			Thread.currentThread().interrupt();
 	}
@@ -243,7 +269,7 @@ public class MyModel extends CommonModel
 			try
 			{
 				mazes.put(name, future.get());
-				this.commandOutput += "Maze " + name + " been added from file\n";
+				this.commandOutput += "Maze " + name + " has been added from file\n";
 			}
 			catch (InterruptedException | ExecutionException e)
 			{
@@ -352,7 +378,7 @@ public class MyModel extends CommonModel
 		if (keys.size() > 0)
 		{
 
-			commandOutput += "Avaliable mazes are:\n";
+			commandOutput += "Avaliable mazes are: \n";
 			for(String key: keys)
 				commandOutput += "- " + key.toString() + "\n";
 		}
@@ -360,15 +386,41 @@ public class MyModel extends CommonModel
 			commandOutput += "there isn't any maze avaliable\n";
 		updateAboutChange();
 	}
+	
+	/* TESTING METHOD */
+	public String getKeyFromValue(HashMap<String,Maze3D> hm, Maze3D wantedValue) 
+	{
+	    for (String mazeName : hm.keySet()) 
+	    {
+	      if (hm.get(mazeName).equals(wantedValue)) 
+	      {
+	        return mazeName;
+	      }
+	    }
+	    return null;
+	  }
+	/* END OF TESTING METHOD */
+	
 	public void display_solution_list()
 	{
 		Set<Maze3D> keys = this.mazeToSolution.keySet();
+		Set<String> mazeKeys = this.mazes.keySet();
 		if (keys.size() > 0)
 		{
 
-			commandOutput += "Avaliable solutions are:\n";
+			commandOutput += "Available solutions are:\n";
 			for(Maze3D key: keys)
-				commandOutput += "- " + key.toString() + "\n";
+			{
+				for (String mazeToCompare : mazeKeys) 
+				{
+					if (key.equals(mazes.get(mazeToCompare)))
+					{
+						commandOutput += "- " + mazeToCompare + "\n";
+						break;
+					}
+				}
+				
+			}
 		}
 		else
 			commandOutput += "there isn't any maze avaliable\n";

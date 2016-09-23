@@ -9,7 +9,7 @@ public class Properties implements Serializable
 	private String generateMazeAlgorithm;
 	private String solveMazeAlgorithm;
 	private String solutionMapPath;
-	
+	private String mazesMapPath;
 	public Properties()
 	{
 		
@@ -41,5 +41,13 @@ public class Properties implements Serializable
 	}
 	public void setSolveMazeAlgorithm(String solveMazeAlgorithm) {
 		this.solveMazeAlgorithm = solveMazeAlgorithm;
+	}
+
+	public String getMazesMapPath() {
+		return mazesMapPath;
+	}
+
+	public void setMazesMapPath(String mazesMapPath) {
+		this.mazesMapPath = mazesMapPath;
 	}
 }

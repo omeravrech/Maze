@@ -1,5 +1,6 @@
 package Algorithms.MazeGenerator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -18,8 +19,13 @@ import java.util.ArrayList;
 *@param6 static final int START
 *@param7 static final int END
 */
-public class Maze3D {
+public class Maze3D implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private int[][][] maze;
 
 	private Position startPosition;

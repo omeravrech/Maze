@@ -1,5 +1,6 @@
 package MVP.model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -29,9 +30,26 @@ public abstract class CommonModel extends Observable implements Model {
 	{
 		this.properties = properties;
 		this.mazes = new HashMap<String,Maze3D>();
+		this.pool = Executors.newWorkStealingPool(this.properties.getNumOfThreads());
+		this.commandOutput = "";
+		this.runningStatus = true;
 		
 		try
 		{
+			
+			File[] fileList = new File(properties.getMazesMapPath()).listFiles();
+
+			if (fileList != null)
+			{
+				for (File file : fileList)
+				{
+					System.out.println(file.getPath());
+					String name = file.getName();
+					name = name.substring(0,name.lastIndexOf('.'));
+					String path = file.getPath().toString();
+					load(name,path);
+				}
+			}
 			this.mazeToSolution = loadSolutionMap();
 			
 		}
@@ -40,9 +58,6 @@ public abstract class CommonModel extends Observable implements Model {
 			this.mazeToSolution = new HashMap<Maze3D, Solution<Position>>();
 		}
 		
-		this.pool = Executors.newWorkStealingPool(this.properties.getNumOfThreads());
-		this.commandOutput = "";
-		this.runningStatus = true;
 		
 	}
 	
@@ -69,7 +84,7 @@ public abstract class CommonModel extends Observable implements Model {
 	
 		in = new ObjectInputStream(new GZIPInputStream(new FileInputStream(properties.getSolutionMapPath())));
 		HashMap<Maze3D,Solution<Position>> solutionMapping = (HashMap<Maze3D,Solution<Position>>)in.readObject();
-		commandOutput += "Solution file loaded successfully";
+		commandOutput += "Solution file loaded successfully\n";
 		this.setChanged();
 		this.notifyObservers();
 		

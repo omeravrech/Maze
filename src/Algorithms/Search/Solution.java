@@ -1,5 +1,6 @@
 package Algorithms.Search;
 
+import java.io.Serializable;
 import java.util.Stack;
 
 /**
@@ -12,7 +13,12 @@ import java.util.Stack;
 * @param1 Stack result
 *  
 */
-public class Solution<T> {
+public class Solution<T> implements Serializable 
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Stack<T> result;
 	
 	public Solution()

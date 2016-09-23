@@ -1,6 +1,6 @@
 package Algorithms.Search;
 
-
+import java.io.Serializable;
 
 /**
 * <h1>State</h1>
@@ -16,8 +16,13 @@ package Algorithms.Search;
 * @param2 double
 * @param3 State
 */
-public class State<T> implements Comparable<State<T>> {
+ public class State<T> implements Comparable<State<T>>, Serializable 
+{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	T value;
 	double cost;
 	State<T> parent;

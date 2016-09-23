@@ -5,13 +5,16 @@
    <string>GrowingTree</string>
   </void>
   <void property="numOfThreads">
-   <int>4</int>
+   <int>6</int>
   </void>
   <void property="solutionMapPath">
    <string>Resources/SolutionMap.zip</string>
   </void>
   <void property="solveMazeAlgorithm">
    <string>DFS</string>
+  </void>
+  <void property="mazesMapPath">
+   <string>Resources/Mazes</string>
   </void>
  </object>
 </java>
