@@ -22,12 +22,11 @@ public class Run {
 		XMLDecoder xmlDecoder = null;
 		try
 		{
-			File file = new File("/users/Barmalka/Maze/Resources/properties.xml");
+			File file = new File("Resources/properties.xml");
 			System.out.println(file.exists());
 			InputStream in = new FileInputStream(file);
 			xmlDecoder = new XMLDecoder(in);
-			Object object  = xmlDecoder.readObject();
-			prop = (Properties)object;
+			prop  = (Properties)xmlDecoder.readObject();
 			System.out.println("Loaded the file properly");
 		}
 		catch (Exception e)
