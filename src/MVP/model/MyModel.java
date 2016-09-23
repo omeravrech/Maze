@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -16,16 +15,22 @@ import java.util.regex.Pattern;
 
 import Algorithms.MazeGenerator.GrowingTreeGenerator;
 import Algorithms.MazeGenerator.Maze3D;
+import Algorithms.MazeGenerator.Maze3dGenerator;
 import Algorithms.MazeGenerator.Position;
 import Algorithms.MazeGenerator.RandomChoose;
+import Algorithms.MazeGenerator.SimpleMaze3dGenerator;
 import Algorithms.Search.MazeAdapter;
 import Algorithms.Search.Searcher;
 import Algorithms.Search.Solution;
+import MVP.presenter.Properties;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
 public class MyModel extends CommonModel
 {
+	public MyModel(Properties properties) {
+		super(properties);
+	}
 	@Override
 	public void generate_3d_maze(String name, int floors, int rows, int columns)  throws IOException
 	{
@@ -40,9 +45,20 @@ public class MyModel extends CommonModel
 					if (mazes.containsKey(name))
 						throw new RuntimeException("Another maze already exist under this name");
 					else
-					{			
-						GrowingTreeGenerator generator = new GrowingTreeGenerator(new RandomChoose());
-						return generator.generate(floors, rows, columns);
+					{	Maze3dGenerator generator;
+							if (properties.getGenerateMazeAlgorithm().equalsIgnoreCase("growingtree"))
+							{
+								generator = new GrowingTreeGenerator(new RandomChoose());
+								return generator.generate(floors, rows, columns);
+							}
+							else
+								if (properties.getGenerateMazeAlgorithm().equalsIgnoreCase("simple"))
+								{
+									generator = new SimpleMaze3dGenerator();
+									return generator.generate(floors, rows, columns);
+								}
+								else
+									throw new RuntimeException("Wrong algorithm for maze generating");
 					}
 				}
 			});
@@ -344,7 +360,6 @@ public class MyModel extends CommonModel
 			commandOutput += "there isn't any maze avaliable\n";
 		updateAboutChange();
 	}
-	
 	public void display_solution_list()
 	{
 		Set<Maze3D> keys = this.mazeToSolution.keySet();
@@ -359,7 +374,6 @@ public class MyModel extends CommonModel
 			commandOutput += "there isn't any maze avaliable\n";
 		updateAboutChange();
 	}		
-	
 	private void updateAboutChange()
 	{
 		setChanged();

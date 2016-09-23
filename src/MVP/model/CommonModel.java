@@ -7,24 +7,24 @@ import java.util.concurrent.Executors;
 
 import Algorithms.MazeGenerator.Maze3D;
 import Algorithms.MazeGenerator.Position;
-import Algorithms.Search.MazeAdapter;
 import Algorithms.Search.Solution;
+import MVP.presenter.Properties;
 
 public abstract class CommonModel extends Observable implements Model {
 
 	protected HashMap<String, Maze3D> mazes;
-	//protected HashMap<String,Solution<Position>> solutions;
 	protected HashMap<Maze3D, Solution<Position>> mazeToSolution;
 	protected ExecutorService pool;
 	protected String commandOutput;
 	protected boolean runningStatus;
+	protected Properties properties;
 
-	public CommonModel()
+	public CommonModel(Properties properties)
 	{
+		this.properties = properties;
 		this.mazes = new HashMap<String,Maze3D>();
-		//this.solutions = new HashMap<String,Solution<Position>>();
 		this.mazeToSolution = new HashMap<Maze3D, Solution<Position>>();
-		this.pool = /*/Executors.newCachedThreadPool(); //*/Executors.newWorkStealingPool();
+		this.pool = Executors.newWorkStealingPool(this.properties.getNumOfThreads());
 		this.commandOutput = "";
 		this.runningStatus = true;
 	}

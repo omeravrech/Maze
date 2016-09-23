@@ -7,7 +7,17 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
-import MVP.commands.*;
+import MVP.commands.Dir;
+import MVP.commands.Display;
+import MVP.commands.Display_Mazes_List;
+import MVP.commands.Display_Solutions_List;
+import MVP.commands.Display_cross_section;
+import MVP.commands.Display_solution;
+import MVP.commands.Generate_3d_Maze;
+import MVP.commands.ICommand;
+import MVP.commands.Load_maze;
+import MVP.commands.Save_maze;
+import MVP.commands.Solve;
 import MVP.model.Model;
 import MVP.view.View;
 
@@ -20,7 +30,7 @@ public class MyPresenter implements Observer, Presenter
 	protected boolean runningStatus;
 	Thread thread;
 	
-	public MyPresenter(Model model, View view)
+	public MyPresenter(Model model, View view, Properties properties)
 	{
 		this.model = model;
 		this.view = view;
