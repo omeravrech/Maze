@@ -10,5 +10,8 @@
   <void property="solveMazeAlgorithm">
    <string>DFS</string>
   </void>
+  <void property="solutionMapPath">
+   <string>Resources/solutionMap.zip</string>
+  </void>
  </object>
 </java>

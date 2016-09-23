@@ -22,12 +22,13 @@ public class Run {
 		XMLDecoder xmlDecoder = null;
 		try
 		{
-			File file = new File("Maze\\Resources");
+			File file = new File("/users/Barmalka/Maze/Resources/properties.xml");
 			System.out.println(file.exists());
 			InputStream in = new FileInputStream(file);
 			xmlDecoder = new XMLDecoder(in);
 			Object object  = xmlDecoder.readObject();
 			prop = (Properties)object;
+			System.out.println("Loaded the file properly");
 		}
 		catch (Exception e)
 		{
@@ -35,6 +36,7 @@ public class Run {
 			prop.setNumOfThreads(4);
 			prop.setSolveMazeAlgorithm("DFS");
 			prop.setGenerateMazeAlgorithm("Simpale");
+			System.out.println("Load failed");
 		}
 		finally
 		{

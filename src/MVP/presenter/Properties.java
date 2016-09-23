@@ -8,10 +8,20 @@ public class Properties implements Serializable
 	private int numOfThreads;
 	private String generateMazeAlgorithm;
 	private String solveMazeAlgorithm;
+	private String solutionMapPath;
 	
 	public Properties()
 	{
 		
+	}
+	
+	public String getSolutionMapPath() 
+	{
+		return solutionMapPath;
+	}
+
+	public void setSolutionMapPath(String solutionMapPath) {
+		this.solutionMapPath = solutionMapPath;
 	}
 			
 	public int getNumOfThreads() {
