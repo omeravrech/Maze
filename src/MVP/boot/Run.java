@@ -8,9 +8,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
+import org.eclipse.swt.SWT;
+
 import MVP.model.MyModel;
 import MVP.presenter.MyPresenter;
 import MVP.presenter.Properties;
+import MVP.view.CLI;
+import MVP.view.MazeDisplayAdapter;
+import MVP.view.MazeWindow;
 import MVP.view.MyView;
 
 public class Run {
@@ -50,9 +55,21 @@ public class Run {
 		MyPresenter presenter = new MyPresenter(model, view, prop);
 		model.addObserver(presenter);
 		view.addObserver(presenter);
-			
-		presenter.start();
-
+		CLI client = new CLI(new BufferedReader(new InputStreamReader(System.in)),
+				new PrintWriter(System.out, true),
+				model.getCommandOutput(), view);
+		// TODO: Fix the constructor of CLI
+		//presenter.start();
+		MazeWindow gui = new MazeWindow("GameWindow", 500, 300);
+		MazeDisplayAdapter painter = new MazeDisplayAdapter( new Maze2D(gui.getShell(), SWT.BORDER | SWT.DOUBLE_BUFFERED));
+		gui.setMazePainter(painter.getMazeDisplayer());
+		view.setMazeDisplayAdapter(painter);
+		view.setBasicWindow(gui);
+		painter.addObserver(view);
+		gui.addObserver(view);
+		client.addObserver(view);
+		view.setClient(client);
+		gui.run();
 	}
 
 }

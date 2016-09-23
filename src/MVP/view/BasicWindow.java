@@ -1,5 +1,6 @@
 package MVP.view;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 import org.eclipse.swt.widgets.Display;
@@ -9,7 +10,7 @@ public abstract class BasicWindow extends Observable implements Runnable
 {
 	protected Shell shell;
 	protected Display display;
-		
+	protected ArrayList<String[]> commands;
 	public BasicWindow(String title, int hight, int width)
 	{
 		display = new Display();

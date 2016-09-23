@@ -289,4 +289,16 @@ public class Maze3D implements Serializable{
 		}
 		return true;
 	}
+
+	public int getFloors() {
+		return floors;
+	}
+
+	public int getRows() {
+		return rows;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
 }
