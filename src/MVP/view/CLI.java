@@ -47,6 +47,7 @@ public class CLI extends Observable
 		regexMap.put("help", "help");
 		regexMap.put("exit", "exit");
 	}
+	
 	/**
 	*This method will be executed by new thread and handle<br>
 	*the user's choice from the commands

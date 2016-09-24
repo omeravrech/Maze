@@ -9,21 +9,22 @@ import org.eclipse.swt.widgets.Composite;
 
 public abstract class GameCharacter extends Canvas 
 {
-	protected int axis1, axis2, width, height;
-	public int getAxis1() {
-		return axis1;
+	protected int axisX, axisY, width, height;
+	public int getaxisX() 
+	{
+		return axisX;
 	}
 
-	public void setAxis1(int axis1) {
-		this.axis1 = axis1;
+	public void setaxisX(int axisX) {
+		this.axisX = axisX;
 	}
 
-	public int getAxis2() {
-		return axis2;
+	public int getaxisY() {
+		return axisY;
 	}
 
-	public void setAxis2(int axis2) {
-		this.axis2 = axis2;
+	public void setaxisY(int axisY) {
+		this.axisY = axisY;
 	}
 
 	public int getWidth() {
@@ -42,7 +43,7 @@ public abstract class GameCharacter extends Canvas
 		this.height = height;
 	}
 
-	protected int previousAxis1, previousAxis2;
+	protected int previousaxisX, previousaxisY;
 	
 	public GameCharacter(Composite parent, int style) 
 	{
@@ -56,13 +57,13 @@ public abstract class GameCharacter extends Canvas
 			{
 				pe.gc.setAntialias(SWT.ON);
 				pe.gc.setInterpolation(SWT.HIGH);
-				drawCharacter(pe.gc, getAxis1(), getAxis2(), getWidth(), getHeight());
+				drawCharacter(pe.gc, getaxisX(), getaxisY(), getWidth(), getHeight());
 				
 			}
 		});
 		
 	}
 	
-	public abstract void drawCharacter (GC gc,int axis1, int axis2, int width, int height);
+	public abstract void drawCharacter (GC gc,int axisX, int axisY, int width, int height);
 
 }

@@ -28,6 +28,7 @@ public class Maze3D implements Serializable{
 
 	private int[][][] maze;
 
+
 	private Position startPosition;
 	private Position goalPosition;
 	private int floors;

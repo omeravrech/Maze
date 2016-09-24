@@ -1,24 +1,22 @@
 package MVP.view;
 
-import java.util.ArrayList;
-
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 
 import Algorithms.MazeGenerator.Maze3D;
 import Algorithms.MazeGenerator.Position;
-import Algorithms.Search.State;
+import Algorithms.Search.Solution;
 
 public abstract class MazeDisplayer extends Canvas
 {
 	
 	int floors,rows,columns;
-	protected Position startPosition;
-	protected Position goalPosition;
-	protected Position curentPosition;
+	protected CurrentPosition startPosition;
+	protected CurrentPosition goalPosition;
+	protected CurrentPosition currentPosition;
 	protected Maze3D maze;
-	protected Position checker;
-	protected ArrayList<State<Position>> solutions;
+	protected CurrentPosition checker;
+	protected Solution<Position> solutions;
 	protected boolean close = false;
 	
 	
@@ -26,28 +24,44 @@ public abstract class MazeDisplayer extends Canvas
 	{
 		super(parent, style);
 		new Maze3D(1, 5, 5);
-		solutions =new ArrayList<>();
+		solutions = new Solution<Position>();
 	}
+	
+	
+	public abstract  void setCharacterPosition(Maze3D maze);
+
+	public abstract void moveCharacterUp();
+
+	public abstract  void moveCharacterDown();
+
+	public abstract  void moveCharacterLeft();
+
+	public  abstract void moveCharacterRight();
+
+	public abstract void moveCharacterForward();
+
+	public abstract void moveCharacterBackward();
+	
 	
 	public void setCanvas(Object o)
 	{
-		System.out.println("fff");
 		if(maze.getClass() == Maze3D.class)
 		{
 		this.maze = (Maze3D)o;
 		this.floors = maze.getFloors();
 		this.rows = maze.getRows();
 		this.columns = maze.getColumns();
-		startPosition = maze.getStartPosition();
-		goalPosition = maze.getGoalPosition();
-		curentPosition = maze.getStartPosition();
+		startPosition = new CurrentPosition(maze.getStartPosition());
+		goalPosition = new CurrentPosition(maze.getGoalPosition());
+		currentPosition = new CurrentPosition(maze.getStartPosition());
 		
 		}
-		if(o.getClass() == State.class){
-			System.out.println("state");
-			@SuppressWarnings("unchecked")
-			State<Position> state = (State<Position>)o;
-			curentPosition = state.getValue();
+		if(o.getClass() == Position.class){
+			System.out.println("position");
+			Position position = (Position)o;
+			currentPosition.changeLocation(position.floor() - currentPosition.floor(),
+					position.row() - currentPosition.row(),
+					position.column() - currentPosition.column());
 			
 			System.out.println(maze.toString());
 

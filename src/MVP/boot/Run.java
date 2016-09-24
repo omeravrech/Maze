@@ -14,6 +14,7 @@ import MVP.model.MyModel;
 import MVP.presenter.MyPresenter;
 import MVP.presenter.Properties;
 import MVP.view.CLI;
+import MVP.view.Maze2D;
 import MVP.view.MazeDisplayAdapter;
 import MVP.view.MazeWindow;
 import MVP.view.MyView;
@@ -55,10 +56,8 @@ public class Run {
 		MyPresenter presenter = new MyPresenter(model, view, prop);
 		model.addObserver(presenter);
 		view.addObserver(presenter);
-		CLI client = new CLI(new BufferedReader(new InputStreamReader(System.in)),
-				new PrintWriter(System.out, true),
-				model.getCommandOutput(), view);
-		// TODO: Fix the constructor of CLI
+		CLI cli = new CLI(new BufferedReader(new InputStreamReader(System.in)),
+				new PrintWriter(System.out, true));
 		//presenter.start();
 		MazeWindow gui = new MazeWindow("GameWindow", 500, 300);
 		MazeDisplayAdapter painter = new MazeDisplayAdapter( new Maze2D(gui.getShell(), SWT.BORDER | SWT.DOUBLE_BUFFERED));
@@ -67,8 +66,8 @@ public class Run {
 		view.setBasicWindow(gui);
 		painter.addObserver(view);
 		gui.addObserver(view);
-		client.addObserver(view);
-		view.setClient(client);
+		cli.addObserver(view);
+		view.setCli(cli);
 		gui.run();
 	}
 
