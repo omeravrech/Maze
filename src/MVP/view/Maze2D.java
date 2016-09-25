@@ -17,14 +17,14 @@ public class Maze2D extends MazeDisplayer
 	public Maze2D(Composite parent, int style)
 	{
 		super(parent, SWT.DOUBLE_BUFFERED);
-		
-    	Image background = new Image(getDisplay(),"field.jpg");
-    	Image charecter = new Image(getDisplay(),"char1.png");
-    	Image misty = new Image(getDisplay(),"misty.png");
-    	Image winningImg = new Image(getDisplay(),"winningImg.png");
-    	Image wall = new Image(getDisplay(),"wall.png");
-    	Image goingUpImg = new Image(getDisplay(),"goingUpImg.png");
-    	Image goingDownImg = new Image(getDisplay(),"goingDownImg.png");
+		String filePath = "Resources/Graphics/";
+    	Image background = new Image(getDisplay(),filePath+ "field.png");
+    	Image charecter = new Image(getDisplay(),filePath+ "char1.png");
+    	Image misty = new Image(getDisplay(),filePath+ "misty.png");
+    	Image winningImg = new Image(getDisplay(),filePath+ "winningImg.png");
+    	Image wall = new Image(getDisplay(),filePath+ "wall.png");
+    	Image goingUpImg = new Image(getDisplay(),filePath+ "goingUpImg.png");
+    	Image goingDownImg = new Image(getDisplay(),filePath+ "goingDownImg.png");
     	
 		setBackgroundImage(background);
 		
