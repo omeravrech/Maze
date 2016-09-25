@@ -77,7 +77,7 @@ public class CLI extends Observable
 						else
 							commandRegex = regexMap.get(command[0]);
 
-						commandOk = (commandRegex==null?false:line.matches(commandRegex));
+						commandOk = (commandRegex==null ? false : line.matches(commandRegex));
 						if (commandOk)
 						{
 							setChanged();

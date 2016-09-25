@@ -68,7 +68,7 @@ public class Maze2D extends MazeDisplayer
 					            
 					          if (i == goalPosition.row() && j == goalPosition.column() && currentPosition.floor() == goalPosition.floor())
 					          {
-					        	  e.gc.drawImage(winningImg, 0, 0, winningImg.getBounds().width, winningImg.getBounds().height, x, y,w,h);
+					        	  e.gc.drawImage(misty, 0, 0, misty.getBounds().width, misty.getBounds().height, x, y,w,h);
 					          }
 				          }
 					 		if (maze.positionStatus(new Position(currentPosition.floor() + 1, i, j)) != Maze3D.WALL)

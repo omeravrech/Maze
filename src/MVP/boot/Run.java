@@ -53,7 +53,7 @@ public class Run {
 		MyView view = new MyView(in, out);
 		MyModel model = new MyModel(prop);
 		
-		MyPresenter presenter = new MyPresenter(model, view, prop);
+		MyPresenter presenter = new MyPresenter(model, view);
 		model.addObserver(presenter);
 		view.addObserver(presenter);
 		CLI cli = new CLI(new BufferedReader(new InputStreamReader(System.in)),

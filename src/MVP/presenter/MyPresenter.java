@@ -30,7 +30,7 @@ public class MyPresenter implements Observer, Presenter
 	protected boolean runningStatus;
 	Thread thread;
 	
-	public MyPresenter(Model model, View view, Properties properties)
+	public MyPresenter(Model model, View view)
 	{
 		this.model = model;
 		this.view = view;

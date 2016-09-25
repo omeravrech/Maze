@@ -1,16 +1,18 @@
 package MVP.view;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import MVP.commands.ICommand;
+
 public abstract class BasicWindow extends Observable implements Runnable
 {
 	protected Shell shell;
 	protected Display display;
-	protected ArrayList<String[]> commands;
+	protected HashMap<String,ICommand> commands;
 	public BasicWindow(String title, int hight, int width)
 	{
 		display = new Display();

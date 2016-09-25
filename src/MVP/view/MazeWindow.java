@@ -29,6 +29,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
+import MVP.presenter.CommandData;
+
 public class MazeWindow extends BasicWindow 
 {
 	protected KeyListener keyListener;
@@ -191,18 +193,27 @@ public class MazeWindow extends BasicWindow
 
 							@Override
 							public void widgetSelected(SelectionEvent arg0) {
-								String[] generateline = { "generate", "3d", "maze", generateWindow.nameText.getText(),
+								/*String[] generateline = { "generate", "3d", "maze", generateWindow.nameText.getText(),
 										generateWindow.heightText.getText(), generateWindow.rowText.getText(),
 										generateWindow.columnText.getText() };
-								mazeName = generateWindow.nameText.getText();
-								String[] regex = ("generate 3d maze [A-Za-z0-9]+ [0-9]{1,2} [0-9]{1,2} [0-9]{1,2}").split("\b");
-								commands.add(regex);
-								commands.add(generateline);
-								mazePainterAdapter.in = true;
+								mazeName = generateWindow.nameText.getText();*/
+								
+								StringBuilder sb = new StringBuilder();
+								sb.append("generate 3d maze " + generateWindow.nameText + " " +
+										generateWindow.heightText + " " +
+										generateWindow.rowText.getText() + " " + generateWindow.columnText.getText());
+								String regex = ("generate 3d maze [A-Za-z0-9]+ [0-9]{1,2} [0-9]{1,2} [0-9]{1,2}");
+								
 								setChanged();
-								notifyObservers();
+								notifyObservers(new CommandData(regex, sb.toString().split(" ")));
+								
+								//commands.add(regex);
+								//commands.add(generateline);
+								mazePainterAdapter.in = true;
+								//setChanged();
+								//notifyObservers();
 								mazePainterAdapter.in = false;
-								commands.clear();
+								//commands.clear();
 								generateWindow.generateShell.close();
 								// mazeCanvas.mazePainter.redraw();
 								mazePainterAdapter.mazePainter.setFocus();
@@ -234,14 +245,19 @@ public class MazeWindow extends BasicWindow
 				solve.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
-						String[] line = ("solve" + " " + mazeName + " " + "airdistance").split(" ");
+						/*String[] line = ("solve" + " " + mazeName + " " + "airdistance").split(" ");
 						String[] regexSolve = { "solve [A-Za-z0-9]+ [A-Za-z0-9]+" };
 						commands.add(regexSolve);
-						commands.add(line);
-						mazePainterAdapter.in = true;
+						commands.add(line);*/
+						mazePainterAdapter.in = false;
+						StringBuilder sb = new StringBuilder();
+						sb.append("solve " + mazeName + "BFS");
+						String regex = "solve [A-Za-z0-9]+ [A-Za-z0-9]+";
+						
+						notifyObservers(new CommandData(regex, sb.toString().split(" ")));
 						setChanged();
 						notifyObservers();
-						mazePainterAdapter.in = false;
+						mazePainterAdapter.in = true;
 					}
 				});
 
