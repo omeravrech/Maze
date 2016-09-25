@@ -10,7 +10,7 @@ import MVP.presenter.MyPresenter;
 import MVP.presenter.Properties;
 import MVP.view.MyView;
 import MVP.view.UserInterface;
-import MVP.view.Windows.WelcomeWindow;
+import MVP.view.Windows.MainWindow;
 
 public class Run {
 
@@ -43,7 +43,7 @@ public class Run {
 		//UserInterface ui = new CLI(new BufferedReader(new InputStreamReader(System.in)),
 		//		new PrintWriter(System.out, true));
 		
-		UserInterface ui = new WelcomeWindow(700, 500);	
+		UserInterface ui = new MainWindow(700, 500);	
 				
 		MyView view = new MyView(ui);
 		MyModel model = new MyModel(prop);

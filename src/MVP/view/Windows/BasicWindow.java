@@ -1,5 +1,6 @@
 package MVP.view.Windows;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -10,12 +11,15 @@ public abstract class BasicWindow extends UserInterface
 	protected Shell shell;
 	protected Display display;
 	
-	public BasicWindow(String title, int hight, int width)
+	private int height;
+	private int width;
+	private String title;
+	
+	public BasicWindow(String title, int height, int width)
 	{
-		//this.display = new Display();
-		//this.shell = new Shell(this.display);//, SWT.TITLE | SWT.SYSTEM_MODAL | SWT.CLOSE | SWT.MAX);
-		//this.shell.setSize(hight, width);
-		//this.shell.setText(title);
+			this.title = title;
+			this.height = height;
+			this.width = width;
 	}
 
 	abstract void implementsWidgets();
@@ -24,10 +28,13 @@ public abstract class BasicWindow extends UserInterface
 	public void run() 
 	{
 		display = new Display();
-		shell = new Shell(display);
-		implementsWidgets();	
-		shell.open();	
+		shell = new Shell(display , SWT.TITLE | SWT.SYSTEM_MODAL | SWT.CLOSE | SWT.MAX);
+		shell.setSize(height, width);
+		shell.setText(title);
 		
+		implementsWidgets();
+		
+		shell.open();
 		// main event loop
 		while(!shell.isDisposed()){ // window isn't closed
 			if(!display.readAndDispatch())
@@ -36,5 +43,7 @@ public abstract class BasicWindow extends UserInterface
 			}
 		}
 		display.dispose();
+		setChanged();
+		notifyObservers("exit");
 	}
 }
