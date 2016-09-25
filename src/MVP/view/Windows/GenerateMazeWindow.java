@@ -1,4 +1,4 @@
-package MVP.view;
+package MVP.view.Windows;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionListener;
@@ -10,23 +10,23 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class GenerateWindow 
+public class GenerateMazeWindow extends CommonWindow
 {
 	private Button generateButton;
-	Shell generateShell;
 	Text nameText,heightText,rowText,columnText;
 	
 	
-	public GenerateWindow(Shell shell) 
+	public GenerateMazeWindow(Shell shell) 
 	{
-		generateShell = new Shell(shell, SWT.TITLE | SWT.SYSTEM_MODAL | SWT.CLOSE | SWT.MAX);
-		generateShell.setLayout(new GridLayout(2, false));
-		generateShell.setSize(500, 200);
+		super(shell);
+		shell = new Shell(shell, SWT.TITLE | SWT.SYSTEM_MODAL | SWT.CLOSE | SWT.MAX);
+		shell.setLayout(new GridLayout(2, false));
+		shell.setSize(500, 200);
 		
-		generateShell.setText("Generate New Maze");
-		generateShell.setLayout(new GridLayout(2, false));
+		shell.setText("Generate New Maze");
+		shell.setLayout(new GridLayout(2, false));
 		
-		Group dialogs = new Group(generateShell, SWT.SHADOW_ETCHED_IN);
+		Group dialogs = new Group(shell, SWT.SHADOW_ETCHED_IN);
 		dialogs.setText("Maze Generate Window" + " Properties");
 		dialogs.setLayout(new GridLayout(2, true));
 		dialogs.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
@@ -58,8 +58,8 @@ public class GenerateWindow
 		generateButton = new Button(dialogs, SWT.PUSH);
 		generateButton.setText("Generate");
 		generateButton.setLayoutData(new GridData(SWT.FILL, SWT.BOTTOM, true, true, 1, 1));
-		generateShell.setSize (300, 200);
-		generateShell.open ();
+		shell.setSize(300, 200);
+		shell.open();
 	}
 	
 	public void setTriggerOk(SelectionListener listener)

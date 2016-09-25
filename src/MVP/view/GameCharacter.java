@@ -18,33 +18,25 @@ public abstract class GameCharacter extends Canvas
 	public void setaxisX(int axisX) {
 		this.axisX = axisX;
 	}
-
 	public int getaxisY() {
 		return axisY;
 	}
-
 	public void setaxisY(int axisY) {
 		this.axisY = axisY;
 	}
-
 	public int getWidth() {
 		return width;
 	}
-
 	public void setWidth(int width) {
 		this.width = width;
 	}
-
 	public int getHeight() {
 		return height;
 	}
-
 	public void setHeight(int height) {
 		this.height = height;
 	}
-
 	protected int previousaxisX, previousaxisY;
-	
 	public GameCharacter(Composite parent, int style) 
 	{
 		super(parent, SWT.DOUBLE_BUFFERED);
@@ -63,7 +55,6 @@ public abstract class GameCharacter extends Canvas
 		});
 		
 	}
-	
 	public abstract void drawCharacter (GC gc,int axisX, int axisY, int width, int height);
 
 }

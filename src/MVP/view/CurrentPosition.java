@@ -13,27 +13,23 @@ public class CurrentPosition
 	{
 		return position.floor();
 	}
-	
 	public int row()
 	{
 		return position.row();
-	}
-	
+	}	
 	public int column()
 	{
 		return position.column();
 	}
-	
 	public void moveUp()
 	{
 		position.move(2,0,0);
 	}
-	
 	public void moveDown()
 	{
 		position.move(-2,0,0);
 	}
-	
+
 	public void moveLeft()
 	{
 		position.move(0,0,-1);

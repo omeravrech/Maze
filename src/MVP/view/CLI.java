@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Observable;
 
 import MVP.presenter.CommandData;
 /**
@@ -16,7 +15,7 @@ import MVP.presenter.CommandData;
 * @version 1.0
 * @since   15/09/2016 
 */
-public class CLI extends Observable
+public class CLI extends UserInterface
 {
 	private BufferedReader in;
 	private PrintWriter out;
@@ -55,12 +54,9 @@ public class CLI extends Observable
 	* @version 1.0
 	* @since   15/09/2016 
 	*/
-	public void start() {
+	public void run()
+	{
 
-		Thread thread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
 				try
 				{
 					String line = null;
@@ -96,10 +92,6 @@ public class CLI extends Observable
 					print(e.getMessage());
 				}
 
-			}
-		});
-		thread.setName("CLI-Thread");
-		thread.start();
 	}
 	
 	public void print(String string)

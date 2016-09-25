@@ -1,4 +1,4 @@
-package MVP.view;
+/*package MVP.view;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -30,13 +30,15 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
 import MVP.presenter.CommandData;
+import MVP.view.Windows.BasicWindow;
+import MVP.view.Windows.GenerateMazeWindow;
 
 public class MazeWindow extends BasicWindow 
 {
 	protected KeyListener keyListener;
 	protected MazeDisplayAdapter mazePainterAdapter;
 	protected MazeDisplayer mazePainter;
-	protected GenerateWindow generateWindow;
+	protected GenerateMazeWindow generateWindow;
 	protected MouseWheelListener mouseZoomlListener;
 	protected MenuItem exit;
 	protected String mazeName;
@@ -188,7 +190,7 @@ public class MazeWindow extends BasicWindow
 
 					@Override
 					public void widgetSelected(SelectionEvent arg0) {
-						generateWindow = new GenerateWindow(shell);
+						generateWindow = new GenerateMazeWindow(shell);
 						generateWindow.setTriggerOk(new SelectionListener() {
 
 							@Override
@@ -196,7 +198,7 @@ public class MazeWindow extends BasicWindow
 								/*String[] generateline = { "generate", "3d", "maze", generateWindow.nameText.getText(),
 										generateWindow.heightText.getText(), generateWindow.rowText.getText(),
 										generateWindow.columnText.getText() };
-								mazeName = generateWindow.nameText.getText();*/
+								mazeName = generateWindow.nameText.getText();
 								
 								StringBuilder sb = new StringBuilder();
 								sb.append("generate 3d maze " + generateWindow.nameText + " " +
@@ -245,10 +247,10 @@ public class MazeWindow extends BasicWindow
 				solve.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
-						/*String[] line = ("solve" + " " + mazeName + " " + "airdistance").split(" ");
+						//*String[] line = ("solve" + " " + mazeName + " " + "airdistance").split(" ");
 						String[] regexSolve = { "solve [A-Za-z0-9]+ [A-Za-z0-9]+" };
 						commands.add(regexSolve);
-						commands.add(line);*/
+						commands.add(line);
 						mazePainterAdapter.in = false;
 						StringBuilder sb = new StringBuilder();
 						sb.append("solve " + mazeName + "BFS");
@@ -378,3 +380,4 @@ public class MazeWindow extends BasicWindow
 	}
 	
 }
+*/
