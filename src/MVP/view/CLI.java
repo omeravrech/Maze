@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
+import Algorithms.MazeGenerator.Maze3D;
 import MVP.presenter.CommandData;
 /**
 * <h1>CLI Class</h1>
@@ -112,5 +113,11 @@ public class CLI extends UserInterface
 		{
 			print(e.getMessage());
 		}
+	}
+
+	@Override
+	public void updateActiveMaze(Maze3D maze)
+	{
+		print(maze.toString());
 	}
 }

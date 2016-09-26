@@ -30,7 +30,7 @@ public abstract class BasicWindow extends UserInterface
 		try
 		{
 			display = new Display();
-			shell = new Shell(display , SWT.TITLE | SWT.SYSTEM_MODAL | SWT.CLOSE | SWT.MAX);
+			shell = new Shell(display , SWT.TITLE | SWT.SYSTEM_MODAL | SWT.CLOSE | SWT.MAX | SWT.RESIZE);
 			shell.setSize(height, width);
 			shell.setText(title);
 			

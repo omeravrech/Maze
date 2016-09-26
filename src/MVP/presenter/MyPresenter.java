@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
+import Algorithms.MazeGenerator.Maze3D;
 import MVP.commands.Dir;
 import MVP.commands.Display;
 import MVP.commands.Display_Mazes_List;
@@ -106,6 +107,14 @@ public class MyPresenter implements Observer, Presenter
 		
 		if (o == model)
 		{
+			
+			if (arg != null)
+			{
+				if (arg.getClass().equals(Maze3D.class))
+				{
+					view.updateActiveMaze((Maze3D)arg);
+				}
+			}
 			String output = model.getCommandOutput();
 			view.Result(output);
 		}

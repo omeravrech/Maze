@@ -1,16 +1,17 @@
 package MVP.boot;
 
 import java.beans.XMLDecoder;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 import MVP.model.MyModel;
 import MVP.presenter.MyPresenter;
 import MVP.presenter.Properties;
+import MVP.view.CLI;
 import MVP.view.MyView;
 import MVP.view.UserInterface;
 import MVP.view.Windows.MainWindow;
@@ -43,9 +44,8 @@ public class Run {
 			xmlDecoder.close();
 		}
 			
-		//UserInterface ui = new CLI(new BufferedReader(new InputStreamReader(System.in)),
-		//		new PrintWriter(System.out, true));
-		UserInterface ui = new MainWindow(730, 400);	
+		/*UserInterface ui = new CLI(new BufferedReader(new InputStreamReader(System.in)), new PrintWriter(System.out, true));
+		//*/UserInterface ui = new MainWindow(730, 400);	
 				
 		MyView view = new MyView(ui);
 		MyModel model = new MyModel(prop);

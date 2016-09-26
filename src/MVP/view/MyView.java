@@ -1,10 +1,11 @@
 package MVP.view;
 
 import java.util.Observable;
+import Algorithms.MazeGenerator.Maze3D;
 
 public class MyView extends CommonView
 {
-
+	
 	public MyView(UserInterface ui)
 	{
 		super(ui);
@@ -22,5 +23,10 @@ public class MyView extends CommonView
 	{
 		this.setChanged();
 		this.notifyObservers(args);
+	}
+	@Override
+	public void updateActiveMaze(Maze3D maze)
+	{
+		ui.updateActiveMaze(maze);
 	}
 }

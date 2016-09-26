@@ -15,7 +15,7 @@ public class Display extends CommonCommand {
 	public void doCommand(String[] args) throws IOException
 	{
 		String name = args[2];
-		model.display(name);
+		model.getMaze(name);
 	}
 
 }

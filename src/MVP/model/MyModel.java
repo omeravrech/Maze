@@ -26,7 +26,6 @@ import Algorithms.MazeGenerator.SimpleMaze3dGenerator;
 import Algorithms.Search.MazeAdapter;
 import Algorithms.Search.Searcher;
 import Algorithms.Search.Solution;
-import MVC.commands.Save_maze;
 import MVP.presenter.Properties;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
@@ -85,7 +84,7 @@ public class MyModel extends CommonModel
 					}
 					finally
 					{
-						updateAboutChange();
+						updateAboutChange(mazes.get(name));
 					}
 				}
 			});
@@ -155,23 +154,24 @@ public class MyModel extends CommonModel
 		updateAboutChange();
 	}
 	
-	public void display(String name)
+	public void getMaze(String name)
 	{
-		StringBuilder string = new StringBuilder();
 		if (!mazes.containsKey(name))
 		{
-			string.append("Maze doesn't exist");
+			this.commandOutput += "Maze doesn't exist under name: " + name;
+			this.setChanged();
+			this.notifyObservers(null);
 		}
 		else
 		{
 			Maze3D maze = mazes.get(name);
-			string.append("*Start Position* :" + maze.getStartPosition().toString() + "\n");
-			string.append("*Goal Position* :" + maze.getGoalPosition().toString() + "\n");
-			string.append("\n" + maze.toString());
+			//string.append("*Start Position* :" + maze.getStartPosition().toString() + "\n");
+			//string.append("*Goal Position* :" + maze.getGoalPosition().toString() + "\n");
+			//string.append("\n" + maze.toString());
+			this.commandOutput += "Maze " + name + " is ready";
+			this.setChanged();
+			this.notifyObservers(maze);
 		}
-		this.commandOutput += string.toString();
-		this.setChanged();
-		this.notifyObservers();
 	}
 	@Override
 	public void exit() 
@@ -425,10 +425,16 @@ public class MyModel extends CommonModel
 		else
 			commandOutput += "there isn't any maze avaliable\n";
 		updateAboutChange();
-	}		
+	}
+	
 	private void updateAboutChange()
 	{
 		setChanged();
 		notifyObservers();
+	}
+	private void updateAboutChange(Object o)
+	{
+		setChanged();
+		notifyObservers(o);
 	}
 }
