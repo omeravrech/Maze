@@ -20,7 +20,7 @@ public class MyView extends CommonView
 	@Override
 	public void update(Observable o, Object args)
 	{
-			this.setChanged();
-			this.notifyObservers(args);
+		this.setChanged();
+		this.notifyObservers(args);
 	}
 }

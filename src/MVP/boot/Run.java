@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+
 import MVP.model.MyModel;
 import MVP.presenter.MyPresenter;
 import MVP.presenter.Properties;
@@ -42,8 +45,7 @@ public class Run {
 			
 		//UserInterface ui = new CLI(new BufferedReader(new InputStreamReader(System.in)),
 		//		new PrintWriter(System.out, true));
-		
-		UserInterface ui = new MainWindow(700, 500);	
+		UserInterface ui = new MainWindow(730, 400);	
 				
 		MyView view = new MyView(ui);
 		MyModel model = new MyModel(prop);

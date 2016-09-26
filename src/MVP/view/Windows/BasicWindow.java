@@ -27,23 +27,35 @@ public abstract class BasicWindow extends UserInterface
 	@Override
 	public void run() 
 	{
-		display = new Display();
-		shell = new Shell(display , SWT.TITLE | SWT.SYSTEM_MODAL | SWT.CLOSE | SWT.MAX);
-		shell.setSize(height, width);
-		shell.setText(title);
-		
-		implementsWidgets();
-		
-		shell.open();
-		// main event loop
-		while(!shell.isDisposed()){ // window isn't closed
-			if(!display.readAndDispatch())
-			{
-				display.sleep();
+		try
+		{
+			display = new Display();
+			shell = new Shell(display , SWT.TITLE | SWT.SYSTEM_MODAL | SWT.CLOSE | SWT.MAX);
+			shell.setSize(height, width);
+			shell.setText(title);
+			
+			implementsWidgets();
+			
+			shell.open();
+			// main event loop
+			while(!shell.isDisposed())
+			{ // window isn't closed
+				if(!display.readAndDispatch())
+				{
+					display.sleep();
+				}
 			}
+
+			display.dispose();
 		}
-		display.dispose();
-		setChanged();
-		notifyObservers("exit");
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			setChanged();
+			notifyObservers("exit");
+		}
 	}
 }

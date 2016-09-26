@@ -10,15 +10,19 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class GenerateMazeWindow extends CommonWindow
+public class GenerateMazeWindow extends BasicWindow
 {
+	public GenerateMazeWindow(int height, int width)
+	{
+		super("Maze", height, width);
+	}
+
 	private Button generateButton;
 	Text nameText,heightText,rowText,columnText;
 	
 	
-	public GenerateMazeWindow(Shell shell) 
+	public void implementsWidgets() 
 	{
-		super(shell);
 		shell = new Shell(shell, SWT.TITLE | SWT.SYSTEM_MODAL | SWT.CLOSE | SWT.MAX);
 		shell.setLayout(new GridLayout(2, false));
 		shell.setSize(500, 200);
@@ -65,6 +69,12 @@ public class GenerateMazeWindow extends CommonWindow
 	public void setTriggerOk(SelectionListener listener)
 	{
 		generateButton.addSelectionListener(listener);
+		
+	}
+
+	@Override
+	public void print(String result) {
+		// TODO Auto-generated method stub
 		
 	}
 
