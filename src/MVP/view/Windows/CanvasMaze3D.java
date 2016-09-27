@@ -1,5 +1,7 @@
 package MVP.view.Windows;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -17,7 +19,7 @@ public class CanvasMaze3D extends Canvas
 	
 	protected Maze3D maze;
 	
-	protected Image wallImg, welcomeImg, fieldImg, characterImg, endImg, downImg, upImg;
+	protected Image wallImg, welcomeImg, fieldImg, characterImg, endImg, downImg, upImg,finishImg;
 	protected boolean drawMap;
 	protected CurrentPosition currentPosition;
 	
@@ -44,6 +46,7 @@ public class CanvasMaze3D extends Canvas
 		currentPosition = null;
 		drawMap = true;
 		welcomeImg = new Image(null,	"Resources/Graphics/welcomeImage.jpg");
+		finishImg = new Image(null,		"Resources/Graphics/winningImg.png");
 		wallImg = new Image(null,		"Resources/Graphics/wall.png");
 		fieldImg = new Image(null,		"Resources/Graphics/field.png");
 		characterImg = new Image(null,	"Resources/Graphics/char1.png");
@@ -62,51 +65,69 @@ public class CanvasMaze3D extends Canvas
 				}
 				else
 				{
-					
-					p.gc.drawImage(fieldImg, 0, 0, fieldImg.getBounds().width, fieldImg.getBounds().height,0,0,getSize().x,getSize().y);
-					
-					int[][] mazeData = maze.getCrossSectionByZ(currentPosition.floor());
-					
-					
-					int width = getSize().x;
-	
-					int depth = getSize().y;
-	
-	
-	
-					int w = width / mazeData[0].length;// the width of a cell
-	
-					int h = depth / mazeData.length; // the height of a cell
-	
-	
-	
-					// for calculating the size of the maze floor
-	
-					int lengthWidth = mazeData[0].length;// z axis length
-	
-					int lengthDepth = mazeData.length;// y axis length
-	
-	
-					for (int i = 0; i < lengthDepth; i++)
+					if (!currentPosition.getPosition().equals(maze.getGoalPosition()))
 					{
-						for (int j = 0; j < lengthWidth; j++)
+						setBackgroundImage(fieldImg);
+						
+						int[][] mazeData = maze.getCrossSectionByZ(currentPosition.floor());
+						
+						int width = getSize().x;
+						int depth = getSize().y;
+						int w = width / mazeData[0].length;// the width of a cell
+						int h = depth / mazeData.length; // the height of a cell
+		
+						// for calculating the size of the maze floor
+						int lengthWidth = mazeData[0].length;// z axis length
+						int lengthDepth = mazeData.length;// y axis length
+		
+						for (int i = 0; i < lengthDepth; i++)
 						{
-
-							System.out.print(mazeData[i][j] + " ");
-							int pixelX = w * j;
-							int pixelY = h * i;
-							if (mazeData[i][j] == Maze3D.WALL)
-								p.gc.drawImage(wallImg, 0, 0, wallImg.getBounds().width,wallImg.getBounds().height,pixelX,pixelY ,w ,h);	//draw walls
-							if (mazeData[i][j] == Maze3D.END)
-								p.gc.drawImage(endImg, 0, 0, endImg.getBounds().width,endImg.getBounds().height,pixelX,pixelY ,w ,h);	//draw character
-							if(maze.positionStatus(new Position(currentPosition.floor()-1, i, j)) == Maze3D.PATH)	
-								p.gc.drawImage(downImg, 0, 0, downImg.getBounds().width,downImg.getBounds().height,pixelX,pixelY ,w ,h);
-							if(maze.positionStatus(new Position(currentPosition.floor()+1, i, j)) == Maze3D.PATH)	
-									p.gc.drawImage(upImg, 0, 0, upImg.getBounds().width,downImg.getBounds().height,pixelX,pixelY ,w ,h);
-							if ((i == currentPosition.row()) && (j == currentPosition.column()))
-								p.gc.drawImage(characterImg, 0, 0, characterImg.getBounds().width,characterImg.getBounds().height,pixelX,pixelY ,w ,h);
+							for (int j = 0; j < lengthWidth; j++)
+							{
+								int pixelX = w * j;
+								int pixelY = h * i;
+								if (mazeData[i][j] == Maze3D.WALL)
+								{
+									p.gc.drawImage(wallImg, 0, 0, wallImg.getBounds().width,wallImg.getBounds().height,pixelX,pixelY ,w ,h);//draw walls
+									System.out.print(mazeData[i][j] + " ");
+								}
+								else
+								{
+									int up = maze.positionStatus(new Position(currentPosition.floor()-1, i, j));
+									int down = maze.positionStatus(new Position(currentPosition.floor()+1, i, j));
+									
+									if(up == Maze3D.PATH)
+									{
+										p.gc.drawImage(downImg, 0, 0, downImg.getBounds().width,downImg.getBounds().height,pixelX,pixelY ,w ,h);
+									}
+									if(down == Maze3D.PATH)	
+									{
+											p.gc.drawImage(upImg, 0, 0, upImg.getBounds().width,downImg.getBounds().height,pixelX,pixelY ,w ,h);
+									}
+									if (up == down && up == Maze3D.PATH)
+									{
+										//TODO: picture of both up and down
+									}
+									if (mazeData[i][j] == Maze3D.END)
+									{
+										p.gc.drawImage(endImg, 0, 0, endImg.getBounds().width,endImg.getBounds().height,pixelX,pixelY ,w ,h);	//draw character
+									}
+									if ((i == currentPosition.row()) && (j == currentPosition.column()))
+									{
+										p.gc.drawImage(characterImg, 0, 0, characterImg.getBounds().width,characterImg.getBounds().height,pixelX,pixelY ,w ,h);
+										System.err.print(mazeData[i][j] + " ");
+									}
+									else
+										System.out.print(mazeData[i][j] + " ");
+								}
+							}
+							System.out.println("");
 						}
-						System.out.println("");
+						System.out.println("\n");
+					}
+					else
+					{
+						setBackgroundImage(finishImg);
 					}
 				}
 			}
@@ -117,32 +138,37 @@ public class CanvasMaze3D extends Canvas
 			@Override
 			public void keyReleased(KeyEvent e)
 			{
+				ArrayList<Position> possibleMoves = maze.getPossibleMoves(currentPosition.getPosition());
+				
 				switch (e.keyCode)
 				{
 				case SWT.ARROW_UP:
-					if (maze.positionStatus(new Position(currentPosition.floor(), currentPosition.row()+1, currentPosition.column())) != Maze3D.WALL)
+					if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row()-1, currentPosition.column())))
 						currentPosition.moveForward();
 					break;
 				case SWT.ARROW_DOWN:
-					if (maze.positionStatus(new Position(currentPosition.floor(), currentPosition.row()-1, currentPosition.column())) != Maze3D.WALL)
+					if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row()+1, currentPosition.column())))
 						currentPosition.moveBackward();
 					break;
 				case SWT.ARROW_LEFT:
-					if (maze.positionStatus(new Position(currentPosition.floor(), currentPosition.row(), currentPosition.column()+1)) != Maze3D.WALL)
+					if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row(), currentPosition.column()-1)))
 						currentPosition.moveLeft();
 					break;
 				case SWT.ARROW_RIGHT:
-					if (maze.positionStatus(new Position(currentPosition.floor(), currentPosition.row(), currentPosition.column()-1)) != Maze3D.WALL)
+					if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row(), currentPosition.column()+1)))
 					currentPosition.moveRight();
 					break;
 				case SWT.PAGE_UP:
-					if (maze.positionStatus(new Position(currentPosition.floor()+1, currentPosition.row(), currentPosition.column())) != Maze3D.WALL)
+					if (possibleMoves.contains(new Position(currentPosition.floor()+1, currentPosition.row(), currentPosition.column())))
 					currentPosition.moveUp();
 					break;
 				case SWT.PAGE_DOWN:
-					if (maze.positionStatus(new Position(currentPosition.floor()-1, currentPosition.row(), currentPosition.column())) != Maze3D.WALL)
+					if (possibleMoves.contains(new Position(currentPosition.floor()-1, currentPosition.row(), currentPosition.column())))
 					currentPosition.moveDown();
 					break;
+					
+				default:
+						System.out.print("Wrong move");
 				}
 				
 				getDisplay().syncExec(new Runnable() {

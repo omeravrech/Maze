@@ -27,12 +27,12 @@ public class Position implements Serializable
 
 
 
-	public static final Position UP = new Position(2, 0, 0);
+	/*public static final Position UP = new Position(2, 0, 0);
 	public static final Position DOWN = new Position(-2, 0, 0);
 	public static final Position RIGHT = new Position(0, 0, 1);
 	public static final Position LEFT = new Position(0, 0, -1);
 	public static final Position FORWARD = new Position(0, 1, 0);
-	public static final Position BACKWARD = new Position(0, -1, 0);
+	public static final Position BACKWARD = new Position(0, -1, 0);*/
 	
 	
 	public Position(int floor, int rows, int columns) 
@@ -52,7 +52,7 @@ public class Position implements Serializable
 		return columns;
 	}
 	
-	public void setFloor(int floor) {
+	/*public void setFloor(int floor) {
 		this.floor = floor;
 	}
 
@@ -62,7 +62,7 @@ public class Position implements Serializable
 
 	public void setColumns(int columns) {
 		this.columns = columns;
-	}
+	}*/
 	@Override
 	public String toString() {
 		return "{" + floor + "," + rows + "," + columns + "}";
