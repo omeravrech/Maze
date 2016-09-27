@@ -18,6 +18,7 @@ public class MainWindow extends BasicWindow
 	private Button generateButton, loadButton, solveButton, hintButton, resetButton, exitButton;
 	private CanvasMaze3D canvas;
 	private String mazeName;
+	public static String SOLUTION_ALGORITHM = "BFS";
 	
 	public MainWindow(int hight, int width) {
 		super("Poke'mon Maze Game", hight, width);
@@ -88,7 +89,23 @@ public class MainWindow extends BasicWindow
 			}
 		});
 		
+		solveButton.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				
+				solveMaze();
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
+	
+	
 	
 	@Override
 	public void print(String result)
@@ -144,6 +161,13 @@ public class MainWindow extends BasicWindow
 			}
 		});
 		localShell.open();
+	}
+	
+	public void solveMaze ()
+	{
+		String str = "solve " + mazeName + " " + SOLUTION_ALGORITHM;
+		setChanged();
+		notifyObservers(new CommandData("solve [A-Za-z0-9]+ [A-Za-z0-9]+",str.split(" ")));
 	}
 	@Override
 	public void updateActiveMaze(Maze3D maze)

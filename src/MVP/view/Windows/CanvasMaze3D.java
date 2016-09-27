@@ -19,7 +19,7 @@ public class CanvasMaze3D extends Canvas
 	
 	protected Maze3D maze;
 	
-	protected Image wallImg, welcomeImg, fieldImg, characterImg, endImg, downImg, upImg,finishImg;
+	protected Image wallImg, welcomeImg, fieldImg, characterImg, endImg, downImg, upImg,finishImg,goingUpAndDown;
 	protected boolean drawMap;
 	protected CurrentPosition currentPosition;
 	
@@ -53,6 +53,7 @@ public class CanvasMaze3D extends Canvas
 		upImg = new Image(null,			"Resources/Graphics/goingUpImg.png");
 		downImg = new Image(null,		"Resources/Graphics/goingDownImg.png");
 		endImg = new Image(null,		"Resources/Graphics/pikaImg.gif");
+		goingUpAndDown = new Image(null, "Resources/Graphics/goingUpAndDown.png");
 		
 		addPaintListener(new PaintListener() {
 			
@@ -106,7 +107,7 @@ public class CanvasMaze3D extends Canvas
 									}
 									if (up == down && up == Maze3D.PATH)
 									{
-										//TODO: picture of both up and down
+										p.gc.drawImage(goingUpAndDown, 0, 0, goingUpAndDown.getBounds().width, goingUpAndDown.getBounds().height, pixelX, pixelY, w, h);
 									}
 									if (mazeData[i][j] == Maze3D.END)
 									{

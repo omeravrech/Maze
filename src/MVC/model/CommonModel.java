@@ -50,9 +50,9 @@ public abstract class CommonModel implements Model {
 	abstract public Solution<Position> display_solution(String name);
 	abstract public void generate_3d_maze(String name, int floors, int rows, int columns);
 	abstract public File[] dir(String path);
-	abstract public void save(String name, String path); // Using file class?
+	abstract public void save(String name, String path);
 	abstract public void load(String name, String path);
-	abstract public void solve(String name, Searcher<Position> algorithm) throws IOException; // Need to send params to Searcher <T>
-	abstract public void exit(); //TODO: Close ALL FILES(!!) and KILL ALL THREADS(!!)
+	abstract public void solve(String name, Searcher<Position> algorithm) throws IOException;
+	abstract public void exit(); 
 	//abstract public void returnedMessage(Object msg);
 }
