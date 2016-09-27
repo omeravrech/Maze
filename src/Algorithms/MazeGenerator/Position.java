@@ -78,8 +78,10 @@ public class Position implements Serializable
 
 	public void move(int floor, int row, int col)
 	{
+		System.err.print(	"Change position: " + toString());
 		this.floor += floor;
 		this.rows += row;
 		this.columns += col;
+		System.err.println(	"to position:     " + toString());
 	}
 }

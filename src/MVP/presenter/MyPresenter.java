@@ -22,6 +22,7 @@ import MVP.commands.Solve;
 import MVP.model.Model;
 import MVP.view.View;
 
+@SuppressWarnings("deprecation")
 public class MyPresenter implements Observer, Presenter 
 {
 	protected Model model;
@@ -111,9 +112,7 @@ public class MyPresenter implements Observer, Presenter
 			if (arg != null)
 			{
 				if (arg.getClass().equals(Maze3D.class))
-				{
 					view.updateActiveMaze((Maze3D)arg);
-				}
 			}
 			String output = model.getCommandOutput();
 			view.Result(output);

@@ -1,17 +1,13 @@
 package MVP.boot;
 
 import java.beans.XMLDecoder;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 
 import MVP.model.MyModel;
 import MVP.presenter.MyPresenter;
 import MVP.presenter.Properties;
-import MVP.view.CLI;
 import MVP.view.MyView;
 import MVP.view.UserInterface;
 import MVP.view.Windows.MainWindow;

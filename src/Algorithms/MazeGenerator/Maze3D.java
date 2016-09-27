@@ -208,9 +208,9 @@ public class Maze3D implements Serializable{
 	}
 	public int[][] getCrossSectionByZ(int axis) throws IndexOutOfBoundsException
 	{
-		if ((axis < 0) || (axis > floors))
+		if ((axis < 0) || (axis > 2*floors+1))
 			throw new IndexOutOfBoundsException("Invalid input.");
-		return maze[2*(axis-1)+1].clone();
+		return maze[axis].clone();
 	}
 	
 	
