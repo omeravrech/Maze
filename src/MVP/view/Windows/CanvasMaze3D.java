@@ -2,8 +2,6 @@ package MVP.view.Windows;
 
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -22,8 +20,6 @@ public class CanvasMaze3D extends Canvas
 {
 	
 	protected Maze3D maze;
-	protected Timer timer;
-	protected TimerTask timerTask;
 	protected Image wallImg, welcomeImg, fieldImg, characterImg, endImg, downImg, upImg,finishImg,goingUpAndDown;
 	protected boolean drawMap;
 	protected CurrentPosition currentPosition;
@@ -54,8 +50,6 @@ public class CanvasMaze3D extends Canvas
 		endImg = new Image(null,		"Resources/Graphics/pikaImg.gif");
 		goingUpAndDown = new Image(null,"Resources/Graphics/goingUpAndDown.png");
 		
-
-		timer = new Timer();
 		
 		addPaintListener(new PaintListener() {
 			
@@ -195,35 +189,27 @@ public class CanvasMaze3D extends Canvas
 	public void updateSolution(Solution<Position> solution)
 	{
 		gameStatus = false; 
-		
-		timerTask = new TimerTask() {
-			
+
+		//Timer timer = new Timer();
+		//TimerTask timerTask = new TimerTask() {
+		new Thread(new Runnable() {	
 			@Override
 			public void run()
 			{
-				getDisplay().syncExec(new Runnable() {
-					
-					@Override
-					public void run()
-					{
-						Stack<Position> pathToGoal = solution.getResult();
-						Position pos;
-						while (!pathToGoal.isEmpty())
-						{
-							pos = pathToGoal.pop();
-							currentPosition.setPoistion(pos);
-							redraw();
-						}
-
-						timer.cancel();
-						
-					}
-				});
+				Stack<Position> pathToGoal = solution.getResult();
+				Position pos;
+				while (!pathToGoal.isEmpty())
+				{
+					pos = pathToGoal.pop();
+					currentPosition.setPoistion(pos);
+					redrawCanvas();
+				}
+				//timer.cancel();
 			}
 			
-		};
+		}).start();
 		
-		timer.scheduleAtFixedRate(timerTask, 0, 300);
+		//timer.scheduleAtFixedRate(timerTask, 0, 500);
 	}
 	
 	private void redrawCanvas()
@@ -239,4 +225,10 @@ public class CanvasMaze3D extends Canvas
 			}
 		});
 	}
+	
+	public CurrentPosition getCurrentPosition()
+	{
+		return currentPosition;
+	}
+	
 }

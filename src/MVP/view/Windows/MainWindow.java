@@ -26,7 +26,6 @@ public class MainWindow extends BasicWindow implements Observer
 	public MainWindow(int hight, int width) {
 		super("Poke'mon Maze Game", hight, width);
 		mazeName = null;
-		dw.addObserver(this);
 	}
 	@Override
 	void implementsWidgets()
@@ -50,6 +49,7 @@ public class MainWindow extends BasicWindow implements Observer
 		solveButton = new Button(shell, SWT.PUSH);
 		solveButton.setText("Solve");
 		solveButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
+		solveButton.setEnabled(false);
 		
 		hintButton=new Button(shell, SWT.PUSH);
 		hintButton.setText("Hint");
@@ -64,8 +64,10 @@ public class MainWindow extends BasicWindow implements Observer
 			@Override
 			public void widgetSelected(SelectionEvent arg0)
 			{
-				dw = new GenerateMazeWindow();
-				dw.start(display);	
+				dw = new GenerateMazeDialog();
+				dw.start(display);
+				dw.addObserver(getObserver());
+				solveButton.setEnabled(true);
 			}
 			
 			@Override
@@ -95,9 +97,11 @@ public class MainWindow extends BasicWindow implements Observer
 			@Override
 			public void widgetSelected(SelectionEvent arg0)
 			{
-				String str = "solve " + mazeName + " " + SOLUTION_ALGORITHM;
+				Position pos = canvas.getCurrentPosition().getPosition();
+				String str = "solve " + mazeName + " " + SOLUTION_ALGORITHM + " by " + pos.floor() + " " + pos.row() + " " + pos.column();
 				setChanged();
-				notifyObservers(new CommandData("solve [A-Za-z0-9]+ [A-Za-z0-9]+",str.split(" ")));
+				notifyObservers(new CommandData("solve [A-Za-z0-9]+ [A-Za-z0-9]+ by [0-9]{1,2} [0-9]{1,2} [0-9]{1,2}",str.split(" ")));
+				
 			}
 			
 			@Override
@@ -125,9 +129,14 @@ public class MainWindow extends BasicWindow implements Observer
 			}
 		}
 	}
+	
+	private Observer getObserver() { return this; }
 	@Override
 	public void update(Observable o, Object result)
 	{
+		if (o.getClass().toString().equals(GenerateMazeDialog.class.toString()))
+			mazeName = ((CommandData)result).input[3];
+		
 		setChanged();
 		notifyObservers(result);
 	}

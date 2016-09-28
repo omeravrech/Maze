@@ -17,7 +17,8 @@ import MVP.commands.Generate_3d_Maze;
 import MVP.commands.ICommand;
 import MVP.commands.Load_maze;
 import MVP.commands.Save_maze;
-import MVP.commands.Solve;
+import MVP.commands.Solve_By_New_Poistion;
+import MVP.commands.Solve_Maze;
 import MVP.model.Model;
 import MVP.view.View;
 
@@ -46,7 +47,8 @@ public class MyPresenter implements Observer, Presenter
 		commands.put("display cross section by [XYZxyz] [0-9]{1,2} for [A-Za-z0-9]+", new Display_cross_section(model, view));
 		commands.put("save maze [A-Za-z0-9]+ [^ \n]+", new Save_maze(model,view));
 		commands.put("load maze [^ \n]+ [A-Za-z0-9]+", new Load_maze(model,view));
-		commands.put("solve [A-Za-z0-9]+ [A-Za-z0-9]+", new Solve(model,view));
+		commands.put("solve [A-Za-z0-9]+ [A-Za-z0-9]+", new Solve_Maze(model,view));
+		commands.put("solve [A-Za-z0-9]+ [A-Za-z0-9]+ by [0-9]{1,2} [0-9]{1,2} [0-9]{1,2}", new Solve_By_New_Poistion(model,view));
 		commands.put("display solution [A-Za-z0-9]+", new Display_solution(model, view));
 		commands.put("display mazes", new Display_Mazes_List(model, view));
 		commands.put("display solutions", new Display_Solutions_List(model, view));

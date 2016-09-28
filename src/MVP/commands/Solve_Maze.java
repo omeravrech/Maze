@@ -9,9 +9,9 @@ import Algorithms.Search.Searcher;
 import MVP.model.Model;
 import MVP.view.View;
 
-public class Solve extends CommonCommand {
+public class Solve_Maze extends CommonCommand {
 
-	public Solve(Model model, View view) {
+	public Solve_Maze(Model model, View view) {
 		super(model, view);
 	}
 
@@ -21,6 +21,7 @@ public class Solve extends CommonCommand {
 		String algorithm = args[2];
 		Searcher<Position> searcher;
 		
+		
 		if (algorithm.equalsIgnoreCase("DFS"))
 			searcher = new DFS<Position>();
 		else if (algorithm.equalsIgnoreCase("BFS"))
@@ -29,10 +30,9 @@ public class Solve extends CommonCommand {
 			searcher = null;
 		
 		if (searcher != null)
-			model.solve(name, searcher);
+			model.solve(name, searcher, null);
 		else
 			view.result("Invalid algorithm");
-		
 	}
 
 }

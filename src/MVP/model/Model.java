@@ -11,7 +11,7 @@ public interface Model
 	public void generate_3d_maze(String name, int floors, int rows, int columns) throws IOException;
 	public void save(String name, String path);
 	public void load(String name, String path);
-	public void solve(String name, Searcher<Position> algorithm) throws IOException;
+	public void solve(String name, Searcher<Position> algorithm, Position pos) throws IOException;
 	public void display_cross_section(String asix, int line, String name);
 	public void getMaze(String name);
 	public void display_solution(String name);	

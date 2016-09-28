@@ -14,7 +14,7 @@ public class Save_maze extends CommonCommand {
 	@Override
 	public void doCommand(String[] args) throws IOException
 	{
-		model.save(args[2], args[3]);
+				model.save(args[2], args[3]);
 	}
 
 }

@@ -97,7 +97,7 @@ public class MyModel extends CommonModel
 		}
 	}
 	@Override
-	public void solve(String name, Searcher<Position> algorithm) throws IOException
+	public void solve(String name, Searcher<Position> algorithm, Position pos) throws IOException
 	{
 		
 		try
@@ -107,9 +107,14 @@ public class MyModel extends CommonModel
 				throw new RuntimeException("Can't find a maze under the requested name");
 			else
 			{
+				boolean flag = false;
 				problem = mazes.get(name);
-				 //TODO: Create a comparator to MazeAdapter
-				if (mazeToSolution.containsKey(problem))
+				if ((pos != null) && (2*problem.getFloors()+1 > pos.floor()) && (2*problem.getRows()+1 > pos.row()) && (2*problem.getColumns()+1 > pos.column())) 
+				{
+					problem.setStartPosition(pos);
+					flag = true;
+				}
+				if (mazeToSolution.containsKey(problem) && (!flag))
 					throw new RuntimeException("Solution is already exist under this name");
 				else
 				{

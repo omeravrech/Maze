@@ -10,9 +10,9 @@ import org.eclipse.swt.widgets.Text;
 
 import MVP.presenter.CommandData;
 
-public class GenerateMazeWindow extends DialogWindow {
+public class GenerateMazeDialog extends DialogWindow {
 
-	public GenerateMazeWindow()
+	public GenerateMazeDialog()
 	{
 		super(300, 200);
 	}
