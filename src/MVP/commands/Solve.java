@@ -31,7 +31,7 @@ public class Solve extends CommonCommand {
 		if (searcher != null)
 			model.solve(name, searcher);
 		else
-			view.Result("Invalid algorithm");
+			view.result("Invalid algorithm");
 		
 	}
 

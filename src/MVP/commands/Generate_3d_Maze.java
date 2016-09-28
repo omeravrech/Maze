@@ -21,7 +21,7 @@ public class Generate_3d_Maze extends CommonCommand {
 		int columns =  Integer.valueOf(commands[6]);
 		
 		if ((floors*rows*columns <= 0) ||(floors > 99)|| (rows > 99) || (columns > 99))
-			view.Result("Invalid parameters");
+			view.result("Invalid parameters");
 		
 		
 			

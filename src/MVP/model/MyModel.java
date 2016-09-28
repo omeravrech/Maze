@@ -93,8 +93,8 @@ public class MyModel extends CommonModel
 		catch (Exception e)
 		{
 			commandOutput += e.getMessage() + "\n";
+			updateAboutChange();
 		}
-		updateAboutChange();
 	}
 	@Override
 	public void solve(String name, Searcher<Position> algorithm) throws IOException
@@ -119,6 +119,7 @@ public class MyModel extends CommonModel
 						public Solution<Position> call() throws Exception
 						{
 										commandOutput += "Start calculating solution for maze: " + name + "\n";
+										System.out.println(commandOutput);
 										updateAboutChange();
 										return algorithm.search(new MazeAdapter(problem));
 				
@@ -131,15 +132,15 @@ public class MyModel extends CommonModel
 						{
 							try
 							{
+								while(!future.isDone());
 								mazeToSolution.put(problem,future.get());
 								commandOutput += "Solution for " + name + " is ready\n";
+								updateAboutChange(future.get());
+								System.out.println(commandOutput);
 							}
 							catch (Exception e)
 							{
 								commandOutput += "Problem in solution for " + name + ": " + e.getMessage() + "\n";
-							}
-							finally
-							{
 								updateAboutChange();
 							}
 						}

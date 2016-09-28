@@ -7,7 +7,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ExecutionException;
 
-import Algorithms.MazeGenerator.Maze3D;
 import MVP.commands.Dir;
 import MVP.commands.Display;
 import MVP.commands.Display_Mazes_List;
@@ -91,31 +90,30 @@ public class MyPresenter implements Observer, Presenter
 	}
 
 	@Override	
-	public void update(Observable o, Object arg)
+	public void update(Observable o, Object result)
 	{
 		if (o == view)
-			if (arg != null)
+			if (result != null)
 			{
-				if (arg.toString().equals("exit"))
+				if (result.toString().equals("exit"))
 				{
 					model.exit();
 					runningStatus = false;
 				}
 				else
-					requestList.add((CommandData)arg);
+					requestList.add((CommandData)result);
 				thread.resume();
 			}
 		
 		if (o == model)
 		{
-			
-			if (arg != null)
+			if (result == null)
 			{
-				if (arg.getClass().equals(Maze3D.class))
-					view.updateActiveMaze((Maze3D)arg);
+				String output = model.getCommandOutput();
+				view.result(output);
 			}
-			String output = model.getCommandOutput();
-			view.Result(output);
+			else
+				view.result(result);
 		}
 	}
 }

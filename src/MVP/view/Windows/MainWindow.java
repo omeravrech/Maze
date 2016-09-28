@@ -1,28 +1,32 @@
 package MVP.view.Windows;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 
 import Algorithms.MazeGenerator.Maze3D;
+import Algorithms.MazeGenerator.Position;
+import Algorithms.Search.Solution;
 import MVP.presenter.CommandData;
 
-public class MainWindow extends BasicWindow
+public class MainWindow extends BasicWindow implements Observer
 {
-	private Button generateButton, loadButton, solveButton, hintButton, resetButton, exitButton;
+	private Button generateButton, loadButton, solveButton, hintButton, exitButton;
 	private CanvasMaze3D canvas;
 	private String mazeName;
 	public static String SOLUTION_ALGORITHM = "BFS";
+	private DialogWindow dw;
 	
 	public MainWindow(int hight, int width) {
 		super("Poke'mon Maze Game", hight, width);
 		mazeName = null;
+		dw.addObserver(this);
 	}
 	@Override
 	void implementsWidgets()
@@ -47,15 +51,11 @@ public class MainWindow extends BasicWindow
 		solveButton.setText("Solve");
 		solveButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
 		
-		hintButton=(new Button(shell, SWT.PUSH));
+		hintButton=new Button(shell, SWT.PUSH);
 		hintButton.setText("Hint");
 		hintButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
 		
-		resetButton=(new Button(shell, SWT.PUSH));
-		resetButton.setText("Reset");
-		resetButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
-		
-		exitButton=(new Button(shell, SWT.PUSH));
+		exitButton = new Button(shell, SWT.PUSH);
 		exitButton.setText("Exit");
 		exitButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
 		
@@ -64,7 +64,8 @@ public class MainWindow extends BasicWindow
 			@Override
 			public void widgetSelected(SelectionEvent arg0)
 			{
-					showGenerateMazeMenu();
+				dw = new GenerateMazeWindow();
+				dw.start(display);	
 			}
 			
 			@Override
@@ -90,88 +91,44 @@ public class MainWindow extends BasicWindow
 		});
 		
 		solveButton.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				
-				solveMaze();
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-	}
 	
-	
-	
-	@Override
-	public void print(String result)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void showGenerateMazeMenu()
-	{
-		Shell localShell = new Shell(display , SWT.TITLE | SWT.SYSTEM_MODAL | SWT.CLOSE | SWT.MAX);
-		localShell.setText("Generate New Maze");
-		localShell.setSize(300, 300);
-		
-		GridLayout layout = new GridLayout(2, false);
-		localShell.setLayout(layout);
-		
-		Label nameLabel = new Label(localShell, SWT.NONE);
-		nameLabel.setText("Maze Name:");
-		Text textName = new Text (localShell, SWT.BORDER);
-		
-		Label floorsLabel = new Label(localShell, SWT.NONE);
-		floorsLabel.setText("Floors:");
-		Text textFloors = new Text (localShell, SWT.BORDER);
-			
-		Label RowsLabel = new Label(localShell, SWT.NONE);
-		RowsLabel.setText("Rows:");
-		Text textRows = new Text (localShell, SWT.BORDER);
-		
-			
-		Label columnLabel = new Label(localShell, SWT.NONE);
-		columnLabel.setText("Columns:");
-		Text textColumn = new Text (localShell, SWT.BORDER);
-		
-		Button generateBtn = new Button (localShell, SWT.PUSH);
-		generateBtn.setText("Generate");
-		generateBtn.addSelectionListener(new SelectionListener() {
-			
 			@Override
 			public void widgetSelected(SelectionEvent arg0)
 			{
-				mazeName = textName.getText();
-				String str = "generate 3d maze " + mazeName + " " + textFloors.getText() + " " + textRows.getText() + " " + textColumn.getText();
+				String str = "solve " + mazeName + " " + SOLUTION_ALGORITHM;
 				setChanged();
-				notifyObservers(new CommandData("generate 3d maze [A-Za-z0-9]+ [0-9]{1,2} [0-9]{1,2} [0-9]{1,2}",str.split(" ")));
-				localShell.close();
-				
+				notifyObservers(new CommandData("solve [A-Za-z0-9]+ [A-Za-z0-9]+",str.split(" ")));
 			}
+			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 				// TODO Auto-generated method stub
 				
 			}
 		});
-		localShell.open();
 	}
 	
-	public void solveMaze ()
+	@SuppressWarnings("unchecked")
+	@Override
+	public void result(Object result)
 	{
-		String str = "solve " + mazeName + " " + SOLUTION_ALGORITHM;
-		setChanged();
-		notifyObservers(new CommandData("solve [A-Za-z0-9]+ [A-Za-z0-9]+",str.split(" ")));
+		if (result != null)
+		{
+			String objectClass = result.getClass().toString().toLowerCase();
+			if (objectClass.contains("maze3d"))
+			{
+				canvas.updateActiveMaze((Maze3D)result);
+			}
+			else if (objectClass.contains("solution"))
+			{
+				canvas.updateSolution((Solution<Position>)result);
+			}
+		}
 	}
 	@Override
-	public void updateActiveMaze(Maze3D maze)
+	public void update(Observable o, Object result)
 	{
-		canvas.updateActiveMaze(maze);
+		setChanged();
+		notifyObservers(result);
 	}
 }

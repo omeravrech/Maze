@@ -12,12 +12,14 @@ public abstract class CommonView extends Observable implements View, Observer
 	{
 		this.ui = ui;
 	}
-	abstract public void Result(String result);
-	abstract public void update(Observable o, Object args);
 	public void start()
 	{
 		Thread thread = new Thread(ui);
 		thread.setName("UserInterface");
 		thread.start();
 	}
+	
+
+	abstract public void result(Object result);
+	abstract public void update(Observable o, Object args);
 }

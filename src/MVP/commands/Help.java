@@ -29,7 +29,7 @@ public class Help extends CommonCommand
 		s += "solve <name> {Air,Manhattan,Bfs}" + "\n";
 		s += "display solution <name>" + "\n";
 		s += "exit";
-		view.Result(s);	
+		view.result(s);	
 
 	}
 

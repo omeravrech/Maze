@@ -1,6 +1,9 @@
 package MVP.view.Windows;
 
 import java.util.ArrayList;
+import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -13,31 +16,25 @@ import org.eclipse.swt.widgets.Composite;
 
 import Algorithms.MazeGenerator.Maze3D;
 import Algorithms.MazeGenerator.Position;
+import Algorithms.Search.Solution;
 
 public class CanvasMaze3D extends Canvas
 {
 	
 	protected Maze3D maze;
-	
+	protected Timer timer;
+	protected TimerTask timerTask;
 	protected Image wallImg, welcomeImg, fieldImg, characterImg, endImg, downImg, upImg,finishImg,goingUpAndDown;
 	protected boolean drawMap;
 	protected CurrentPosition currentPosition;
-	boolean gameStatus = false;
+	protected boolean gameStatus = false;
 	
 	public void updateActiveMaze(Maze3D maze)
 	{
 		this.maze = maze;
 		this.gameStatus = true;
 		currentPosition = new CurrentPosition(maze.getStartPosition());
-		getDisplay().syncExec(new Runnable() {
-			
-			@Override
-			public void run()
-			{
-				setEnabled(true);
-				redraw();
-			}
-		});
+		redrawCanvas();
 	}
 	
 	CanvasMaze3D(Composite parent, int style)
@@ -56,6 +53,9 @@ public class CanvasMaze3D extends Canvas
 		downImg = new Image(null,		"Resources/Graphics/goingDownImg.png");
 		endImg = new Image(null,		"Resources/Graphics/pikaImg.gif");
 		goingUpAndDown = new Image(null,"Resources/Graphics/goingUpAndDown.png");
+		
+
+		timer = new Timer();
 		
 		addPaintListener(new PaintListener() {
 			
@@ -178,15 +178,7 @@ public class CanvasMaze3D extends Canvas
 							System.out.print("Wrong move");
 					}
 					
-					getDisplay().syncExec(new Runnable() {
-						
-						@Override
-						public void run()
-						{
-							setEnabled(true);
-							redraw();
-						}
-					});
+					redrawCanvas();
 				}
 				
 			}
@@ -199,7 +191,52 @@ public class CanvasMaze3D extends Canvas
 		});
 		
 	}
+
+	public void updateSolution(Solution<Position> solution)
+	{
+		gameStatus = false; 
+		
+		timerTask = new TimerTask() {
+			
+			@Override
+			public void run()
+			{
+				getDisplay().syncExec(new Runnable() {
+					
+					@Override
+					public void run()
+					{
+						Stack<Position> pathToGoal = solution.getResult();
+						Position pos;
+						while (!pathToGoal.isEmpty())
+						{
+							pos = pathToGoal.pop();
+							currentPosition.setPoistion(pos);
+							redraw();
+						}
+
+						timer.cancel();
+						
+					}
+				});
+			}
+			
+		};
+		
+		timer.scheduleAtFixedRate(timerTask, 0, 300);
+	}
 	
-	//private void DrawMaze()
-	
+	private void redrawCanvas()
+	{
+		getDisplay().syncExec(new Runnable()
+		{
+		
+		@Override
+			public void run()
+			{
+				setEnabled(true);
+				redraw();
+			}
+		});
+	}
 }

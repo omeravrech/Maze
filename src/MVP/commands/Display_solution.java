@@ -15,7 +15,7 @@ public class Display_solution extends CommonCommand {
 	public void doCommand(String[] args) throws IOException {
 		String name = args[2];
 		if (name == "" || name == " " || name == null)
-			view.Result("Invalid name");
+			view.result("Invalid name");
 		else
 			model.display_solution(name);
 

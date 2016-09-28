@@ -37,4 +37,8 @@ public class CurrentPosition
 	{
 		return this.position;
 	}
+	public void setPoistion(Position position)
+	{
+		this.position = position;
+	}
 }
