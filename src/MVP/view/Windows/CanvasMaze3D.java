@@ -22,10 +22,12 @@ public class CanvasMaze3D extends Canvas
 	protected Image wallImg, welcomeImg, fieldImg, characterImg, endImg, downImg, upImg,finishImg,goingUpAndDown;
 	protected boolean drawMap;
 	protected CurrentPosition currentPosition;
+	boolean gameStatus = false;
 	
 	public void updateActiveMaze(Maze3D maze)
 	{
 		this.maze = maze;
+		this.gameStatus = true;
 		currentPosition = new CurrentPosition(maze.getStartPosition());
 		getDisplay().syncExec(new Runnable() {
 			
@@ -53,7 +55,7 @@ public class CanvasMaze3D extends Canvas
 		upImg = new Image(null,			"Resources/Graphics/goingUpImg.png");
 		downImg = new Image(null,		"Resources/Graphics/goingDownImg.png");
 		endImg = new Image(null,		"Resources/Graphics/pikaImg.gif");
-		goingUpAndDown = new Image(null, "Resources/Graphics/goingUpAndDown.png");
+		goingUpAndDown = new Image(null,"Resources/Graphics/goingUpAndDown.png");
 		
 		addPaintListener(new PaintListener() {
 			
@@ -63,6 +65,7 @@ public class CanvasMaze3D extends Canvas
 				if (maze == null)
 				{
 					setBackgroundImage(welcomeImg);
+					gameStatus = false;
 				}
 				else
 				{
@@ -129,6 +132,7 @@ public class CanvasMaze3D extends Canvas
 					else
 					{
 						setBackgroundImage(finishImg);
+						gameStatus = false;
 					}
 				}
 			}
@@ -139,48 +143,51 @@ public class CanvasMaze3D extends Canvas
 			@Override
 			public void keyReleased(KeyEvent e)
 			{
-				ArrayList<Position> possibleMoves = maze.getPossibleMoves(currentPosition.getPosition());
-				
-				switch (e.keyCode)
+				if (gameStatus)
 				{
-				case SWT.ARROW_UP:
-					if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row()-1, currentPosition.column())))
-						currentPosition.moveForward();
-					break;
-				case SWT.ARROW_DOWN:
-					if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row()+1, currentPosition.column())))
-						currentPosition.moveBackward();
-					break;
-				case SWT.ARROW_LEFT:
-					if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row(), currentPosition.column()-1)))
-						currentPosition.moveLeft();
-					break;
-				case SWT.ARROW_RIGHT:
-					if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row(), currentPosition.column()+1)))
-					currentPosition.moveRight();
-					break;
-				case SWT.PAGE_UP:
-					if (possibleMoves.contains(new Position(currentPosition.floor()+1, currentPosition.row(), currentPosition.column())))
-					currentPosition.moveUp();
-					break;
-				case SWT.PAGE_DOWN:
-					if (possibleMoves.contains(new Position(currentPosition.floor()-1, currentPosition.row(), currentPosition.column())))
-					currentPosition.moveDown();
-					break;
+					ArrayList<Position> possibleMoves = maze.getPossibleMoves(currentPosition.getPosition());
 					
-				default:
-						System.out.print("Wrong move");
-				}
-				
-				getDisplay().syncExec(new Runnable() {
-					
-					@Override
-					public void run()
+					switch (e.keyCode)
 					{
-						setEnabled(true);
-						redraw();
+					case SWT.ARROW_UP:
+						if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row()-1, currentPosition.column())))
+							currentPosition.moveForward();
+						break;
+					case SWT.ARROW_DOWN:
+						if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row()+1, currentPosition.column())))
+							currentPosition.moveBackward();
+						break;
+					case SWT.ARROW_LEFT:
+						if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row(), currentPosition.column()-1)))
+							currentPosition.moveLeft();
+						break;
+					case SWT.ARROW_RIGHT:
+						if (possibleMoves.contains(new Position(currentPosition.floor(), currentPosition.row(), currentPosition.column()+1)))
+						currentPosition.moveRight();
+						break;
+					case SWT.PAGE_UP:
+						if (possibleMoves.contains(new Position(currentPosition.floor()+1, currentPosition.row(), currentPosition.column())))
+						currentPosition.moveUp();
+						break;
+					case SWT.PAGE_DOWN:
+						if (possibleMoves.contains(new Position(currentPosition.floor()-1, currentPosition.row(), currentPosition.column())))
+						currentPosition.moveDown();
+						break;
+						
+					default:
+							System.out.print("Wrong move");
 					}
-				});
+					
+					getDisplay().syncExec(new Runnable() {
+						
+						@Override
+						public void run()
+						{
+							setEnabled(true);
+							redraw();
+						}
+					});
+				}
 				
 			}
 			

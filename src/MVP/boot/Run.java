@@ -51,19 +51,6 @@ public class Run {
 		view.addObserver(presenter);
 		presenter.start();
 		
-		/*BasicWindow gui = new WelcomeWindow(300,100);
-		
-		/*MazeWindow gui = new MazeWindow("GameWindow", 500, 300);
-		MazeDisplayAdapter painter = new MazeDisplayAdapter( new Maze2D(gui.getShell(), SWT.BORDER | SWT.DOUBLE_BUFFERED));
-		gui.setMazePainter(painter.getMazeDisplayer());
-		view.setMazeDisplayAdapter(painter);
-		view.setBasicWindow(gui);
-		painter.addObserver(view);*/
-		//gui.addObserver(view);
-		
-		//cli.addObserver(view);
-		//view.setCli(cli);
-		//gui.run();*/
 	}
 
 }

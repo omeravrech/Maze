@@ -98,7 +98,7 @@ public class Maze3D implements Serializable{
 		 * @param goalPosition the goalPosition to set
 		 */
 		if (this.goalPosition != null)
-			maze[goalPosition.floor()][goalPosition.row()][goalPosition.column()] = PATH;
+			maze[this.goalPosition.floor()][this.goalPosition.row()][this.goalPosition.column()] = PATH;
 		this.goalPosition = goalPosition;
 		maze[goalPosition.floor()][goalPosition.row()][goalPosition.column()] = END;
 	}

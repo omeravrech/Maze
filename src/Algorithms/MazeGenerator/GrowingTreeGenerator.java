@@ -59,6 +59,7 @@ public class GrowingTreeGenerator extends AbstractMazeGenerator {
 			
 			if (directions.isEmpty())
 			{
+				maze.setGoalPosition(pos);
 				visited.remove(pos);
 				visited.trimToSize();
 			}
@@ -73,8 +74,6 @@ public class GrowingTreeGenerator extends AbstractMazeGenerator {
 				maze.wreckingBall(pos, next);
 			}
 		}
-		
-		maze.setGoalPosition(new Position(2*floors-1, 2*rand.nextInt(rows)+1, 2*rand.nextInt(columns)+1));
 		status = false;
 		return maze;
 	}
