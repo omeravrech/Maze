@@ -23,7 +23,7 @@ public class CanvasMaze3D extends Canvas
 	protected Image wallImg, welcomeImg, fieldImg, characterImg, endImg, downImg, upImg,finishImg,goingUpAndDown;
 	protected boolean drawMap;
 	protected CurrentPosition currentPosition;
-	protected boolean gameStatus = false;
+	protected boolean gameStatus;
 	
 	public void updateActiveMaze(Maze3D maze)
 	{
@@ -188,28 +188,24 @@ public class CanvasMaze3D extends Canvas
 
 	public void updateSolution(Solution<Position> solution)
 	{
-		gameStatus = false; 
-
-		//Timer timer = new Timer();
-		//TimerTask timerTask = new TimerTask() {
-		new Thread(new Runnable() {	
-			@Override
-			public void run()
-			{
-				Stack<Position> pathToGoal = solution.getResult();
-				Position pos;
-				while (!pathToGoal.isEmpty())
+		{
+			new Thread(new Runnable() {	
+				@Override
+				public void run()
 				{
-					pos = pathToGoal.pop();
-					currentPosition.setPoistion(pos);
-					redrawCanvas();
+					Stack<Position> pathToGoal = solution.getResult();
+					Position pos;
+					while (!pathToGoal.isEmpty())
+					{
+						pos = pathToGoal.pop();
+						currentPosition.setPoistion(pos);
+						redrawCanvas();
+					}
+					//timer.cancel();
 				}
-				//timer.cancel();
-			}
-			
-		}).start();
-		
-		//timer.scheduleAtFixedRate(timerTask, 0, 500);
+				
+			}).start();
+		}
 	}
 	
 	private void redrawCanvas()

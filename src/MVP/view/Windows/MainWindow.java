@@ -14,20 +14,24 @@ import Algorithms.MazeGenerator.Maze3D;
 import Algorithms.MazeGenerator.Position;
 import Algorithms.Search.Solution;
 import MVP.presenter.CommandData;
+import MVP.presenter.Properties;
 
 public class MainWindow extends BasicWindow implements Observer
 {
 	private Button generateButton, loadButton, solveButton, hintButton, exitButton;
 	private CanvasMaze3D canvas;
 	private String mazeName;
-	public static String SOLUTION_ALGORITHM = "BFS";
+	public static String SOLUTION_ALGORITHM;
 	private DialogWindow dw;
 	
-	public MainWindow(int hight, int width) {
+	public MainWindow(int hight, int width, Properties prop) {
 		super("Poke'mon Maze Game", hight, width);
 		mazeName = null;
+		SOLUTION_ALGORITHM = prop.getSolveMazeAlgorithm();
 	}
-	@Override
+	
+	
+	@Override	
 	void implementsWidgets()
 	{		
 		GridLayout gridLayout = new GridLayout(2,false);
@@ -54,6 +58,7 @@ public class MainWindow extends BasicWindow implements Observer
 		hintButton=new Button(shell, SWT.PUSH);
 		hintButton.setText("Hint");
 		hintButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
+		hintButton.setEnabled(false);
 		
 		exitButton = new Button(shell, SWT.PUSH);
 		exitButton.setText("Exit");
@@ -65,6 +70,25 @@ public class MainWindow extends BasicWindow implements Observer
 			public void widgetSelected(SelectionEvent arg0)
 			{
 				dw = new GenerateMazeDialog();
+				dw.start(display);
+				dw.addObserver(getObserver());
+				solveButton.setEnabled(true);
+				//hintButton.setEnabled(true);
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		loadButton.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0)
+			{
+				dw = new LoadDialog(200,500);
 				dw.start(display);
 				dw.addObserver(getObserver());
 				solveButton.setEnabled(true);

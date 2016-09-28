@@ -41,7 +41,7 @@ public class Run {
 		}
 			
 		/*UserInterface ui = new CLI(new BufferedReader(new InputStreamReader(System.in)), new PrintWriter(System.out, true));
-		//*/UserInterface ui = new MainWindow(1000, 700);	
+		//*/UserInterface ui = new MainWindow(1000, 700, prop);	
 				
 		MyView view = new MyView(ui);
 		MyModel model = new MyModel(prop);

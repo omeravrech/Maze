@@ -10,7 +10,6 @@ public abstract class BasicWindow extends UserInterface
 {
 	protected Shell shell;
 	protected Display display;
-	
 	private int height;
 	private int width;
 	private String title;
