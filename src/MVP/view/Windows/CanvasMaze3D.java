@@ -19,7 +19,7 @@ import Algorithms.MazeGenerator.Position;
 */
 public class CanvasMaze3D extends MazeDisplay
 {
-	protected Image wallImg, welcomeImg, fieldImg, characterImg, endImg, downImg, upImg,finishImg,goingUpAndDown;
+	protected Image wallImg, welcomeImg, fieldImg, characterImg, goalImg, downImg, upImg, finishImg, goingUpAndDown;
 	protected boolean gameStatus;
 	
 	
@@ -33,15 +33,15 @@ public class CanvasMaze3D extends MazeDisplay
 	{
 		super(parent, style);
 		
-		welcomeImg = new Image(null,	"Resources/Graphics/welcomeImage.jpg");
-		finishImg = new Image(null,		"Resources/Graphics/winningImg.png");
-		wallImg = new Image(null,		"Resources/Graphics/wall.png");
-		fieldImg = new Image(null,		"Resources/Graphics/field.png");
-		characterImg = new Image(null,	"Resources/Graphics/char1.png");
-		upImg = new Image(null,			"Resources/Graphics/goingUpImg.png");
-		downImg = new Image(null,		"Resources/Graphics/goingDownImg.png");
-		endImg = new Image(null,		"Resources/Graphics/pikaImg.gif");
-		goingUpAndDown = new Image(null,"Resources/Graphics/goingUpAndDown.png");
+		welcomeImg = new Image(null,	getClass().getClassLoader().getResourceAsStream("Resources/Graphics/welcomeImage.jpg"));
+		finishImg = new Image(null,		getClass().getClassLoader().getResourceAsStream("Resources/Graphics/winningImg.png"));
+		wallImg = new Image(null,		getClass().getClassLoader().getResourceAsStream("Resources/Graphics/wall.png"));
+		fieldImg = new Image(null,		getClass().getClassLoader().getResourceAsStream("Resources/Graphics/field.png"));
+		characterImg = new Image(null,	getClass().getClassLoader().getResourceAsStream("Resources/Graphics/char1.png"));
+		upImg = new Image(null,			getClass().getClassLoader().getResourceAsStream("Resources/Graphics/goingUpImg.png"));
+		downImg = new Image(null,		getClass().getClassLoader().getResourceAsStream("Resources/Graphics/goingDownImg.png"));
+		goingUpAndDown = new Image(null,getClass().getClassLoader().getResourceAsStream("Resources/Graphics/goingUpAndDown.png"));
+		goalImg = new Image(null,		getClass().getClassLoader().getResourceAsStream("Resources/Graphics/char2.png"));
 		
 		
 		addPaintListener(new PaintListener() {
@@ -94,7 +94,7 @@ public class CanvasMaze3D extends MazeDisplay
 									else if(down == Maze3D.PATH)	
 											p.gc.drawImage(upImg, 0, 0, upImg.getBounds().width,downImg.getBounds().height,pixelX,pixelY ,w ,h);
 									if (mazeData[i][j] == Maze3D.END)
-										p.gc.drawImage(endImg, 0, 0, endImg.getBounds().width,endImg.getBounds().height,pixelX,pixelY ,w ,h);	//draw character
+										p.gc.drawImage(goalImg, 0, 0, goalImg.getBounds().width,goalImg.getBounds().height,pixelX,pixelY ,w ,h);	//draw character
 									if ((i == character.row()) && (j == character.column()))
 									{
 										p.gc.drawImage(characterImg, 0, 0, characterImg.getBounds().width,characterImg.getBounds().height,pixelX,pixelY ,w ,h);
