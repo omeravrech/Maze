@@ -2,8 +2,6 @@ package MVP.view;
 
 import java.util.Observable;
 
-import MVP.presenter.Properties;
-
 
 /**
 * <h1>MyView Class</h1>
