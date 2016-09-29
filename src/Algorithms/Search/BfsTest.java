@@ -29,7 +29,7 @@ public class BfsTest
 			solution = searcher.search(ma);
 			assertNotNull(solution);
 			
-			// Test 3 - very small maze
+			// Second test: small maze
 //			Maze3D maze2 = generator.generate(1,5,5);
 //			ma = new MazeAdapter(maze2);
 //			solution = searcher.search(ma);
