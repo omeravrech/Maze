@@ -11,12 +11,31 @@ import org.eclipse.swt.widgets.Button;
 
 import MVP.presenter.CommandData;
 
+
+/**
+* <h1>Load Dialog class</h1>
+*<br>Load dialog will present a small window with radio button<br>
+* The buttons will display the saved mazes so the user can load them.
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   28/09/2016 
+*
+*/
 public class LoadDialog extends DialogWindow {
 	
+	/**
+	 * Constructor
+	 * @param width int
+	 * @param height int
+	 */
 	public LoadDialog(int width, int height) {
 		super(width, height);
 	}
-
+	
+	
+	/**
+	 * Initializing the widgets of the window
+	 */
 	@Override
 	protected void initWidgets()
 	{

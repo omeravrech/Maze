@@ -16,6 +16,16 @@ import Algorithms.Search.Solution;
 import MVP.presenter.CommandData;
 import MVP.presenter.Properties;
 
+
+/**
+* <h1>MainWindow class</h1>
+*<br>extends BasicWindow and implements Observer<br>
+*This window holds all the menu, display the different options for the user
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   28/09/2016 
+*
+*/
 public class MainWindow extends BasicWindow implements Observer
 {
 	private Button generateButton, loadButton, solveButton, hintButton, exitButton;
@@ -24,13 +34,21 @@ public class MainWindow extends BasicWindow implements Observer
 	public static String SOLUTION_ALGORITHM;
 	private DialogWindow dw;
 	
+	/**
+	 * Constructor
+	 * @param hight int
+	 * @param width int
+	 * @param prop Properties
+	 */
 	public MainWindow(int hight, int width, Properties prop) {
 		super("Poke'mon Maze Game", hight, width);
 		mazeName = null;
 		SOLUTION_ALGORITHM = prop.getSolveMazeAlgorithm();
 	}
 	
-	
+	/**
+	 * Initializing the widgets
+	 */
 	@Override	
 	void implementsWidgets()
 	{		
@@ -136,6 +154,10 @@ public class MainWindow extends BasicWindow implements Observer
 		});
 	}
 	
+	
+	/**
+	 * Implementing result function (abstract)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void result(Object result)
@@ -154,7 +176,12 @@ public class MainWindow extends BasicWindow implements Observer
 		}
 	}
 	
+	/** Getter */
 	private Observer getObserver() { return this; }
+	
+	/**
+	 * updates the maze name if the user generated a maze from the dialog
+	 */
 	@Override
 	public void update(Observable o, Object result)
 	{

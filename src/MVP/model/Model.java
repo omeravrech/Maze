@@ -5,6 +5,14 @@ import java.io.IOException;
 import Algorithms.MazeGenerator.Position;
 import Algorithms.Search.Searcher;
 
+
+/**
+* <h1>Model Interface</h1>
+*<br> Holds all methods that will be used in the maze<br>
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   29/09/2016 
+*/
 public interface Model
 {
 	public void exit();

@@ -22,6 +22,15 @@ import MVP.commands.Solve_Maze;
 import MVP.model.Model;
 import MVP.view.View;
 
+
+/**
+* <h1>MyPresenter Class</h1>
+*<br>Implements Observer and Presenter, my presenter will be a bridge<br>
+* between the View and the Model
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   29/09/2016 
+*/
 @SuppressWarnings("deprecation")
 public class MyPresenter implements Observer, Presenter 
 {

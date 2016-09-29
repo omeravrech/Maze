@@ -16,6 +16,15 @@ import Algorithms.MazeGenerator.Maze3D;
 import Algorithms.MazeGenerator.Position;
 import Algorithms.Search.Solution;
 
+/**
+* <h1>CanvasMaze3D class</h1>
+*<br> This class represents the maze itself in the view<br>
+* it will extend Canvas class and control the maze itself <br>
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   28/09/2016 
+*
+*/
 public class CanvasMaze3D extends Canvas
 {
 	
@@ -33,6 +42,12 @@ public class CanvasMaze3D extends Canvas
 		redrawCanvas();
 	}
 	
+	/**
+	 * Constructor <br>
+	 * Builds the maze and control the user's command (arrows, page up&down)
+	 * @param parent Composite
+	 * @param style int
+	 */
 	CanvasMaze3D(Composite parent, int style)
 	{
 		super(parent, style);
@@ -185,7 +200,13 @@ public class CanvasMaze3D extends Canvas
 		});
 		
 	}
-
+	
+	/**
+	 * This function will solve the maze using the given solution <br>
+	 * it is crucial that the solution is updated if the user started to play and then chose the "Solve" function <br>
+	 * this function will start drawing the character all the way to the goal position
+	 * @param Solution<Position>
+	 */
 	public void updateSolution(Solution<Position> solution)
 	{
 		{
@@ -208,6 +229,10 @@ public class CanvasMaze3D extends Canvas
 		}
 	}
 	
+	/**
+	 * private method that redraw the maze (each time a user moves) <br>
+	 * uses syncExec method to prevent deadlock
+	 */
 	private void redrawCanvas()
 	{
 		getDisplay().syncExec(new Runnable()
@@ -222,6 +247,10 @@ public class CanvasMaze3D extends Canvas
 		});
 	}
 	
+	/**
+	 * sends the current position
+	 * @return CurrentPosition
+	 */
 	public CurrentPosition getCurrentPosition()
 	{
 		return currentPosition;

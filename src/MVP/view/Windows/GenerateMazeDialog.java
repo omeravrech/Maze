@@ -10,13 +10,29 @@ import org.eclipse.swt.widgets.Text;
 
 import MVP.presenter.CommandData;
 
-public class GenerateMazeDialog extends DialogWindow {
 
+/**
+* <h1>GenerateMazeDialog class</h1>
+*<br>Will pop a small window to receive the wanted parameters for generating the maze<br>
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   28/09/2016 
+*
+*/
+public class GenerateMazeDialog extends DialogWindow {
+	
+	/**
+	 * Default Constructor
+	 */
 	public GenerateMazeDialog()
 	{
 		super(300, 200);
 	}
 
+	
+	/**
+	 * Initializing the widgets of the window
+	 */
 	@Override
 	protected void initWidgets()
 	{

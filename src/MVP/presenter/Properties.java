@@ -2,6 +2,14 @@ package MVP.presenter;
 
 import java.io.Serializable;
 
+
+/**
+* <h1>Properties Class</h1>
+*<br>Represent the properties from the XML file <br>
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   29/09/2016 
+*/
 public class Properties implements Serializable
 {
 	private static final long serialVersionUID = 1L;

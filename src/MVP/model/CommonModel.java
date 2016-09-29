@@ -17,6 +17,15 @@ import Algorithms.MazeGenerator.Position;
 import Algorithms.Search.Solution;
 import MVP.presenter.Properties;
 
+
+/**
+* <h1>CommonModel abstract Class</h1>
+*<br> extends Observable and implements Model.<br>
+* this class holds the common model properties.
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   29/09/2016 
+*/
 public abstract class CommonModel extends Observable implements Model {
 
 	protected HashMap<String, Maze3D> mazes;

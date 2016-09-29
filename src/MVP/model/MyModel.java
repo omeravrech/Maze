@@ -30,8 +30,21 @@ import MVP.presenter.Properties;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
+
+/**
+* <h1>MyModel Class</h1>
+*<br> extends CommonModel, it will implement all of Model's methods and pass.<br>
+* them to the presenter.
+* @author  Omer Avrech & Bar Malka
+* @version 1.0
+* @since   29/09/2016 
+*/
 public class MyModel extends CommonModel
 {
+	/**
+	 * Constructor
+	 * @param properties Properties
+	 */
 	public MyModel(Properties properties) {
 		super(properties);
 	}
