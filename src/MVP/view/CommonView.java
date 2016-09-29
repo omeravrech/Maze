@@ -3,6 +3,8 @@ package MVP.view;
 import java.util.Observable;
 import java.util.Observer;
 
+import MVP.presenter.Properties;
+
 
 /**
 * <h1>CommonView abstract Class</h1>
@@ -28,6 +30,15 @@ public abstract class CommonView extends Observable implements View, Observer
 		thread.start();
 	}
 	
+	public void setProperties (Properties p)
+	{
+		ui.setProperties(p);
+	}
+	
+	public Properties getPropertiesFromXml()
+	{
+		return ui.getProperties();
+	}
 
 	abstract public void result(Object result);
 	abstract public void update(Observable o, Object args);

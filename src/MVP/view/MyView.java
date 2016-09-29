@@ -2,6 +2,8 @@ package MVP.view;
 
 import java.util.Observable;
 
+import MVP.presenter.Properties;
+
 
 /**
 * <h1>MyView Class</h1>
@@ -34,4 +36,6 @@ public class MyView extends CommonView
 		this.setChanged();
 		this.notifyObservers(args);
 	}
+	
+
 }

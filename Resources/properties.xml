@@ -2,19 +2,19 @@
 <java version="1.8.0_102" class="java.beans.XMLDecoder">
  <object class="MVP.presenter.Properties">
   <void property="generateMazeAlgorithm">
-   <string>GrowingTree</string>
+   <string>Simple</string>
+  </void>
+  <void property="mazesMapPath">
+   <string>Resources/Mazes</string>
   </void>
   <void property="numOfThreads">
-   <int>6</int>
+   <int>10</int>
   </void>
   <void property="solutionMapPath">
    <string>Resources/SolutionMap.zip</string>
   </void>
   <void property="solveMazeAlgorithm">
-   <string>DFS</string>
-  </void>
-  <void property="mazesMapPath">
-   <string>Resources/Mazes</string>
+   <string>BFS</string>
   </void>
  </object>
 </java>

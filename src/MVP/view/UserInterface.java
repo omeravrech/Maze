@@ -1,6 +1,8 @@
 package MVP.view;
 
 import java.util.Observable;
+
+import MVP.presenter.Properties;
 /**
 * <h1>UserInterface class</h1>
 *<br> This is a helping class that extends observable<br>
@@ -12,7 +14,19 @@ import java.util.Observable;
 */
 public abstract class UserInterface extends Observable implements Runnable
 {
+	protected Properties properties;
+	
 	public abstract void run();
 	public abstract void result(Object result);
 	//public abstract void updateActiveMaze(Maze3D arg);
+	
+	public void setProperties(Properties p)
+	{
+		this.properties = p;
+		
+	}
+	public Properties getProperties() 
+	{
+		return this.properties;
+	}
 }

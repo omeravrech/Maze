@@ -75,13 +75,10 @@ public class Position implements Serializable
 		Position other = (Position) obj;
 		return ((floor == other.floor) && (rows == other.rows) && (columns == other.columns));
 	}
-
 	public void move(int floor, int row, int col)
 	{
-		System.err.print(	"Change position: " + toString());
 		this.floor += floor;
 		this.rows += row;
 		this.columns += col;
-		System.err.println(	"to position:     " + toString());
 	}
 }

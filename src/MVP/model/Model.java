@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import Algorithms.MazeGenerator.Position;
 import Algorithms.Search.Searcher;
+import MVP.presenter.Properties;
 
 
 /**
@@ -27,4 +28,6 @@ public interface Model
 	public String getCommandOutput();
 	public void display_mazes_list();
 	public void display_solution_list();
+	public Properties getPropertiesFromXml();
+	public void setPropertiesFromXml(Properties p);
 }

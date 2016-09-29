@@ -1,5 +1,6 @@
 package MVP.model;
 
+import java.beans.XMLEncoder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -48,6 +49,8 @@ public class MyModel extends CommonModel
 	public MyModel(Properties properties) {
 		super(properties);
 	}
+	
+	
 	@Override
 	public void generate_3d_maze(String name, int floors, int rows, int columns)  throws IOException
 	{
@@ -63,13 +66,13 @@ public class MyModel extends CommonModel
 						throw new RuntimeException("Another maze already exist under this name");
 					else
 					{	Maze3dGenerator generator;
-							if (properties.getGenerateMazeAlgorithm().equalsIgnoreCase("growingtree"))
+							if (properties.getGenerateMazeAlgorithm().equalsIgnoreCase("Growing Tree"))
 							{
 								generator = new GrowingTreeGenerator(new RandomChoose());
 								return generator.generate(floors, rows, columns);
 							}
 							else
-								if (properties.getGenerateMazeAlgorithm().equalsIgnoreCase("simple"))
+								if (properties.getGenerateMazeAlgorithm().equalsIgnoreCase("Simple"))
 								{
 									generator = new SimpleMaze3dGenerator();
 									return generator.generate(floors, rows, columns);
@@ -195,9 +198,16 @@ public class MyModel extends CommonModel
 	@Override
 	public void exit() 
 	{
-		
+		XMLEncoder xmlEncoder = null;
 			try 
 			{
+				//save XML changes
+				File file = new File("Resources/properties.xml");
+				OutputStream out = new FileOutputStream(file);
+				xmlEncoder = new XMLEncoder(out);
+				xmlEncoder.writeObject(properties);
+				
+				//save Sulotions
 				saveSolutionMap(mazeToSolution);
 				Set<String> mazeNames = mazes.keySet();
 				for (String name : mazeNames) 
@@ -216,8 +226,12 @@ public class MyModel extends CommonModel
 					e1.printStackTrace();
 				}
 			}
-			pool.shutdown();
-			Thread.currentThread().interrupt();
+			finally
+			{
+				pool.shutdown();
+				Thread.currentThread().interrupt();
+				xmlEncoder.close();
+			}
 	}
 	@Override
 	public void save(String name, String path)
@@ -455,5 +469,21 @@ public class MyModel extends CommonModel
 	{
 		setChanged();
 		notifyObservers(o);
+	}
+
+
+	@Override
+	public Properties getPropertiesFromXml() 
+	{
+		
+		return this.properties;
+	}
+
+
+	@Override
+	public void setPropertiesFromXml(Properties p)
+	{
+		this.properties = p;
+		
 	}
 }

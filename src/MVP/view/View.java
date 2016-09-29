@@ -1,5 +1,6 @@
 package MVP.view;
 
+import MVP.presenter.Properties;
 
 /**
 * <h1>View Interface</h1>
@@ -10,6 +11,8 @@ package MVP.view;
 */
 public interface View
 {
+	public Properties getPropertiesFromXml();
+	public void setProperties(Properties p);
 	public void start();
 	public void result(Object result);
 }

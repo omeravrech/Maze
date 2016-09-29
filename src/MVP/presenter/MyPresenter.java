@@ -111,6 +111,10 @@ public class MyPresenter implements Observer, Presenter
 					model.exit();
 					runningStatus = false;
 				}
+				else if (result.toString().equals("getPropertiesFromXml"))
+					view.setProperties(model.getPropertiesFromXml());
+				else if (result.toString().equals("setPropertiesFromXml"))
+					model.setPropertiesFromXml(view.getPropertiesFromXml());
 				else
 					requestList.add((CommandData)result);
 				thread.resume();
