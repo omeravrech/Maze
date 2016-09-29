@@ -21,7 +21,7 @@ public class Run {
 		XMLDecoder xmlDecoder = null;
 		try
 		{
-			File file = new File("Resources/properties.xml");
+			File file = new File("properties.xml");
 			InputStream in = new FileInputStream(file);
 			xmlDecoder = new XMLDecoder(in);
 			prop  = (Properties)xmlDecoder.readObject();

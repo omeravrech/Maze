@@ -202,7 +202,7 @@ public class MyModel extends CommonModel
 			try 
 			{
 				//save XML changes
-				File file = new File("Resources/properties.xml");
+				File file = new File("properties.xml");
 				OutputStream out = new FileOutputStream(file);
 				xmlEncoder = new XMLEncoder(out);
 				xmlEncoder.writeObject(properties);
